@@ -1,0 +1,61 @@
+import * as yup from "yup";
+
+export const validationSchema = yup.object().shape({
+  origin: yup.string().required(),
+
+  // email: yup.string().email().required(),
+  // oneWayTrip: yup.boolean().required(),
+  destination: yup.string().required(),
+  journeyDate: yup.string().required(),
+  returnDate: yup.string(),
+  numberOfAdults: yup.number().required(),
+  numberOfChildren: yup.number().required(),
+  numberOfInfants: yup.number().required(),
+  // adults: [
+  //   {
+  //     ticketNumber: yup.number().required().max(12),
+  //     firstName: yup.string().required(),
+  //     surname: yup.string().required(),
+  //     dateOfBirth: "12/12/12",
+  //     phoneNumber: yup.string().required().max(11),
+  //     gender: yup.string().required(),
+  //   },
+  // ],
+  // children: [
+  //   {
+  //     ticketNumber: yup.number().required().max(12),
+  //     firstName: yup.string().required(),
+  //     surname: yup.string().required(),
+  //     dateOfBirth: "12/12/12",
+  //     gender: yup.string().required(),
+  //   },
+  // ],
+  // infants: [
+  //   {
+  //     ticketNumber: yup.number().required().max(12),
+  //     firstName: yup.string().required(),
+  //     surname: yup.string().required(),
+  //     dateOfBirth: "12/12/12",
+  //     gender: yup.string().required(),
+  //     age: yup.number().required().max(2),
+  //   },
+  // ],
+  airline: yup.string().required(),
+  cabin: yup.string().required(),
+  adultFare: yup.number().required(),
+  childFare: yup.number().required(),
+  infantFare: yup.number().required(),
+  taxes: yup.number().required(),
+  salesCommission: yup.number().required(),
+  discount: yup.number().required(),
+  // gender: yup.string().required(),
+  // firstName: yup.string().required(),
+  // surname: yup.string().required(),
+  // dateOfBirth: "10/10/10",
+  // phoneNumber: yup.number().required().max(11),
+  pnrNumber: yup.string().required().max(6),
+  // ticket: yup.string().required().max(14),
+  // issueBy: yup.string().required(),
+  // ledger: yup.string().required().max(11),
+  code: yup.number().required().max(6),
+});
