@@ -37,10 +37,10 @@ const router = [
         path: 'bookings',
         element: bookingRoutes
       },
-      {
-        path: 'dashboards',
-        children: dashboardsRoutes
-      },
+      //   {
+      //    path: 'dashboards',
+      //    children: dashboardsRoutes
+      //  },
       {
         path: 'listing',
         children: listingRoutes

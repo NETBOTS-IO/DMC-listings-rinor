@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid';
 
 const PropertyDetails = () => {
     return (
-        <div>
+        <div style={{ margin: "20px" }}>
             <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>
                 Add Property Details
             </Typography>

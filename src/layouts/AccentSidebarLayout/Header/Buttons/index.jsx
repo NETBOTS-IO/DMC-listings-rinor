@@ -6,7 +6,7 @@ function HeaderButtons() {
   return (
     <Box>
       <HeaderNotifications />
-    <LanguageSwitcher /> 
+      {/*   <LanguageSwitcher /> */}
     </Box>
   );
 }

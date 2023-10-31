@@ -3,11 +3,11 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 
-import Footer from '../../../components/Footer';
+import Footer from '../../components/Footer';
 
-import Logo from '../components/LogoSign';
+import Logo from '../../components/LogoSign';
 import Hero from './Hero';
-import Highlights from './Highlights';
+import Highlights from '../../Highlights';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `

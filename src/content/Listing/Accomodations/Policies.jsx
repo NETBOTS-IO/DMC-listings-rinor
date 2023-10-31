@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 
 const Policies = () => {
     return (
-        <div>
+        <div style={{margin:"20px"}}>
 
             <FormControl component="fieldset">
                 <Typography variant="h4" gutterBottom style={{ marginTop: '20px' }}>

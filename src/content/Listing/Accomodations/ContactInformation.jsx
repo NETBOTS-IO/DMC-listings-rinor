@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 
 const ContactInformation = () => {
     return (
-        <div>
+        <div style={{ margin: "20px" }}> 
             
             <Typography variant="h6" gutterBottom>
                 Add Owner Details
