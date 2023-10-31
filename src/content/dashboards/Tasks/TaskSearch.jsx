@@ -28,7 +28,7 @@ import { formatDistance, subMonths, subDays } from 'date-fns';
 import TodayTwoToneIcon from '@mui/icons-material/TodayTwoTone';
 import { Link as RouterLink } from 'react-router-dom';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 
 const OutlinedInputWrapper = styled(OutlinedInput)(

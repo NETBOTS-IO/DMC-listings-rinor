@@ -26,8 +26,8 @@ import PeopleOutlineTwoToneIcon from '@mui/icons-material/PeopleOutlineTwoTone';
 import DashboardCustomizeTwoToneIcon from '@mui/icons-material/DashboardCustomizeTwoTone';
 import ContactSupportTwoToneIcon from '@mui/icons-material/ContactSupportTwoTone';
 
-import Text from '../components/Text';
-import Label from '../components/Label';
+import Text from '../../../components/Text';
+import Label from '../../../components/Label';
 
 const LabelWrapper = styled(Box)(
   ({ theme }) => `

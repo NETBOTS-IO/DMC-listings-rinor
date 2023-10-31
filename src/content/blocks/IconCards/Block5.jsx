@@ -14,7 +14,7 @@ import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 import SubscriptionsTwoToneIcon from '@mui/icons-material/SubscriptionsTwoTone';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 const CardActions = styled(Box)(
   ({ theme }) => `

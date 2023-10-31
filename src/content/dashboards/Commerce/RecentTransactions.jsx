@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import TrendingDown from '@mui/icons-material/TrendingDown';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 function RecentTransactions() {
   const { t } = useTranslation();

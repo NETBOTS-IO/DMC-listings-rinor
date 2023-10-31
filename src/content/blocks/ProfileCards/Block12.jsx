@@ -15,7 +15,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -126,13 +126,13 @@ function Block12() {
               0.05
             )}, 
                             0 0.6rem 1.6rem ${alpha(
-                              theme.colors.alpha.black[100],
-                              0.15
-                            )}, 
+              theme.colors.alpha.black[100],
+              0.15
+            )}, 
                             0 0.2rem 0.2rem ${alpha(
-                              theme.colors.alpha.black[100],
-                              0.1
-                            )}`
+              theme.colors.alpha.black[100],
+              0.1
+            )}`
           }}
           src="/static/images/avatars/3.jpg"
         />

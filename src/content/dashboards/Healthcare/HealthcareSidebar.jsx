@@ -17,7 +17,7 @@ import { Link as RouterLink, useLocation } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 
 const TypographyPrimary = styled(Typography)(
   ({ theme }) => `

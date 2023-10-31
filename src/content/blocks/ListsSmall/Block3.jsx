@@ -16,7 +16,7 @@ import AutoAwesomeMosaicTwoToneIcon from '@mui/icons-material/AutoAwesomeMosaicT
 import CardTravelTwoToneIcon from '@mui/icons-material/CardTravelTwoTone';
 import ContactPhoneTwoToneIcon from '@mui/icons-material/ContactPhoneTwoTone';
 import EvStationTwoToneIcon from '@mui/icons-material/EvStationTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 function Block3() {
   const { t } = useTranslation();

@@ -14,7 +14,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 const CardActions = styled(Box)(
   ({ theme }) => `

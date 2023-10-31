@@ -1,6 +1,6 @@
 import { Card, Box, Typography, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import Chart from 'react-apexcharts';
 
 function Consultations() {

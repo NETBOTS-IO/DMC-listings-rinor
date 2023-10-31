@@ -15,7 +15,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
-import Gauge from '../components/Gauge';
+import Gauge from '../../../components/Gauge';
 import { formatDistance, subMinutes } from 'date-fns';
 import Block6Chart from './Block6Chart';
 

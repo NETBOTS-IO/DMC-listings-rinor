@@ -9,7 +9,7 @@ import {
   styled
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import ArrowUpwardTwoTone from '@mui/icons-material/ArrowUpwardTwoTone';
 import ArrowDownwardTwoTone from '@mui/icons-material/ArrowDownwardTwoTone';
 

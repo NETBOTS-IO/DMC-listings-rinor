@@ -5,7 +5,7 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
 import wait from '../utils/wait';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 
 import {
   Grid,

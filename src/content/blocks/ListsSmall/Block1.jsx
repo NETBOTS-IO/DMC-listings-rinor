@@ -17,7 +17,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import { formatDistance, subMinutes } from 'date-fns';
 
 const CardContentWrapper = styled(Box)(

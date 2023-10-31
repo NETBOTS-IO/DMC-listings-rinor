@@ -20,7 +20,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import FilterAltTwoToneIcon from '@mui/icons-material/FilterAltTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import { format, subDays } from 'date-fns';
 import LockTwoToneIcon from '@mui/icons-material/LockTwoTone';
 

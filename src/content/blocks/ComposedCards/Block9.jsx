@@ -24,10 +24,10 @@ import {
   styled,
   useTheme
 } from '@mui/material';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
 import FacebookIcon from '@mui/icons-material/Facebook';

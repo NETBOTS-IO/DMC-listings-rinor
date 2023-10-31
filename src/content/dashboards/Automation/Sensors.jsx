@@ -22,7 +22,7 @@ import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
 import TrendingDown from '@mui/icons-material/TrendingDown';
 import TrendingUp from '@mui/icons-material/TrendingUp';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import PauseRounded from '@mui/icons-material/PauseRounded';
 import PlayArrowRounded from '@mui/icons-material/PlayArrowRounded';
 import FastForwardRounded from '@mui/icons-material/FastForwardRounded';
@@ -169,8 +169,8 @@ function Sensors() {
                     },
                     '&:hover, &.Mui-focusVisible': {
                       boxShadow: `0px 0px 0px 8px ${theme.palette.mode === 'dark'
-                          ? 'rgb(255 255 255 / 16%)'
-                          : 'rgb(0 0 0 / 16%)'
+                        ? 'rgb(255 255 255 / 16%)'
+                        : 'rgb(0 0 0 / 16%)'
                         }`
                     },
                     '&.Mui-active': {

@@ -22,9 +22,9 @@ import { useTranslation } from 'react-i18next';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone';
 

@@ -15,7 +15,7 @@ import {
   CircularProgressbarWithChildren,
   buildStyles
 } from 'react-circular-progressbar';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
 import KeyboardArrowUpTwoToneIcon from '@mui/icons-material/KeyboardArrowUpTwoTone';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';

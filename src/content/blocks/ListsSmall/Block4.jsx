@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';

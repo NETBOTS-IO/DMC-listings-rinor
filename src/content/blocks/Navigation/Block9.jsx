@@ -19,7 +19,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone';
 import AlarmOnTwoToneIcon from '@mui/icons-material/AlarmOnTwoTone';
 import DateRangeTwoToneIcon from '@mui/icons-material/DateRangeTwoTone';

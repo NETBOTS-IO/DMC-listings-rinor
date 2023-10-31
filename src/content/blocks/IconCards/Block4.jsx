@@ -12,9 +12,9 @@ import {
 import { useTranslation } from 'react-i18next';
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 import SubscriptionsTwoToneIcon from '@mui/icons-material/SubscriptionsTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 const CardActionAreaWrapper = styled(CardActionArea)(
   ({ theme }) => `

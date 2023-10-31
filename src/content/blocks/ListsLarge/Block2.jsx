@@ -22,7 +22,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import Chart from 'react-apexcharts';
 
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import Text from '../../../components/Text';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
 import FiberManualRecordTwoToneIcon from '@mui/icons-material/FiberManualRecordTwoTone';

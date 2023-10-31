@@ -19,7 +19,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import PageviewTwoToneIcon from '@mui/icons-material/PageviewTwoTone';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 
 const LinearProgressPrimary = styled(LinearProgress)(
   ({ theme }) => `

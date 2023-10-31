@@ -24,7 +24,7 @@ import {
 import FavoriteTwoToneIcon from '@mui/icons-material/FavoriteTwoTone';
 import { useTranslation } from 'react-i18next';
 import numeral from 'numeral';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import { useSnackbar } from 'notistack';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import GridViewTwoToneIcon from '@mui/icons-material/GridViewTwoTone';

@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import InsertDriveFileTwoToneIcon from '@mui/icons-material/InsertDriveFileTwoTone';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 
 const DividerWrapper = styled(Divider)(
   ({ theme }) => `

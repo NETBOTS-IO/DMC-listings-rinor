@@ -18,12 +18,12 @@ import {
   FormControl,
   useTheme
 } from '@mui/material';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 
 import { useTranslation } from 'react-i18next';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
 
 const AvatarGradient = styled(Avatar)(

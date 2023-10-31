@@ -14,7 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import ContactPhoneTwoToneIcon from '@mui/icons-material/ContactPhoneTwoTone';
 import EvStationTwoToneIcon from '@mui/icons-material/EvStationTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 function Block12() {
   const { t } = useTranslation();

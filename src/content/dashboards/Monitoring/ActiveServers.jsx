@@ -14,8 +14,8 @@ import {
   styled
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
-import Text from '../components/Text';
+import Label from '../../../components/Label';
+import Text from '../../../components/Text';
 
 import deFlag from '../../../assets/vite.svg';
 import usFlag from '../../../assets/vite.svg';

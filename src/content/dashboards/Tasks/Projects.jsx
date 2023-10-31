@@ -16,7 +16,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import { Link as RouterLink } from 'react-router-dom';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import CalendarTodayTwoToneIcon from '@mui/icons-material/CalendarTodayTwoTone';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import StarTwoToneIcon from '@mui/icons-material/StarTwoTone';

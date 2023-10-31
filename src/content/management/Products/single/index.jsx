@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import useRefMounted from '../hooks/useRefMounted';
 
 import Footer from '../../../components/Footer';
-import axios from '../utils/axios';
+import axios from '../../../utils/axios';
 import PageHeader from './PageHeader';
 import ProductBody from './ProductBody';
 

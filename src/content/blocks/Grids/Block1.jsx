@@ -1,7 +1,7 @@
 import { Box, Stack, Card, Typography, Divider } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 import SubscriptionsTwoToneIcon from '@mui/icons-material/SubscriptionsTwoTone';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';

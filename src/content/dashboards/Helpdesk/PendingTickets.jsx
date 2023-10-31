@@ -24,7 +24,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { formatDistance, subMinutes, subSeconds, subHours } from 'date-fns';

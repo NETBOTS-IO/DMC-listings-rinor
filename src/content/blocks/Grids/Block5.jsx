@@ -10,7 +10,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import StarTwoToneIcon from '@mui/icons-material/StarTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import { Link as RouterLink } from 'react-router-dom';
 
 function Block5() {

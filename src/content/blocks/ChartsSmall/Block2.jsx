@@ -7,7 +7,7 @@ import {
   styled,
   useTheme
 } from '@mui/material';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 import { useTranslation } from 'react-i18next';
 import Chart from 'react-apexcharts';
@@ -15,7 +15,7 @@ import Chart from 'react-apexcharts';
 import NotificationsActiveTwoToneIcon from '@mui/icons-material/NotificationsActiveTwoTone';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import AssignmentIndTwoToneIcon from '@mui/icons-material/AssignmentIndTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const ChartOverlay = styled(Box)(
   () => `

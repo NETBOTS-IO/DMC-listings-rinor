@@ -1,5 +1,5 @@
 import { Box, Avatar, Typography, Card, styled, Divider } from '@mui/material';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import {
   formatDistance,

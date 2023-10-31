@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Box, styled, Divider } from '@mui/material';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 
 import TopBarContent from './TopBarContent';
 import BottomBarContent from './BottomBarContent';

@@ -16,7 +16,7 @@ import {
   useTheme,
   linearProgressClasses
 } from '@mui/material';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import Chart from 'react-apexcharts';

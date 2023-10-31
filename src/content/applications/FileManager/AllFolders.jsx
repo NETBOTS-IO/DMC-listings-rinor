@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import FolderOpenTwoToneIcon from '@mui/icons-material/FolderOpenTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone';
 
 const AvatarPrimary = styled(Avatar)(

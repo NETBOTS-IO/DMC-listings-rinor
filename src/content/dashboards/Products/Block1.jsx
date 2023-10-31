@@ -23,7 +23,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import StorageTwoToneIcon from '@mui/icons-material/StorageTwoTone';
 import GaugeChart from 'react-gauge-chart';
 import DataSaverOnTwoToneIcon from '@mui/icons-material/DataSaverOnTwoTone';

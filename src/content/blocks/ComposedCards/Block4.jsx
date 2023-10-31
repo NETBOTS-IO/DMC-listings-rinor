@@ -18,7 +18,7 @@ import {
   styled,
   useTheme
 } from '@mui/material';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
@@ -33,7 +33,7 @@ import { useTranslation } from 'react-i18next';
 import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
 import Chart from 'react-apexcharts';
 
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 

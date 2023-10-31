@@ -12,8 +12,8 @@ import {
   useTheme
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Text from '../components/Text';
-import Label from '../components/Label';
+import Text from '../../../components/Text';
+import Label from '../../../components/Label';
 import Chart from 'react-apexcharts';
 
 import TrendingDownTwoToneIcon from '@mui/icons-material/TrendingDownTwoTone';

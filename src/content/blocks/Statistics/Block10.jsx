@@ -1,7 +1,7 @@
 import { Link, Box, Card, Grid, styled } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import AccessTimeTwoToneIcon from '@mui/icons-material/AccessTimeTwoTone';
 
 const DividerVertialPrimary = styled(Box)(

@@ -1,5 +1,5 @@
 import { Box, Typography, Avatar, styled } from '@mui/material';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import LiveHelpTwoToneIcon from '@mui/icons-material/LiveHelpTwoTone';

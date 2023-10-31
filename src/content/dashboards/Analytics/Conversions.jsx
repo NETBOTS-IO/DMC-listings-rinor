@@ -10,7 +10,7 @@ import {
   ListItem,
   styled
 } from '@mui/material';
-import Gauge from '../components/Gauge';
+import Gauge from '../../../components/Gauge';
 import { buildStyles } from 'react-circular-progressbar';
 import TrendingDown from '@mui/icons-material/TrendingDown';
 import TrendingUp from '@mui/icons-material/TrendingUp';

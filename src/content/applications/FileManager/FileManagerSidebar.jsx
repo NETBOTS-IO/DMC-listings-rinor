@@ -12,7 +12,7 @@ import {
   styled
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Gauge from '../components/Gauge';
+import Gauge from '../../../components/Gauge';
 import { buildStyles } from 'react-circular-progressbar';
 import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone';
 import ImageTwoToneIcon from '@mui/icons-material/ImageTwoTone';

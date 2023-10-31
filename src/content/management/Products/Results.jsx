@@ -35,10 +35,10 @@ import CloseIcon from '@mui/icons-material/Close';
 
 import { useTranslation } from 'react-i18next';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { useSnackbar } from 'notistack';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import LocalFireDepartmentTwoToneIcon from '@mui/icons-material/LocalFireDepartmentTwoTone';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import BulkActions from './BulkActions';

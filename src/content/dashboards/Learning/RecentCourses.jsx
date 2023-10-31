@@ -25,7 +25,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import PendingTwoToneIcon from '@mui/icons-material/PendingTwoTone';
 import LocalFireDepartmentTwoToneIcon from '@mui/icons-material/LocalFireDepartmentTwoTone';
 import TimerTwoToneIcon from '@mui/icons-material/TimerTwoTone';

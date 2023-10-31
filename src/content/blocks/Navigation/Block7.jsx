@@ -21,7 +21,7 @@ import EmailTwoToneIcon from '@mui/icons-material/EmailTwoTone';
 import DashboardCustomizeTwoToneIcon from '@mui/icons-material/DashboardCustomizeTwoTone';
 import ContactSupportTwoToneIcon from '@mui/icons-material/ContactSupportTwoTone';
 
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const LabelWrapper = styled(Box)(
   ({ theme }) => `

@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { formatDistance, subDays, subMinutes, subHours } from 'date-fns';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const DotLegend = styled('span')(
   ({ theme }) => `

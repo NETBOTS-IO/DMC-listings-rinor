@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import Chart from 'react-apexcharts';
 
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import EmojiObjectsTwoToneIcon from '@mui/icons-material/EmojiObjectsTwoTone';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 

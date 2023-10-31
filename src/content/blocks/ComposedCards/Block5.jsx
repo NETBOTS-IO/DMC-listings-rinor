@@ -14,11 +14,11 @@ import {
   styled
 } from '@mui/material';
 import AddCircleTwoToneIcon from '@mui/icons-material/AddCircleTwoTone';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 
 import { formatDistance, subHours, subMinutes } from 'date-fns';
 import { useTranslation } from 'react-i18next';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import AttachFileTwoToneIcon from '@mui/icons-material/AttachFileTwoTone';
 import SendTwoToneIcon from '@mui/icons-material/SendTwoTone';
 import ScheduleTwoToneIcon from '@mui/icons-material/ScheduleTwoTone';

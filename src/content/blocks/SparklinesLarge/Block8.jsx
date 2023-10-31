@@ -14,7 +14,7 @@ import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
 import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone';
 import Chart from 'react-apexcharts';
 
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 

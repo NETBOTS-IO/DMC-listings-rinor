@@ -16,7 +16,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import Chart from 'react-apexcharts';
 
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 import PointOfSaleTwoToneIcon from '@mui/icons-material/PointOfSaleTwoTone';

@@ -9,7 +9,7 @@ import {
   styled
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';

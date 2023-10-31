@@ -21,8 +21,8 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
-import Scrollbar from '../components/Scrollbar';
-import Label from '../components/Label';
+import Scrollbar from '../../../components/Scrollbar';
+import Label from '../../../components/Label';
 import ClearTwoToneIcon from '@mui/icons-material/ClearTwoTone';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 

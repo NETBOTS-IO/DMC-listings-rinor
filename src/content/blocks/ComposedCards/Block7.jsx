@@ -18,7 +18,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import { Link as RouterLink } from 'react-router-dom';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const CardWrapper = styled(Card)(
   ({ theme }) => `

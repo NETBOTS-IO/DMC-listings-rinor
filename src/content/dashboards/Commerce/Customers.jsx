@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import ArrowDownwardTwoTone from '@mui/icons-material/ArrowDownwardTwoTone';
 
 const ArrowDownwardWrapper = styled(ArrowDownwardTwoTone)(

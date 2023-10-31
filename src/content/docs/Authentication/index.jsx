@@ -38,7 +38,7 @@ import { AuthProvider } from './contexts/AmplifyAuthContext';
 
 import { AuthProvider } from './contexts/Auth0Context';`;
 
-  const retrieveUserData = `import useAuth from '../hooks/useAuth';
+  const retrieveUserData = `import useAuth from '../../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 
 function HeaderUserbox() {

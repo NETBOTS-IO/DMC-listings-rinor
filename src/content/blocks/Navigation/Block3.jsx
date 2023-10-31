@@ -19,7 +19,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import AccountBalanceWalletTwoToneIcon from '@mui/icons-material/AccountBalanceWalletTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import { formatDistance, subMinutes } from 'date-fns';
 import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone';
 import SpeakerTwoToneIcon from '@mui/icons-material/SpeakerTwoTone';

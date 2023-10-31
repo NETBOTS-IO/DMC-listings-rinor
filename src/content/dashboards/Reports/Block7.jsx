@@ -22,7 +22,7 @@ import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import TrendingDownTwoToneIcon from '@mui/icons-material/TrendingDownTwoTone';
 import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';
 import TrendingFlatTwoToneIcon from '@mui/icons-material/TrendingFlatTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import { format, subDays } from 'date-fns';
 
 const CardActions = styled(Box)(

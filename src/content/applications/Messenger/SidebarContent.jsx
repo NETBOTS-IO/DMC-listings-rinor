@@ -21,12 +21,12 @@ import {
   lighten,
   styled
 } from '@mui/material';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import { formatDistance, subMinutes, subHours } from 'date-fns';
 import SettingsTwoToneIcon from '@mui/icons-material/SettingsTwoTone';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import AlarmTwoToneIcon from '@mui/icons-material/AlarmTwoTone';
 import { Link as RouterLink } from 'react-router-dom';

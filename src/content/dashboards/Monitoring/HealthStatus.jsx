@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import RefreshTwoToneIcon from '@mui/icons-material/RefreshTwoTone';
 import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import Chart from 'react-apexcharts';
 
 import RotateLeftTwoToneIcon from '@mui/icons-material/RotateLeftTwoTone';

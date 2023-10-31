@@ -14,13 +14,13 @@ import {
   styled,
   useTheme
 } from '@mui/material';
-import Scrollbar from '../components/Scrollbar';
-import Text from '../components/Text';
+import Scrollbar from '../../../components/Scrollbar';
+import Text from '../../../components/Text';
 
 import { useTranslation } from 'react-i18next';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 const BoxComposed = styled(Box)(
   () => `

@@ -16,7 +16,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import TrendingUp from '@mui/icons-material/TrendingUp';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import Chart from 'react-apexcharts';
 
 const AvatarSuccess = styled(Avatar)(

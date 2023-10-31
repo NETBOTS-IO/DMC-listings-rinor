@@ -3,7 +3,7 @@ import { Box, Card, Typography, Button, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import Chart from 'react-apexcharts';
 
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 function Block8() {
   const { t } = useTranslation();

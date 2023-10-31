@@ -20,7 +20,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import { formatDistance, subMinutes } from 'date-fns';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import PeopleOutlineTwoToneIcon from '@mui/icons-material/PeopleOutlineTwoTone';
 import DashboardCustomizeTwoToneIcon from '@mui/icons-material/DashboardCustomizeTwoTone';

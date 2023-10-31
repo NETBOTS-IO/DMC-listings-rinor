@@ -16,8 +16,8 @@ import {
   styled
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
-import Text from '../components/Text';
+import Label from '../../../components/Label';
+import Text from '../../../components/Text';
 import { Link as RouterLink } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import { format, subDays } from 'date-fns';

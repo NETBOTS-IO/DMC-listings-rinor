@@ -17,8 +17,8 @@ import {
   Avatar,
   useTheme
 } from '@mui/material';
-import axios from '../utils/axios';
-import useRefMounted from '../hooks/useRefMounted';
+import axios from '../../../utils/axios';
+import useRefMounted from '../../../hooks/useRefMounted';
 
 import { useTranslation } from 'react-i18next';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';

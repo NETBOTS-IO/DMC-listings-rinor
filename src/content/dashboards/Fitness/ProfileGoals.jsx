@@ -14,10 +14,10 @@ import {
   useTheme
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import { buildStyles } from 'react-circular-progressbar';
-import Gauge from '../components/Gauge';
+import Gauge from '../../../components/Gauge';
 
 function ProfileGoals() {
   const { t } = useTranslation();

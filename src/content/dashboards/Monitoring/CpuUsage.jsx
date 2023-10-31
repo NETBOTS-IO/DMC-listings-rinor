@@ -1,7 +1,7 @@
 import { Card, Typography, Divider, Box, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import GaugeChart from 'react-gauge-chart';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 function CpuUsage() {
   const { t } = useTranslation();

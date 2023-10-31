@@ -1,7 +1,7 @@
 import { Box, Card, Grid, Typography, styled } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import numeral from 'numeral';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const DotInfo = styled('span')(
   ({ theme }) => `

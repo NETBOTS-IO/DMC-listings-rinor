@@ -18,7 +18,7 @@ import { useTranslation } from 'react-i18next';
 import CallReceivedTwoToneIcon from '@mui/icons-material/CallReceivedTwoTone';
 import CallMadeTwoToneIcon from '@mui/icons-material/CallMadeTwoTone';
 import { format, subDays } from 'date-fns';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const AvatarWrapperError = styled(Avatar)(
   ({ theme }) => `

@@ -1,6 +1,6 @@
 import { Button, Card, Box, Grid, Typography } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 function ActiveSubscriptions() {
   const { t } = useTranslation();

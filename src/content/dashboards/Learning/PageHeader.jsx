@@ -16,7 +16,7 @@ import {
   styled
 } from '@mui/material';
 
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';

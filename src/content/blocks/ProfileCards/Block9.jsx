@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
 
 const CardActions = styled(Box)(

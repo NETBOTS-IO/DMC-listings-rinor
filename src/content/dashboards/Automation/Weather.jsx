@@ -9,7 +9,7 @@ import {
   Stack,
   styled
 } from '@mui/material';
-import useAuth from '../hooks/useAuth';
+import useAuth from '../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import { format, addDays } from 'date-fns';
 import CloudTwoToneIcon from '@mui/icons-material/CloudTwoTone';
@@ -19,7 +19,7 @@ import WbSunnyTwoToneIcon from '@mui/icons-material/WbSunnyTwoTone';
 import WaterTwoToneIcon from '@mui/icons-material/WaterTwoTone';
 import OpacityTwoToneIcon from '@mui/icons-material/OpacityTwoTone';
 import SpeedTwoToneIcon from '@mui/icons-material/SpeedTwoTone';
-import Gauge from '../components/Gauge';
+import Gauge from '../../../components/Gauge';
 import { buildStyles } from 'react-circular-progressbar';
 import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
 import GrainTwoToneIcon from '@mui/icons-material/GrainTwoTone';

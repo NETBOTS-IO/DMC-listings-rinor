@@ -31,7 +31,7 @@ import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import FolderOpenTwoToneIcon from '@mui/icons-material/FolderOpenTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const AvatarPrimary = styled(Avatar)(
   ({ theme }) => `

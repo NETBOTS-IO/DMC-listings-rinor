@@ -10,7 +10,7 @@ import {
   useTheme
 } from '@mui/material';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import PageHeader from './PageHeader';
 
 import FileManagerSidebar from './FileManagerSidebar';

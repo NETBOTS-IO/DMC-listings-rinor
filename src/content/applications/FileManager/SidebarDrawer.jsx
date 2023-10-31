@@ -42,7 +42,7 @@ import DownloadTwoToneIcon from '@mui/icons-material/DownloadTwoTone';
 import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfTwoTone';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveTwoTone';
 import FolderOpenTwoToneIcon from '@mui/icons-material/FolderOpenTwoTone';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 
 const AvatarPrimary = styled(Avatar)(
   ({ theme }) => `

@@ -17,7 +17,7 @@ import {
   styled
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import RouterTwoToneIcon from '@mui/icons-material/RouterTwoTone';
 import DnsTwoToneIcon from '@mui/icons-material/DnsTwoTone';
 import MemoryTwoToneIcon from '@mui/icons-material/MemoryTwoTone';

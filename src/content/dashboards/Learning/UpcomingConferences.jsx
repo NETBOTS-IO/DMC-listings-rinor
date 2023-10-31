@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizaitonProvider from '@mui/lab/LocalizationProvider';
 import CalendarPicker from '@mui/lab/CalendarPicker';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import EventSeatTwoToneIcon from '@mui/icons-material/EventSeatTwoTone';
 import { Link as RouterLink } from 'react-router-dom';
 import SwiperCore, { Navigation, Pagination } from 'swiper';

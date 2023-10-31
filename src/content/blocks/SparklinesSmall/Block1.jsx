@@ -13,7 +13,7 @@ import AccessAlarmTwoToneIcon from '@mui/icons-material/AccessAlarmTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveTwoTone';
 import BallotTwoToneIcon from '@mui/icons-material/BallotTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import Chart from 'react-apexcharts';
 
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';

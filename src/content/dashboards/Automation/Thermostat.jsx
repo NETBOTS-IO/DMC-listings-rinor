@@ -22,7 +22,7 @@ import { useSwitch } from '@mui/core';
 import AirTwoToneIcon from '@mui/icons-material/AirTwoTone';
 import AvTimerTwoToneIcon from '@mui/icons-material/AvTimerTwoTone';
 import LoopTwoToneIcon from '@mui/icons-material/LoopTwoTone';
-import Gauge from '../components/Gauge';
+import Gauge from '../../../components/Gauge';
 import { buildStyles } from 'react-circular-progressbar';
 import AddTwoToneIcon from '@mui/icons-material/AddTwoTone';
 import RemoveTwoToneIcon from '@mui/icons-material/RemoveTwoTone';

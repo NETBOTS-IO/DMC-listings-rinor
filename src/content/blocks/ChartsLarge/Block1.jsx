@@ -13,7 +13,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
-import Gauge from '../components/Gauge';
+import Gauge from '../../../components/Gauge';
 import Block1Chart from './Block1Chart';
 
 const Block1ChartWrapper = styled(Block1Chart)(

@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
 import HelpTwoToneIcon from '@mui/icons-material/HelpTwoTone';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 const BoxComposed = styled(Box)(
   () => `

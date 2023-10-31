@@ -20,7 +20,7 @@ import {
   styled
 } from '@mui/material';
 
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import deFlag from '../../../assets/vite.svg';

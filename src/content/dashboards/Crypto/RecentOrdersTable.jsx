@@ -25,7 +25,7 @@ import {
   CardHeader
 } from '@mui/material';
 
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import { useTranslation } from 'react-i18next';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';

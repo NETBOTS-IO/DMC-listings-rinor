@@ -16,7 +16,7 @@ import { useTranslation } from 'react-i18next';
 import SubscriptionsTwoToneIcon from '@mui/icons-material/SubscriptionsTwoTone';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import AssessmentTwoToneIcon from '@mui/icons-material/AssessmentTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 const LinearProgressWrapper = styled(LinearProgress)(
   ({ theme }) => `

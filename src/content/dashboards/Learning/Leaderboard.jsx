@@ -23,7 +23,7 @@ import { useTranslation } from 'react-i18next';
 import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import ArrowDownwardTwoToneIcon from '@mui/icons-material/ArrowDownwardTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 const AvatarLight = styled(Avatar)(
   ({ theme }) => `

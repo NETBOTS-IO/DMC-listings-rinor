@@ -17,7 +17,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import { Link as RouterLink } from 'react-router-dom';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import AssessmentTwoToneIcon from '@mui/icons-material/AssessmentTwoTone';
 
 const LinearProgressInfo = styled(LinearProgress)(

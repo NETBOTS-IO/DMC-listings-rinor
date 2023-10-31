@@ -7,7 +7,7 @@ import {
   styled
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import MedicalServicesTwoToneIcon from '@mui/icons-material/MedicalServicesTwoTone';
 import AppointmentsAltChart from './AppointmentsAltChart';

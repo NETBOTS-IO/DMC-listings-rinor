@@ -41,7 +41,7 @@ import { format, formatDistance } from 'date-fns';
 import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import BulkActions from './BulkActions';
 
 const DialogWrapper = styled(Dialog)(

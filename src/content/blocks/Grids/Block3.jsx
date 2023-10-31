@@ -1,7 +1,7 @@
 import { Box, Card, Typography } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import PersonTwoToneIcon from '@mui/icons-material/PersonTwoTone';
 import MonetizationOnTwoToneIcon from '@mui/icons-material/MonetizationOnTwoTone';
 import AccountBalanceWalletTwoToneIcon from '@mui/icons-material/AccountBalanceWalletTwoTone';

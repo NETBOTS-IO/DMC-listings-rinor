@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { Card } from '@mui/material';
-import axios from '../utils/axios';
-import useRefMounted from '../hooks/useRefMounted';
+import axios from '../../../utils/axios';
+import useRefMounted from '../../../hooks/useRefMounted';
 import RecentOrdersTable from './RecentOrdersTable';
 
 function RecentOrders() {

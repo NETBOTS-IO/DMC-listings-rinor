@@ -13,7 +13,7 @@ import {
   useTheme
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import { formatDistance, subDays, subHours, subMinutes } from 'date-fns';
 
 function Notifications() {

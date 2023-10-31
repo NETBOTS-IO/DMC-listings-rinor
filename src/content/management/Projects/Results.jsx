@@ -42,14 +42,14 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 import LaunchTwoToneIcon from '@mui/icons-material/LaunchTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import GridViewTwoToneIcon from '@mui/icons-material/GridViewTwoTone';
 import TableRowsTwoToneIcon from '@mui/icons-material/TableRowsTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import { useSnackbar } from 'notistack';
 import { formatDistance, format } from 'date-fns';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import BulkActions from './BulkActions';
 
 const DialogWrapper = styled(Dialog)(

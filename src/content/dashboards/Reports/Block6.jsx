@@ -15,7 +15,7 @@ import {
 
 import { useTranslation } from 'react-i18next';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import InstagramIcon from '@mui/icons-material/Instagram';

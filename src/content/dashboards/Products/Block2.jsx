@@ -10,11 +10,11 @@ import {
 } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import AssessmentTwoToneIcon from '@mui/icons-material/AssessmentTwoTone';
 import NewReleasesTwoToneIcon from '@mui/icons-material/NewReleasesTwoTone';
 import GaugeChart from 'react-gauge-chart';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import DnsTwoToneIcon from '@mui/icons-material/DnsTwoTone';
 
 const CardActions = styled(Box)(

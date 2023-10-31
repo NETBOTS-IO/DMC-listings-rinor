@@ -14,10 +14,10 @@ import {
 } from '@mui/material';
 import { format, subDays } from 'date-fns';
 
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 
 import { useTranslation } from 'react-i18next';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import KeyboardArrowRightTwoToneIcon from '@mui/icons-material/KeyboardArrowRightTwoTone';
 import TrendingDownTwoToneIcon from '@mui/icons-material/TrendingDownTwoTone';
 import TrendingUpTwoToneIcon from '@mui/icons-material/TrendingUpTwoTone';

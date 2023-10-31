@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 
 const AccordionSummaryWrapper = styled(AccordionSummary)(
   () => `

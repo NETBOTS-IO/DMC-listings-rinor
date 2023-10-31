@@ -20,8 +20,8 @@ import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import Chart from 'react-apexcharts';
 
-import Scrollbar from '../components/Scrollbar';
-import Text from '../components/Text';
+import Scrollbar from '../../../components/Scrollbar';
+import Text from '../../../components/Text';
 import ArrowForwardTwoToneIcon from '@mui/icons-material/ArrowForwardTwoTone';
 
 const CardActions = styled(Box)(

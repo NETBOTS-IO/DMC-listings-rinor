@@ -19,10 +19,10 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
-import Text from '../components/Text';
+import Text from '../../../components/Text';
 import { formatDistance, subSeconds, subHours, subMinutes } from 'date-fns';
 import StarTwoToneIcon from '@mui/icons-material/StarTwoTone';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 
 const DotLegend = styled('span')(
   ({ theme }) => `

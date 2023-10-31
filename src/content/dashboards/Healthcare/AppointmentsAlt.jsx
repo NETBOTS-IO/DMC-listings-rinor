@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import MeetingRoomTwoToneIcon from '@mui/icons-material/MeetingRoomTwoTone';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import ArrowUpwardTwoToneIcon from '@mui/icons-material/ArrowUpwardTwoTone';
 import AppointmentsAltChart from './AppointmentsAltChart';
 

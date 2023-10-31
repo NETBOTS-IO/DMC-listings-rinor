@@ -14,7 +14,7 @@ import {
 import { useTranslation } from 'react-i18next';
 import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 import CountUp from 'react-countup';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import Chart from 'react-apexcharts';
 
 const CardHeaderWrapper = styled(CardHeader)(

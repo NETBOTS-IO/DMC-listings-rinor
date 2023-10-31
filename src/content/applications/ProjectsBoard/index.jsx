@@ -6,7 +6,7 @@ import { Helmet } from 'react-helmet-async';
 import Footer from '../../../components/Footer';
 import { useTranslation } from 'react-i18next';
 import { useSnackbar } from 'notistack';
-import Label from '../components/Label';
+import Label from '../../../components/Label';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
 import { styled } from '@mui/material/styles';
 import {
