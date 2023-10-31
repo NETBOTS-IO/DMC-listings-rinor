@@ -7,6 +7,36 @@ import { namespace } from 'stylis';
 
 const menuItems = [
   {
+    heading: 'Listing ',
+    items: [
+      {
+        name: 'Property Listing',
+        icon: SmartToyTwoToneIcon,
+        link: '/accent-sidebar/listing',
+        items: [
+          {
+            name: 'Accommodations',
+            link: 'listing/add-property',
+            badge: '',
+            badgeTooltip: 'Reports Dashboard - version 3.0'
+          },
+          {
+            name: 'Transportation',
+            link: 'listing/add-vehicle',
+            badge: '',
+            badgeTooltip: 'Reports Dashboard - version 3.0'
+          },
+          {
+            name: 'Destinations',
+            link: 'listing/add-tourist-spot',
+            badge: '',
+            badgeTooltip: 'Products Dashboard - version 3.0'
+          }
+        ]
+      }
+    ]
+  },
+  {
     heading: 'General',
     items: [
       {
@@ -317,6 +347,7 @@ const menuItems = [
       }
     ]
   }
+
 ];
 
 export default menuItems;

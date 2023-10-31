@@ -10,7 +10,7 @@ import accountRoutes from './account';
 import baseRoutes from './base';
 import bookingRoutes from './booking';
 import administrationRoutes from './administration';
-
+import listingRoutes from './listing';
 
 const router = [
   {
@@ -42,8 +42,8 @@ const router = [
         children: dashboardsRoutes
       },
       {
-        path: 'booking',
-        children: bookingRoutes
+        path: 'listing',
+        children: listingRoutes
       },
       {
         path: 'blocks',

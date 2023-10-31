@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 
 import { Box, Drawer, Grid, useTheme, IconButton, styled } from '@mui/material';
-import Scrollbar from '../components/Scrollbar';
+import Scrollbar from '../../../components/Scrollbar';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 
 import HelpdeskSidebar from './HelpdeskSidebar';
