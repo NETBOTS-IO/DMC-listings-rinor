@@ -1,80 +1,261 @@
-
-// PropertyForm.js
 import React, { useState } from 'react';
-import { Formik, Form } from 'formik';
+import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
-import PropertyDetails from './PropertyDetails';
-import ContactInformation from './ContactInformation';
-import RoomsAndSuites from './RoomsAndSuites';
-import Policies from './Policies';
-import Photos from './Photos';
-import SubmitButton from './SubmitData';
-import { propertyDetailsSchema, contactInformationSchema, roomsAndSuitesSchema, policiesSchema, photosSchema } from "./validationSchema";
-import initialValues from "./initialValues"
-import Button from '@mui/material/Button';
+import {
+    Container,
+    Stepper,
+    Step,
+    StepLabel,
+} from '@mui/material';
 
-const PropertyForm = () => {
-    const [step, setStep] = useState(1);
-    const totalSteps = 5; // Update this with the total number of steps
-    const nextStep = () => setStep(step + 1);
-    const prevStep = () => setStep(step - 1);
+import {
+    BasicInfoForm,
+    ContactDetailsForm,
+    ChannelManagerForm,
+    PropertyLocationForm,
+    RoomDetailsForm,
+    PricingForm,
+    AmenitiesForm,
+    PoliciesForm,
+} from "./Components"
 
-
-
-    const validationSchema = Yup.object().shape({
-        propertyDetails: propertyDetailsSchema,
-        contactInformation: contactInformationSchema,
-        roomsAndSuites: roomsAndSuitesSchema,
-        policies: policiesSchema,
-        photos: photosSchema,
-    });
-
-    const currentValidationSchema = validationSchema[step - 1];
-
-    return (
-        <Formik
-            initialValues={initialValues}
-            validationSchema={currentValidationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-                if (step < totalSteps) {
-                    nextStep();
-                    setSubmitting(false); // Allow the next step to be displayed
-                } else {
-                    // Handle final form submission here
-                    console.log(values);
-                }
-            }}
-        >
-            <Form>
-                {step === 1 && <PropertyDetails />}
-                {step === 2 && <ContactInformation />}
-                {step === 3 && <RoomsAndSuites />}
-                {step === 4 && <Policies />}
-                {step === 5 && <Photos />}
-
-                <div>
-                    {step > 1 && (
-                        <div style={{ margin: '10px', float: 'left'  }}>
-                            <Button variant="contained" color="primary" onClick={prevStep}>
-                                Previous
-                            </Button>
-                        </div>
-                    )}
-                    {step < totalSteps && (
-                        <div style={{ margin: '10px', float: 'right' }}>
-                            <Button variant="contained" color="primary" onClick={nextStep}>
-                                Next
-                            </Button>
-                        </div>
-                    )}
-                    {step === totalSteps && (
-                        <SubmitButton />
-                    )}
-                </div>
-
-            </Form>
-        </Formik>
-    );
+const initialValues = {
+    basicInfo: {
+        propertyName: " ",
+        starRating: 0,
+    },
+    contactDetails: {
+        contactName: " ",
+        phoneNumber: " ",
+        altPhoneNumber: "",
+        ownMultipleHotels: false,
+    },
+    channelManager: {
+        useChannelManager: true,
+        channelManagerName: " ",
+    },
+    propertyLocation: {
+        streetAddress: " ",
+        addressLine2: "",
+        countryRegion: " ",
+        city: " ",
+        postCode: 0,
+    },
+    roomDetails: [
+        {
+            roomType: " ",
+            roomName: " ",
+            numberOfRooms: 10,
+            bedOptions: [
+                {
+                    bedType: " ",
+                    bedQuantity: 2,
+                },
+            ],
+            maxGuests: 2,
+            roomSize: 30,
+        }
+    ],
+    pricing: {
+        basePricePerNight: 1000, // PKR
+        offerLowerRate: true,
+        discountAmount: 10, // Percentage
+        minOccupancyForDiscount: 7,
+        extraBedOptions: {
+            provideExtraBeds: true,
+            numberOfExtraBeds: 2,
+            accommodateChildrenInExtraBeds: true,
+            accommodateAdultsInExtraBeds: false,
+        },
+    },
+    amenities: {
+        instructional: " ",
+        mostRequestedByGuests: [],
+    },
+    propertyPhotos: [], // You can add image URLs here
+    policies: {
+        cancellations: {
+            cancelFreeDays: 7,
+            penaltyPercentage: 20,
+            protectAgainstAccidentalBookings: true,
+        },
+        checkInTime: " ",
+        checkOutTime: " ",
+        accommodateChildren: true,
+        allowPets: " ",
+        petCharges: " ",
+    }
 };
 
-export default PropertyForm;
+
+const yupSchema = Yup.object().shape({
+    basicInfo: Yup.object().shape({
+        propertyName: Yup.string().required('Property Name is required'),
+        starRating: Yup.number().min(1, 'Minimum rating is 1').max(5, 'Maximum rating is 5'),
+    }),
+    contactDetails: Yup.object().shape({
+        contactName: Yup.string().required('Contact Name is required'),
+        phoneNumber: Yup.string().required('Phone Number is required'),
+        altPhoneNumber: Yup.string(),
+        ownMultipleHotels: Yup.boolean(),
+    }),
+    channelManager: Yup.object().shape({
+        useChannelManager: Yup.boolean(),
+        channelManagerName: Yup.string(),
+    }),
+    propertyLocation: Yup.object().shape({
+        streetAddress: Yup.string().required('Street Address is required'),
+        addressLine2: Yup.string(),
+        countryRegion: Yup.string().required('Country/Region is required'),
+        city: Yup.string().required('City is required'),
+        postCode: Yup.number().integer(),
+    }),
+    roomDetails: Yup.array().of(
+        Yup.object().shape({
+            roomType: Yup.string().required('Room Type is required'),
+            roomName: Yup.string().required('Room Name is required'),
+            numberOfRooms: Yup.number().integer().min(1, 'Minimum 1 room'),
+            bedOptions: Yup.object().shape({
+                bedType: Yup.string().required('Bed Type is required'),
+                bedQuantity: Yup.number().integer().min(1, 'Minimum 1 bed'),
+            }),
+            maxGuests: Yup.number().integer().min(1, 'Minimum 1 guest'),
+            roomSize: Yup.number().integer(),
+        })
+    ),
+    pricing: Yup.object().shape({
+        basePricePerNight: Yup.number().min(0, 'Price cannot be negative').required('Base Price is required'),
+        offerLowerRate: Yup.boolean(),
+        discountAmount: Yup.number().integer().min(0, 'Discount cannot be negative'),
+        minOccupancyForDiscount: Yup.number().integer().min(1, 'Minimum 1 occupancy'),
+        extraBedOptions: Yup.object().shape({
+            provideExtraBeds: Yup.boolean(),
+            numberOfExtraBeds: Yup.number().integer().min(0, 'Minimum 0 extra beds'),
+            accommodateChildrenInExtraBeds: Yup.boolean(),
+            accommodateAdultsInExtraBeds: Yup.boolean(),
+        }),
+    }),
+    amenities: Yup.object().shape({
+        instructional: Yup.string(),
+        mostRequestedByGuests: Yup.array(),
+    }),
+    propertyPhotos: Yup.array(),
+    policies: Yup.object().shape({
+        cancellations: Yup.object().shape({
+            cancelFreeDays: Yup.number().integer().min(0, 'Minimum 0 days'),
+            penaltyPercentage: Yup.number().integer().min(0, 'Minimum 0 percentage'),
+            protectAgainstAccidentalBookings: Yup.boolean(),
+        }),
+        checkInTime: Yup.string(),
+        checkOutTime: Yup.string(),
+        accommodateChildren: Yup.boolean(),
+        allowPets: Yup.string(),
+        petCharges: Yup.string(),
+    }),
+});
+
+const steps = ['1', '2', '3', '4', '5', '6', '7', '8'];
+
+function MultiStepForm() {
+    const [activeStep, setActiveStep] = useState(1);
+
+    const formik = useFormik({
+        initialValues: initialValues,
+        validationSchema: yupSchema,
+        onSubmit: (values) => {
+            // Handle form submission here
+            console.log("Submitted Values", values);
+        },
+    });
+
+    const isLastStep = activeStep === steps.length - 1;
+
+    const handleNext = () => {
+        if (isLastStep) {
+            formik.submitForm();
+        } else {
+            setActiveStep(activeStep + 1);
+        }
+    };
+
+    const handleBack = () => {
+        setActiveStep(activeStep - 1);
+    };
+
+    return (
+        <Container>
+            <FormikProvider value={formik}>
+                <Form>
+                    <Stepper activeStep={activeStep}>
+                        {steps.map((label) => (
+                            <Step key={label}>
+                                <StepLabel>{label}</StepLabel>
+                            </Step>
+                        ))}
+                    </Stepper>
+                    {activeStep === 1 && (
+                        <BasicInfoForm
+                            isLastStep={isLastStep}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 2 && (
+                        <ContactDetailsForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 3 && (
+                        <ChannelManagerForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 4 && (
+                        <PropertyLocationForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+
+                    )}
+                    {activeStep === 5 && (
+                        <RoomDetailsForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 6 && (
+                        <PricingForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 7 && (
+                        <AmenitiesForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 8 && (
+                        <PoliciesForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                </Form>
+            </FormikProvider>
+        </Container>
+    );
+}
+
+
+
+
+export default MultiStepForm;
