@@ -11,7 +11,6 @@ import {
 import {
     BasicInfoForm,
     ContactDetailsForm,
-    ChannelManagerForm,
     PropertyLocationForm,
     RoomDetailsForm,
     PricingForm,
@@ -21,40 +20,46 @@ import {
 
 const initialValues = {
     basicInfo: {
-        propertyName: " ",
+        propertyType: "",
+        propertyName: "",
         starRating: 0,
     },
     contactDetails: {
-        contactName: " ",
-        phoneNumber: " ",
-        altPhoneNumber: "",
+        additionalContacts: [
+            {
+                title: "",
+                contactName: "",
+                phoneNumber: "",
+                altPhoneNumber: "",
+                email: "",
+            }
+        ],
+        socialAccLink: "",
         ownMultipleHotels: false,
     },
-    channelManager: {
-        useChannelManager: true,
-        channelManagerName: " ",
-    },
     propertyLocation: {
-        streetAddress: " ",
-        addressLine2: "",
-        countryRegion: " ",
-        city: " ",
+        countryRegion: "",
+        district: "",
+        city: "",
+        address: "",
         postCode: 0,
     },
     roomDetails: [
         {
-            roomType: " ",
-            roomName: " ",
+            roomType: "",
+            roomName: "",
             numberOfRooms: 10,
-            bedOptions: [
-                {
-                    bedType: " ",
-                    bedQuantity: 2,
-                },
-            ],
+            bedType: "",
+            bedQuantity: 2,
             maxGuests: 2,
             roomSize: 30,
-        }
+           
+            basePricePerNight: 1000,
+            offerLowerRate: true,
+            discountAmount: 10, // Percentage
+            minOccupancyForDiscount: 4,
+            roomPhoto: [],
+        },
     ],
     pricing: {
         basePricePerNight: 1000, // PKR
@@ -69,7 +74,7 @@ const initialValues = {
         },
     },
     amenities: {
-        instructional: " ",
+        instructional: "",
         mostRequestedByGuests: [],
     },
     propertyPhotos: [], // You can add image URLs here
@@ -79,11 +84,11 @@ const initialValues = {
             penaltyPercentage: 20,
             protectAgainstAccidentalBookings: true,
         },
-        checkInTime: " ",
-        checkOutTime: " ",
+        checkInTime: "",
+        checkOutTime: "",
         accommodateChildren: true,
-        allowPets: " ",
-        petCharges: " ",
+        allowPets: "",
+        petCharges: "",
     }
 };
 
@@ -154,7 +159,7 @@ const yupSchema = Yup.object().shape({
     }),
 });
 
-const steps = ['1', '2', '3', '4', '5', '6', '7', '8'];
+const steps = ['1', '2', '3', '4', '5', '6', '7'];
 
 function MultiStepForm() {
     const [activeStep, setActiveStep] = useState(1);
@@ -189,7 +194,7 @@ function MultiStepForm() {
                     <Stepper activeStep={activeStep}>
                         {steps.map((label) => (
                             <Step key={label}>
-                                <StepLabel>{label}</StepLabel>
+                                <StepLabel />
                             </Step>
                         ))}
                     </Stepper>
@@ -207,13 +212,6 @@ function MultiStepForm() {
                         />
                     )}
                     {activeStep === 3 && (
-                        <ChannelManagerForm
-                            isLastStep={isLastStep}
-                            handleBack={handleBack}
-                            handleNext={handleNext}
-                        />
-                    )}
-                    {activeStep === 4 && (
                         <PropertyLocationForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
@@ -221,28 +219,28 @@ function MultiStepForm() {
                         />
 
                     )}
-                    {activeStep === 5 && (
+                    {activeStep === 4 && (
                         <RoomDetailsForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 6 && (
+                    {activeStep === 5 && (
                         <PricingForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 7 && (
+                    {activeStep === 6 && (
                         <AmenitiesForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 8 && (
+                    {activeStep === 7 && (
                         <PoliciesForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
