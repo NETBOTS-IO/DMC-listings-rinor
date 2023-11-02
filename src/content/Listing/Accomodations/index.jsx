@@ -77,8 +77,8 @@ const initialValues = {
         instructional: "",
         mostRequestedByGuests: [],
     },
-    propertyPhotos: [], // You can add image URLs here
-    policies: {
+    propertyPhotos: [], 
+        policies: {
         cancellations: {
             cancelFreeDays: 7,
             penaltyPercentage: 20,

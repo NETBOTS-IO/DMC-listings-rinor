@@ -12,9 +12,9 @@ const Loader = (Component) => (props) =>
 
 // listing
 const Accommodations = Loader(lazy(() => import("../content/Listing/Accomodations/index")));
-const Transportation = Loader(lazy(() => import("../content/Listing/Accomodations/folder/entryPoint")));
-const Destination = Loader(lazy(() => import("../content/Listing/Accomodations/folder/entryPoint")));
-const SelectOptions = Loader(lazy(() => import("../content/Listing/Accomodations/folder/entryPoint")));
+const Transportation = Loader(lazy(() => import("../content/Listing/Accomodations/index")));
+const Destination = Loader(lazy(() => import("../content/Listing/Accomodations/index")));
+const SelectOptions = Loader(lazy(() => import("../content/Listing/Accomodations/index")));
 
 const listingRoutes = [
     {

@@ -286,7 +286,44 @@ const bedTypes = ['Single', 'Double', 'Master Size', 'King Size', 'Bunk Bed', 'S
 
 function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
+<<<<<<< HEAD
+
+    const addRoom = () => {
+        formik.setValues({
+            ...formik.values,
+            roomDetails: [
+                ...formik.values.roomDetails,
+                {
+                    roomType: '',
+                    roomName: '',
+                    numberOfRooms: 0,
+                    bedOptions: {
+                        bedType: '',
+                        numberOfBeds: 0,
+                    },
+                    maxGuests: 0,
+                    roomSize: 0,
+                },
+            ],
+        });
+    };
+
+    const addBedToRoom = (index) => {
+        console.log("index", index)
+        const updatedRoomDetails = [...formik.values.roomDetails];
+        updatedRoomDetails[index].bedOptions = {
+            bedType: '',
+            numberOfBeds: 0,
+        };
+
+        formik.setValues({
+            ...formik.values,
+            roomDetails: updatedRoomDetails,
+        });
+    };
+=======
     const [lastIndex, setLastIndex] = useState(0)
+>>>>>>> a7fccff99ead5c997d435581fafbf54ab0571681
 
     return (
         <>
