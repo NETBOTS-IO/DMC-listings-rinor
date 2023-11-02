@@ -239,42 +239,6 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
             numberOfBeds: 0,
         };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
         formik.setValues({
             ...formik.values,
             roomDetails: updatedRoomDetails,
