@@ -13,6 +13,8 @@ import {
     MenuItem,
     FormLabel,
     Rating,
+    FormControl,
+    InputLabel,
     TextareaAutosize
 } from '@mui/material';
 
@@ -38,22 +40,21 @@ function BasicInfoForm({ isLastStep, handleNext }) {
                     <Typography variant="h1">Basic Info</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <FormLabel sx={{ color: 'black', fontSize: 28 }}>What is the type of your property?</FormLabel>
-                    <Field
-                        as={Select}
-                        name="basicInfo.propertyType"
-                        label="Property Type"
-                        fullWidth
-                        sx={{ mt: 2, mb: 2 }}
-                    >        <MenuItem value="Select type" >
-                            Select type
-                        </MenuItem>
-                        {propertyTypes.map((type) => (
-                            <MenuItem key={type.value} value={type.value} >
-                                {type.label}
-                            </MenuItem>
-                        ))}
-                    </Field>
+                    <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
+                        <InputLabel id="property-type-label">Select Type</InputLabel>
+                        <Select
+                            labelId="property-type-label"
+                            name="basicInfo.propertyType"
+                            label="Select Type"
+                            fullWidth
+                        >
+                            {propertyTypes.map((type) => (
+                                <MenuItem key={type.value} value={type.value}>
+                                    {type.label}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
                 </Grid>
                 <Grid item xs={12}>
                     <FormLabel sx={{ color: 'black', fontSize: 28 }}>What is the name of your property?</FormLabel>
@@ -117,21 +118,25 @@ function ContactDetailsForm({ isLastStep, handleBack, handleNext }) {
                                     <div key={index}>
                                         <Grid container sx={{ mb: 2, mt: 2 }} spacing={2}>
                                             <Grid item xs={12} sm={6}>
-                                                <Field
-                                                    as={Select}
-                                                    name={`contactDetails.additionalContacts.${index}.title`}
-                                                    label="Title"
-                                                    fullWidth
-                                                >
-                                                    {titles.map((title) => (
-                                                        <MenuItem key={title} value={title}>
-                                                            {title}
-                                                        </MenuItem>
-                                                    ))}
-                                                </Field>
+                                                <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
+                                                    <InputLabel id="property-type-label">Select Type</InputLabel>
+                                                    <Select
+
+                                                        labelId="property-type-label"
+                                                        name={`contactDetails.additionalContacts.${index}.title`} label="Select Type"
+                                                        fullWidth
+                                                    >
+                                                        {titles.map((title) => (
+                                                            <MenuItem key={title} value={title}>
+                                                                {title}
+                                                            </MenuItem>
+                                                        ))}
+                                                    </Select>
+                                                </FormControl>
                                             </Grid>
                                             <Grid item xs={12} sm={6} >
                                                 <Field
+                                                    style={{ paddingTop: "18px" }}
                                                     as={TextField}
                                                     name={`contactDetails.additionalContacts.${index}.contactName`}
                                                     label="Contact Name"
@@ -237,8 +242,10 @@ function ContactDetailsForm({ isLastStep, handleBack, handleNext }) {
 
 const districts = ["Ghanche", "Shigar", "Skardu", "Kharmang", "Astore", "Gilgit", "Diamir", "Ghizer", "Hunza", "Nagar"];
 
+
 function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
-    const formik = useFormikContext();
+
+    // formik = useFormikContext();
 
     return (
         <>
@@ -246,24 +253,34 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                 <Grid item xs={12}>
                     <Typography variant="h1">Property Location</Typography>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={6} sm={6}>
+                    <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
+                        <InputLabel id="district">Select District</InputLabel>
+                        <Select
+                            labelId="district"
+                            name="propertyLocation.district"
+                            label="Select District"
+
+                        >
+                            {districts.map((district) => (
+                                <MenuItem key={district} value={district}>
+                                    {district}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                </Grid>
+                <Grid item xs={6}>
                     <Field
-                        as={Select}
-                        name="propertyLocation.district"
-                        label=""
-                        defaultValue={"Select District"}
+                        style={{ marginTop: "18px" }}
+                        as={TextField}
+                        name="propertyLocation.city"
+                        label="City"
                         fullWidth
-                    >
-                        {districts.map((district) => (
-                            <MenuItem key={district} value={district}>
-                                {district}
-                            </MenuItem>
-                        ))}
-                    </Field>
+                    />
                 </Grid>
                 <Grid item xs={12}>
                     <Field
-                        sx={{}}
                         as={TextField}
                         multiline
                         minRows={1}
@@ -272,14 +289,7 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                         fullWidth
                     />
                 </Grid>
-                <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        name="propertyLocation.city"
-                        label="City"
-                        fullWidth
-                    />
-                </Grid>
+
                 <Grid item xs={12}>
                     <Field
                         as={TextField}
@@ -290,10 +300,7 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                     />
                 </Grid>
             </Grid>
-            <Grid
-                justifyContent="space-between"
-
-            >
+            <Grid container justifyContent="space-between">
                 <Button
                     onClick={handleBack}
                     variant="contained"
@@ -314,6 +321,7 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
         </>
     );
 }
+
 const roomTypes = ['Single', 'Double', 'Twin', 'Triple', 'Quadruple', 'Family', 'Suite', 'Studio', 'Apartment', 'Deluxe', 'Luxury', 'Other'];
 const bedTypes = ['Single', 'Double', 'Master Size', 'King Size', 'Bunk Bed', 'Sofa Bed', 'Futon Mat', 'Other'];
 
@@ -325,7 +333,10 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
         <>
             <Grid container spacing={2} sx={{ mb: 3 }}>
                 <Grid item xs={12}>
-                    <Typography variant="h1">Room Details</Typography>
+                    <Typography 
+                        style={{ fontSize: "35px", fontFamily: "Inter", fontWeight:"700", marginBottom:"18px" }}
+                    variant="h1"
+                    >Room Details</Typography>
                 </Grid>
                 <FieldArray
                     name="roomDetails"
@@ -535,14 +546,7 @@ function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
     {/* const formik = useFormikContext(); */ }
 
     const mostRequestedByGuestsOptions = [
-        'Air conditioning',
-        'Bath',
-        'Spa bath',
-        'Flat-screen TV',
-        'Electric kettle',
-        'Balcony',
-        'View',
-        'Terrace',
+        "Free Wi-Fi", "Parking", "24-Hour Front Desk", "Air Conditioning", "Room Service", "Restaurant", "Swimming Pool", "Fitness Center", , "Lounge", "Business Center", "Conference/Meeting Rooms", "Laundry Service", "Concierge Service", "Airport Shuttle", "Pet-Friendly", "Non-Smoking Rooms", "Family Rooms", "Kitchenette", , "Coffee/Tea Maker", "Cable/Satellite TV", "Safe", "Ironing Facilities", "Hair Dryer", "Bathrobe", "Slippers", "In-Room Jacuzzi", "Balcony/Patio", "Sea View", "Mountain View", "Garden", "Playground", "Shuttle Service", "Hiking Trails", "Bicycle Rental", "Room Safe", "Desk", "Telephone", "Wake-up Service", "Dry Cleaning", "Car Rental", "Free Breakfast", "Express Check-in/Check-out", "Luggage Storage", "Newspapers", "Handicapped Accessibility", "Elevator", "In-Room Dining", "Fireplaces"
     ];
 
     return (
@@ -552,24 +556,22 @@ function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
                     <Typography variant="h1">Amenities</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <FieldArray
-                        name="amenities.mostRequestedByGuests"
-                        render={arrayHelpers => (
-                            mostRequestedByGuestsOptions.map((option, index) => (
-                                <Grid item xs={12} key={index}>
-                                    <FormControlLabel
-                                        control={
-                                            <Checkbox
-                                                name={`amenities.mostRequestedByGuests[${index}]`}
-                                            />
-                                        }
-                                        label={option}
-                                    />
-                                </Grid>
-                            ))
-                        )}
-                    />
+                    <Grid container spacing={2}>
+                        {mostRequestedByGuestsOptions.map((option, index) => (
+                            <Grid item xs={12} sm={4} key={index}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            name={`amenities.mostRequestedByGuests[${index}]`}
+                                        />
+                                    }
+                                    label={option}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Grid>
+
             </Grid>
             <Grid
                 justifyContent="space-between"
@@ -598,6 +600,18 @@ function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
 
 function PoliciesForm({ isLastStep, handleBack, handleNext }) {
     {/* const formik = useFormikContext(); */ }
+    const policies = [
+        "No smoking in rooms", "Pets are not allowed", "Accommodate Children", "Allow Pets", , "Cancellation Policy", "Minimum check-in age is 18", "Extra beds available with surcharge", "Alcohol Policy", "Additional Guests Allowed", "Identification Required", "Credit Card or Cash Deposit Required", "Photo ID at Check-in", "No Rollaway/Extra Beds", "No Cribs (Infant Beds)", "No Parking"
+    ]
+    const timeOptions = [
+        "12:00 AM", "01:00 AM", "02:00 AM", "03:00 AM",
+        "04:00 AM", "05:00 AM", "06:00 AM", "07:00 AM",
+        "08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM",
+        "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM",
+        "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM",
+        "08:00 PM", "09:00 PM", "10:00 PM", "11:00 PM",
+    ];
+
     return (
         <>
             <Grid container spacing={2}>
@@ -605,52 +619,57 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
                     <Typography variant="h1">Policies</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        name="policies.checkInTime"
-                        label="Check-in Time"
-                        fullWidth
-                    />
+                    <Grid container spacing={2}>
+                        {policies.map((option, index) => (
+                            <Grid item xs={12} sm={4} key={index}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            name={`policies[${index}]`}
+                                        />
+                                    }
+                                    label={option}
+                                />
+                            </Grid>
+                        ))}
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        name="policies.checkOutTime"
-                        label="Check-out Time"
-                        fullWidth
-                    />
+                <Grid item xs={6}>
+                    <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
+                        <InputLabel id="check-in-time">Check-in Time</InputLabel>
+                        <Field
+                            as={Select}
+                            name="policies.checkInTime"
+                            label="Check-in Time"
+                            fullWidth
+                        >
+                            {timeOptions.map((time, index) => (
+                                <MenuItem key={index} value={time}>
+                                    {time}
+                                </MenuItem>
+                            ))}
+                        </Field>
+                    </FormControl>
                 </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                name="policies.accommodateChildren"
-                                type="checkbox"
-                            />
-                        }
-                        label="Accommodate Children"
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                name="policies.allowPets"
-                                type="checkbox"
-                            />
-                        }
-                        label="Allow Pets"
-                    />
+                <Grid item xs={6}>
+                    <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
+                        <InputLabel id="check-out-time">Check-out Time</InputLabel>
+                        <Field
+                            as={Select}
+                            name="policies.checkOutTime"
+                            label="Check-out Time"
+                            fullWidth
+                        >
+                            {timeOptions.map((time, index) => (
+                                <MenuItem key={index} value={time}>
+                                    {time}
+                                </MenuItem>
+                            ))}
+                        </Field>
+                    </FormControl>
                 </Grid>
 
-                <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        name="policies.petCharges"
-                        label="Pet Charges"
-                        fullWidth
-                    />
-                </Grid>
+
             </Grid>
             <Grid
                 justifyContent="space-between"
