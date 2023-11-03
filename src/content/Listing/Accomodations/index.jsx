@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
@@ -6,6 +7,9 @@ import {
     Stepper,
     Step,
     StepLabel,
+    Button,
+    Snackbar,
+    Alert,
 } from '@mui/material';
 
 import {
@@ -15,13 +19,18 @@ import {
     RoomDetailsForm,
     AmenitiesForm,
     PoliciesForm,
-} from "./Components"
+    SubmitData
+} from './Components';
+
+
 
 const initialValues = {
     basicInfo: {
         propertyType: "",
         propertyName: "",
-        starRating: 0,
+        hotelChain: "",
+        description: "",
+        starRating: 1,
     },
     contactDetails: {
         additionalContacts: [
@@ -41,30 +50,28 @@ const initialValues = {
         district: "",
         city: "",
         address: "",
-        postCode: 0,
+        postCode: 1,
     },
     roomDetails: [
         {
-            roomType: "",
-            roomName: "",
-            numberOfRooms: 10,
-            bedType: "",
+            roomType: " ",
+            roomName: " ",
+            numberOfRooms: 1,
+            bedType: " ",
             bedQuantity: 2,
             maxGuests: 2,
             roomSize: 30,
-
             basePricePerNight: 1000,
-            offerLowerRate: true,
-            discountAmount: 10, // Percentage
-            minOccupancyForDiscount: 4,
-            roomPhoto: [],
+
+
         },
     ],
+    roomPhotos: [],
+    offerLowerRate: true,
+    discountAmount: 10, // Percentage
+    minOccupancyForDiscount: 4,
+
     pricing: {
-        basePricePerNight: 1000,
-        offerLowerRate: true,
-        discountAmount: 10,
-        minOccupancyForDiscount: 7,
         extraBedOptions: {
             provideExtraBeds: true,
             numberOfExtraBeds: 2,
@@ -72,66 +79,66 @@ const initialValues = {
             accommodateAdultsInExtraBeds: false,
         },
     },
-    amenities: {
-        instructional: "",
-        mostRequestedByGuests: [],
-    },
+    hotelAmenities: ["Free Wi-Fi", "Parking", "24-Hour Front Desk", "Air Conditioning", "Room Service", "Restaurant", "Swimming Pool", "Fitness Center", "Lounge", "Business Center", "Conference/Meeting Rooms", "Laundry Service", "Concierge Service", "Airport Shuttle", "Pet-Friendly", "Non-Smoking Rooms", "Family Rooms", "Kitchenette", "Coffee/Tea Maker", "Cable/Satellite TV", "Safe", "Ironing Facilities", "Hair Dryer", "Bathrobe", "Slippers", "In-Room Jacuzzi", "Balcony/Patio", "Sea View", "Mountain View", "Garden", "Playground", "Shuttle Service", "Hiking Trails", "Bicycle Rental", "Room Safe", "Desk", "Telephone", "Wake-up Service", "Dry Cleaning", "Car Rental", "Free Breakfast", "Express Check-in/Check-out", "Luggage Storage", "Newspapers", "Handicapped Accessibility", "Elevator", "In-Room Dining", "Fireplaces"
+    ],
     propertyPhotos: [],
-    policies: {
-        cancellations: {
-            cancelFreeDays: 7,
-            penaltyPercentage: 20,
-            protectAgainstAccidentalBookings: true,
-        },
-        checkInTime: "",
-        checkOutTime: "",
-        accommodateChildren: true,
-        allowPets: "",
-        petCharges: "",
-    }
+    policies: [],
+    checkInTime: "",
+    checkOutTime: "",
+    cancellations: {
+        cancelFreeDays: 7,
+        penaltyPercentage: 20,
+        protectAgainstAccidentalBookings: true,
+    },
+
 };
 
 
 const yupSchema = Yup.object().shape({
     basicInfo: Yup.object().shape({
+        propertyType: Yup.string().required('Property Type is required'),
         propertyName: Yup.string().required('Property Name is required'),
-        starRating: Yup.number().min(1, 'Minimum rating is 1').max(5, 'Maximum rating is 5'),
+        hotelChain: Yup.string().required('Hotel Chain is required'),
+        description: Yup.string(),
+        starRating: Yup.number().min(0, 'Minimum rating is 0').max(5, 'Maximum rating is 5'),
     }),
     contactDetails: Yup.object().shape({
-        contactName: Yup.string().required('Contact Name is required'),
-        phoneNumber: Yup.string().required('Phone Number is required'),
-        altPhoneNumber: Yup.string(),
+        additionalContacts: Yup.array().of(
+            Yup.object().shape({
+                title: Yup.string(),
+                contactName: Yup.string().required('Contact Name is required'),
+                phoneNumber: Yup.string().required('Phone Number is required'),
+                altPhoneNumber: Yup.string(),
+                email: Yup.string().email(),
+            })
+        ),
+        socialAccLink: Yup.string(),
         ownMultipleHotels: Yup.boolean(),
     }),
-    channelManager: Yup.object().shape({
-        useChannelManager: Yup.boolean(),
-        channelManagerName: Yup.string(),
-    }),
     propertyLocation: Yup.object().shape({
-        streetAddress: Yup.string().required('Street Address is required'),
-        addressLine2: Yup.string(),
-        countryRegion: Yup.string().required('Country/Region is required'),
-        city: Yup.string().required('City is required'),
+        countryRegion: Yup.string(),
+        district: Yup.string(),
+        city: Yup.string(),
+        address: Yup.string(),
         postCode: Yup.number().integer(),
     }),
     roomDetails: Yup.array().of(
         Yup.object().shape({
-            roomType: Yup.string().required('Room Type is required'),
-            roomName: Yup.string().required('Room Name is required'),
+            roomType: Yup.string(),
+            roomName: Yup.string(),
             numberOfRooms: Yup.number().integer().min(1, 'Minimum 1 room'),
-            bedOptions: Yup.object().shape({
-                bedType: Yup.string().required('Bed Type is required'),
-                bedQuantity: Yup.number().integer().min(1, 'Minimum 1 bed'),
-            }),
+            bedType: Yup.string(),
+            bedQuantity: Yup.number().integer().min(1, 'Minimum 1 bed'),
             maxGuests: Yup.number().integer().min(1, 'Minimum 1 guest'),
             roomSize: Yup.number().integer(),
+            basePricePerNight: Yup.number().min(0, 'Price cannot be negative'),
         })
     ),
+    roomPhotos: Yup.array(),
+    offerLowerRate: Yup.boolean(),
+    discountAmount: Yup.number().integer().min(0, 'Discount cannot be negative'),
+    minOccupancyForDiscount: Yup.number().integer().min(1, 'Minimum 1 occupancy'),
     pricing: Yup.object().shape({
-        basePricePerNight: Yup.number().min(0, 'Price cannot be negative').required('Base Price is required'),
-        offerLowerRate: Yup.boolean(),
-        discountAmount: Yup.number().integer().min(0, 'Discount cannot be negative'),
-        minOccupancyForDiscount: Yup.number().integer().min(1, 'Minimum 1 occupancy'),
         extraBedOptions: Yup.object().shape({
             provideExtraBeds: Yup.boolean(),
             numberOfExtraBeds: Yup.number().integer().min(0, 'Minimum 0 extra beds'),
@@ -139,51 +146,56 @@ const yupSchema = Yup.object().shape({
             accommodateAdultsInExtraBeds: Yup.boolean(),
         }),
     }),
-    amenities: Yup.object().shape({
-        instructional: Yup.string(),
-        mostRequestedByGuests: Yup.array(),
-    }),
+    hotelAmenities: Yup.array().of(Yup.string()),
     propertyPhotos: Yup.array(),
     policies: Yup.object().shape({
+        checkInTime: Yup.string(),
+        checkOutTime: Yup.string(),
         cancellations: Yup.object().shape({
             cancelFreeDays: Yup.number().integer().min(0, 'Minimum 0 days'),
             penaltyPercentage: Yup.number().integer().min(0, 'Minimum 0 percentage'),
             protectAgainstAccidentalBookings: Yup.boolean(),
         }),
-        checkInTime: Yup.string(),
-        checkOutTime: Yup.string(),
-        accommodateChildren: Yup.boolean(),
-        allowPets: Yup.string(),
-        petCharges: Yup.string(),
     }),
 });
-
-const steps = ['1', '2', '3', '4', '5', '6', '7'];
-
 function MultiStepForm() {
     const [activeStep, setActiveStep] = useState(1);
+    const [isSubmitSuccess, setSubmitSuccess] = useState(false);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: yupSchema,
         onSubmit: (values) => {
             // Handle form submission here
-            console.log("Submitted Values", values);
+            console.log('Submitted Values', values);
+            setSubmitSuccess(true);
+            setOpenSnackbar(true);
         },
     });
-
+    const steps = ["1", "2", "3", "4", "5", "6", "7", "8"]
     const isLastStep = activeStep === steps.length - 1;
 
     const handleNext = () => {
         if (isLastStep) {
             formik.submitForm();
+            console.log("Form Values ", formik.values)
         } else {
             setActiveStep(activeStep + 1);
+            console.log("Form Values ", formik.values)
         }
     };
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
+    };
+
+    const handleSnackbarClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenSnackbar(false);
     };
 
     return (
@@ -216,7 +228,6 @@ function MultiStepForm() {
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
-
                     )}
                     {activeStep === 4 && (
                         <RoomDetailsForm
@@ -239,13 +250,31 @@ function MultiStepForm() {
                             handleNext={handleNext}
                         />
                     )}
+                    {activeStep === 7 && (
+                        <SubmitData
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
                 </Form>
             </FormikProvider>
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={6000}
+                onClose={handleSnackbarClose}
+            >
+                <Alert
+                    onClose={handleSnackbarClose}
+                    severity={isSubmitSuccess ? 'success' : 'error'}
+                >
+                    {isSubmitSuccess
+                        ? 'Form submitted successfully!'
+                        : 'Form submission failed.'}
+                </Alert>
+            </Snackbar>
         </Container>
     );
 }
-
-
-
 
 export default MultiStepForm;
