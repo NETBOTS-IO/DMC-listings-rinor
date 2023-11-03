@@ -12,6 +12,7 @@ const Loader = (Component) => (props) =>
 
 // listing
 const Accommodations = Loader(lazy(() => import("../content/Listing/Accomodations/index")));
+const Table = Loader(lazy(() => import("../content/Listing/Accomodations/Table")));
 const Transportation = Loader(lazy(() => import("../content/Listing/Accomodations/folder/entryPoint")));
 const Destination = Loader(lazy(() => import("../content/Listing/Accomodations/folder/entryPoint")));
 const SelectOptions = Loader(lazy(() => import("../content/Listing/Accomodations/folder/entryPoint")));
@@ -36,7 +37,11 @@ const listingRoutes = [
     {
         path: 'add-tourist-spot',
         element: <Destination />
-    }
+    },
+    {
+        path: 'table',
+        element: <Table/>
+    },
 ];
 
 

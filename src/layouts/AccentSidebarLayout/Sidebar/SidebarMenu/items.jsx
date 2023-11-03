@@ -31,6 +31,12 @@ const menuItems = [
             link: 'listing/add-tourist-spot',
             badge: '',
             badgeTooltip: 'Products Dashboard - version 3.0'
+          },
+          {
+            name: 'Table',
+            link: 'listing/table',
+            badge: '',
+            badgeTooltip: 'Products Dashboard - version 3.0'
           }
         ]
       }

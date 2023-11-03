@@ -433,31 +433,30 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                                     </Grid>
                                 )}
                                 <Grid container justifyContent={'flex-end'}>
-                                    {lastIndex == room.index || lastIndex==0 && (
-                                        < Button
-                                            sx={{ mt: 2 }}
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => {
-                                                arrayHelpers.push({
-                                                    roomType: '',
-                                                    roomName: '',
-                                                    numberOfRooms: 0,
-                                                    bedType: '',
-                                                    bedQuantity: 0,
-                                                    maxGuests: 0,
-                                                    roomSize: 0,
-                                                    offerLowerRate: true,
-                                                    discountAmount: 0,
-                                                    minOccupancyForDiscount: 0,
-                                                    roomPhoto: [],
+                                    < Button
+                                        sx={{ mt: 2 }}
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => {
+                                            arrayHelpers.push({
+                                                roomType: '',
+                                                roomName: '',
+                                                numberOfRooms: 0,
+                                                bedType: '',
+                                                bedQuantity: 0,
+                                                maxGuests: 0,
+                                                roomSize: 0,
+                                                offerLowerRate: true,
+                                                discountAmount: 0,
+                                                minOccupancyForDiscount: 0,
+                                                roomPhoto: [],
 
-                                                });
-                                                setLastIndex(roomIndex)
-                                            }}>
-                                            Add Room
-                                        </Button>
-                                    )}
+                                            });
+                                            setLastIndex(roomIndex)
+                                        }}>
+                                        Add Room
+                                    </Button>
+
                                 </Grid>
                             </Grid>
                         ))
