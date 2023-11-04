@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import axios from "axios";
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -8,8 +9,11 @@ import {
     Step,
     StepLabel,
     Button,
-    Snackbar,
-    Alert,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
 } from '@mui/material';
 
 import {
@@ -79,8 +83,7 @@ const initialValues = {
             accommodateAdultsInExtraBeds: false,
         },
     },
-    hotelAmenities: ["Free Wi-Fi", "Parking", "24-Hour Front Desk", "Air Conditioning", "Room Service", "Restaurant", "Swimming Pool", "Fitness Center", "Lounge", "Business Center", "Conference/Meeting Rooms", "Laundry Service", "Concierge Service", "Airport Shuttle", "Pet-Friendly", "Non-Smoking Rooms", "Family Rooms", "Kitchenette", "Coffee/Tea Maker", "Cable/Satellite TV", "Safe", "Ironing Facilities", "Hair Dryer", "Bathrobe", "Slippers", "In-Room Jacuzzi", "Balcony/Patio", "Sea View", "Mountain View", "Garden", "Playground", "Shuttle Service", "Hiking Trails", "Bicycle Rental", "Room Safe", "Desk", "Telephone", "Wake-up Service", "Dry Cleaning", "Car Rental", "Free Breakfast", "Express Check-in/Check-out", "Luggage Storage", "Newspapers", "Handicapped Accessibility", "Elevator", "In-Room Dining", "Fireplaces"
-    ],
+    hotelAmenities: [],
     propertyPhotos: [],
     policies: [],
     checkInTime: "",
@@ -96,18 +99,18 @@ const initialValues = {
 
 const yupSchema = Yup.object().shape({
     basicInfo: Yup.object().shape({
-        propertyType: Yup.string().required('Property Type is required'),
-        propertyName: Yup.string().required('Property Name is required'),
-        hotelChain: Yup.string().required('Hotel Chain is required'),
+        propertyType: Yup.string(),
+        propertyName: Yup.string(),
+        hotelChain: Yup.string(),
         description: Yup.string(),
-        starRating: Yup.number().min(0, 'Minimum rating is 0').max(5, 'Maximum rating is 5'),
+        starRating: Yup.number(),
     }),
     contactDetails: Yup.object().shape({
         additionalContacts: Yup.array().of(
             Yup.object().shape({
                 title: Yup.string(),
-                contactName: Yup.string().required('Contact Name is required'),
-                phoneNumber: Yup.string().required('Phone Number is required'),
+                contactName: Yup.string(),
+                phoneNumber: Yup.string(),
                 altPhoneNumber: Yup.string(),
                 email: Yup.string().email(),
             })
@@ -161,42 +164,110 @@ const yupSchema = Yup.object().shape({
 function MultiStepForm() {
     const [activeStep, setActiveStep] = useState(1);
     const [isSubmitSuccess, setSubmitSuccess] = useState(false);
-    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [isPopupOpen, setPopupOpen] = useState(false);
 
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: yupSchema,
         onSubmit: (values) => {
-            // Handle form submission here
-            console.log('Submitted Values', values);
-            setSubmitSuccess(true);
-            setOpenSnackbar(true);
+            console.log("Form Submitted")
         },
-    });
-    const steps = ["1", "2", "3", "4", "5", "6", "7", "8"]
-    const isLastStep = activeStep === steps.length - 1;
 
-    const handleNext = () => {
+    });
+
+
+    // Rest of your component...
+
+    const handlePopupClose = () => {
+        setPopupOpen(false);
+        setActiveStep(1);
+    };
+
+    const steps = ["1", "2", "3", "4", "5", "6", "7"]
+    const isLastStep = activeStep === steps.length - 1;
+    const handleNext = async () => {
         if (isLastStep) {
-            formik.submitForm();
-            console.log("Form Values ", formik.values)
+            try {
+                const errors = await formik.submitForm();
+                console.log("Formik Saved Values", formik.values)
+                if (!errors) {
+
+
+                    const formikToFormData = (values) => {
+                        const formData = new FormData();
+
+                        const appendField = (key, value) => {
+                            if (Array.isArray(value)) {
+                                // Handle arrays by appending each item individually
+                                value.forEach((item, index) => {
+                                    formData.append(`${key}[${index}]`, item);
+                                });
+                            } else if (typeof value === 'object') {
+                                // Handle nested objects by recursively traversing them
+                                for (const subKey in value) {
+                                    appendField(`${key}.${subKey}`, value[subKey]);
+                                }
+                            } else {
+                                // Append the field to the FormData
+                                formData.append(key, value);
+                            }
+                        };
+
+                        for (const key in values) {
+                            appendField(key, values[key]);
+                        }
+
+                        return formData;
+                    };
+
+                    // Example usage:
+
+
+                    const formData = formikToFormData(formik.values);
+
+
+
+                    axios
+                        .post('http://localhost:8000/api/listing/properties', formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                            },
+                        })
+                        .then((response) => {
+                            if (response.status === 200) {
+                                console.log("Property Added in the DB", response.data)
+                                setSubmitSuccess(true);
+                            } else {
+                                console.log("Failed to Add in the DB")
+                                setSubmitSuccess(false);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error posting data to the backend:', error);
+                            setSubmitSuccess(false);
+                        })
+                        .finally(() => {
+                            setPopupOpen(true);
+                        });
+                } else {
+                    // Form submission has errors, you can handle them as needed
+                    console.log('Form has validation errors:', errors);
+                }
+            } catch (error) {
+                // Handle any submission errors (e.g., network issues)
+                console.error('Form submission error:', error);
+            }
         } else {
             setActiveStep(activeStep + 1);
-            console.log("Form Values ", formik.values)
         }
     };
+
+
 
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
 
-    const handleSnackbarClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
-        setOpenSnackbar(false);
-    };
 
     return (
         <Container>
@@ -250,29 +321,29 @@ function MultiStepForm() {
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 7 && (
-                        <SubmitData
-                            isLastStep={isLastStep}
-                            handleBack={handleBack}
-                            handleNext={handleNext}
-                        />
-                    )}
+
                 </Form>
             </FormikProvider>
-            <Snackbar
-                open={openSnackbar}
-                autoHideDuration={6000}
-                onClose={handleSnackbarClose}
-            >
-                <Alert
-                    onClose={handleSnackbarClose}
-                    severity={isSubmitSuccess ? 'success' : 'error'}
-                >
+
+            <Dialog open={isPopupOpen} onClose={handlePopupClose}>
+                <DialogTitle style={{ textAlign: 'center' }}>
                     {isSubmitSuccess
                         ? 'Form submitted successfully!'
                         : 'Form submission failed.'}
-                </Alert>
-            </Snackbar>
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText style={{ textAlign: 'center' }}>
+                        {isSubmitSuccess
+                            ? 'Your form has been submitted successfully!'
+                            : 'There was an error submitting the form. Please try again later.'}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handlePopupClose} color="primary" variant="contained">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 }

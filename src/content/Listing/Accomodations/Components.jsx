@@ -369,7 +369,19 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
     const [lastIndex, setLastIndex] = useState(0);
 
     const offerLowerRate = formik.values.offerLowerRate;
+    const [tempPhotos, setTempPhotos] = useState([]); // State variable to temporarily store files
 
+    const handleRoomFileChange = (files) => {
+        setTempPhotos(files);
+    };
+
+    const handleSaveFiles = () => {
+        formik.setFieldValue('roomPhotos', [...formik.values.roomPhotos, ...tempPhotos]);
+
+        console.log("Room Photos", formik.values.roomPhotos)
+
+        setTempPhotos([]); // Clear temporary files after saving
+    };
     return (
         <>
             <Grid container spacing={2} sx={{ mb: 3 }}>
@@ -552,14 +564,34 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                     </>
                 )}
             </Grid>
-            <Grid item xs={12}>
-                <DropzoneArea
-                    style={{ margin: "10px" }}
-                    acceptedFiles={['image/*']}
-                    filesLimit={20}
-                    dropzoneText="Drag and drop an images of the rooms here or click"
-                    onChange={(files) => formik.setFieldValue(`roomPhotos`, files)}
-                />
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <DropzoneArea
+                        onChange={handleRoomFileChange}
+                        acceptedFiles={['image/*']}
+                        filesLimit={20 - formik.values.roomPhotos.length} // Limit based on remaining slots
+                        dropzoneText="Drag and drop images here or click"
+                        getFileLimitExceedMessage={(filesLimit) =>
+                            `You can only upload a maximum of ${filesLimit} files.`
+                        }
+                        clearOnUnmount={false}
+                        Icon={(props) => (
+                            <div
+                                style={{
+                                    fontSize: 40,
+                                    textAlign: 'center',
+                                    border: '2px dashed #a9a9a9',
+                                    borderRadius: 10,
+                                    padding: 20,
+                                    margin: 50,
+                                }}
+                            >
+                                Upload your property pictures
+                            </div>
+                        )}
+                    />
+                    <button type='submit' onClick={handleSaveFiles}>Save Files</button>
+                </Grid>
             </Grid>
             <Grid justifyContent="space-between">
                 <Button
@@ -587,14 +619,43 @@ const mostRequestedByGuestsOptions = [
     "Free Wi-Fi", "Parking", "24-Hour Front Desk", "Air Conditioning", "Room Service", "Restaurant", "Swimming Pool", "Fitness Center", "Lounge", "Business Center", "Conference/Meeting Rooms", "Laundry Service", "Concierge Service", "Airport Shuttle", "Pet-Friendly", "Non-Smoking Rooms", "Family Rooms", "Kitchenette", "Coffee/Tea Maker", "Cable/Satellite TV", "Safe", "Ironing Facilities", "Hair Dryer", "Bathrobe", "Slippers", "In-Room Jacuzzi", "Balcony/Patio", "Sea View", "Mountain View", "Garden", "Playground", "Shuttle Service", "Hiking Trails", "Bicycle Rental", "Room Safe", "Desk", "Telephone", "Wake-up Service", "Dry Cleaning", "Car Rental", "Free Breakfast", "Express Check-in/Check-out", "Luggage Storage", "Newspapers", "Handicapped Accessibility", "Elevator", "In-Room Dining", "Fireplaces"
 ];
 function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
+    const formik = useFormikContext();
+    const [tempFiles, setTempFiles] = useState([]); // State variable to temporarily store files
+
     const handleFileChange = (files) => {
-        console.log('Selected files:', files);
+        setTempFiles(files);
+    };
+
+    const handleSaveFiles = () => {
+        formik.setFieldValue('propertyPhotos', [...formik.values.propertyPhotos, ...tempFiles]);
+
+        console.log("Property Photos", formik.values.propertyPhotos)
+
+        setTempFiles([]); // Clear temporary files after saving
     };
 
     const handleDropzoneClose = () => {
         console.log('Dropzone closed');
     };
-    const formik = useFormikContext();
+
+    const handleAmenitiesChange = (e, index) => {
+        const updatedAmenities = [...formik.values.hotelAmenities];
+
+        if (e.target.checked) {
+            updatedAmenities.push(mostRequestedByGuestsOptions[index]);
+        } else {
+            // Remove the item from the array if the checkbox is unchecked
+            const amenityToRemove = mostRequestedByGuestsOptions[index];
+            const indexOfAmenityToRemove = updatedAmenities.indexOf(amenityToRemove);
+            if (indexOfAmenityToRemove !== -1) {
+                updatedAmenities.splice(indexOfAmenityToRemove, 1);
+            }
+        }
+
+        formik.setFieldValue('hotelAmenities', updatedAmenities);
+    };
+
+
     return (
         <>
             <Grid container spacing={2}>
@@ -608,9 +669,12 @@ function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
                                 <FormControlLabel
                                     control={
                                         <Checkbox
-                                            name={`hotelAmenities[${index}]`}
-                                            checked={formik.values.amenities && amenities[index]}
-                                            onChange={formik.handleChange}
+                                            name={`amenities[${index}]`} // Note that the name is updated to 'amenities'
+                                            checked={formik.values.amenities && formik.values.amenities[index]}
+                                            onChange={(e) => {
+                                                formik.handleChange(e); // Use Formik's handleChange to manage the 'amenities' field
+                                                handleAmenitiesChange(e, index); // Custom handler for updating 'hotelAmenities'
+                                            }}
                                         />
                                     }
                                     label={option} />
@@ -620,37 +684,36 @@ function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
 
                     </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <DropzoneArea
-                        onChange={(files) => {
-                            console.log("Files", files)
-                            formik.setFieldValue(`propertyPhotos`, files)
-                        }}
-                        acceptedFiles={['image/*']}
-                        filesLimit={20}
-                        dropzoneText="Drag and drop images here or click"
-                        getFileLimitExceedMessage={(filesLimit) =>
-                            `You can only upload a maximum of ${filesLimit} files.`
-                        }
-                        clearOnUnmount={false}
-                        Icon={(props) => (
-                            <div
-                                style={{
-                                    fontSize: 40,
-                                    textAlign: 'center',
-                                    border: '2px dashed #a9a9a9',
-                                    borderRadius: 10,
-                                    padding: 20,
-                                    margin: 50,
-
-                                }}
-                            >
-                                upload your property pictures
-                            </div>
-                        )}
-
-                    />
+                <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                        <DropzoneArea
+                            onChange={handleFileChange}
+                            acceptedFiles={['image/*']}
+                            filesLimit={20 - formik.values.propertyPhotos.length} // Limit based on remaining slots
+                            dropzoneText="Drag and drop images here or click"
+                            getFileLimitExceedMessage={(filesLimit) =>
+                                `You can only upload a maximum of ${filesLimit} files.`
+                            }
+                            clearOnUnmount={false}
+                            Icon={(props) => (
+                                <div
+                                    style={{
+                                        fontSize: 40,
+                                        textAlign: 'center',
+                                        border: '2px dashed #a9a9a9',
+                                        borderRadius: 10,
+                                        padding: 20,
+                                        margin: 50,
+                                    }}
+                                >
+                                    Upload your property pictures
+                                </div>
+                            )}
+                        />
+                        <button type='button' onClick={handleSaveFiles}>Save Files</button>
+                    </Grid>
                 </Grid>
+
             </Grid>
             <Grid container justifyContent="space-between">
                 <Button
@@ -689,6 +752,23 @@ const timeOptions = [
 function PoliciesForm({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
 
+    const handlePoliciesChange = (e, index) => {
+        const updatedPolicies = [...formik.values.policies];
+
+        if (e.target.checked) {
+            updatedPolicies.push(policies[index]);
+        } else {
+            // Remove the item from the array if the checkbox is unchecked
+            const policyToRemove = policies[index];
+            const indexOfPolicyToRemove = updatedPolicies.indexOf(policyToRemove);
+            if (indexOfPolicyToRemove !== -1) {
+                updatedPolicies.splice(indexOfPolicyToRemove, 1);
+            }
+        }
+
+        formik.setFieldValue('policies', updatedPolicies);
+    };
+
 
     return (
         <>
@@ -701,10 +781,14 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
                     <Grid item xs={12} sm={4} key={index}>
                         <FormControlLabel
                             control={
+
                                 <Checkbox
-                                    name={`policies[${index}]`}
-                                    checked={formik.values.policies[index]}
-                                    onChange={formik.handleChange}
+                                    name={`policies[${index}]`} // Note that the name is updated to 'amenities'
+                                    checked={formik.values.policies && formik.values.policies[index]}
+                                    onChange={(e) => {
+                                        formik.handleChange(e); // Use Formik's handleChange to manage the 'amenities' field
+                                        handlePoliciesChange(e, index); // Custom handler for updating 'hotelAmenities'
+                                    }}
                                 />
                             }
                             label={option} />
@@ -760,10 +844,12 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
                         Back
                     </Button>
                     <Button
+
                         onClick={handleNext}
                         variant="contained"
                         color="primary"
                         style={{ margin: "30px", width: "30%", float: "right" }}
+
                     >
                         {isLastStep ? 'Submit' : 'Next'}
                     </Button>
