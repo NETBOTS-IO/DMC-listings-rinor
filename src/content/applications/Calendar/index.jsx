@@ -19,7 +19,7 @@ import {
   useTheme
 } from '@mui/material';
 
-import { useDispatch, useSelector } from '../store';
+import { useDispatch, useSelector } from '../../../store/index';
 import {
   getEvents,
   updateEvent,
@@ -27,7 +27,7 @@ import {
   selectRange,
   openDrawerPanel,
   closeDrawerPanel
-} from '../slices/calendar';
+} from '../../../slices/calendar';
 import PageHeader from './PageHeader';
 
 import Actions from './Actions';

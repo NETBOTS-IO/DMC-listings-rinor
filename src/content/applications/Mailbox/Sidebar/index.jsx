@@ -12,9 +12,9 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import Scrollbar from '../../../components/Scrollbar';
-import { useSelector, useDispatch } from '../store';
-import { closeSidebar } from '../slices/mailbox';
+import Scrollbar from '../../../../components/Scrollbar';
+import { useSelector, useDispatch } from '../../../../store/index';
+import { closeSidebar } from '../../../../slices/mailbox';
 import SidebarItem from './SidebarItem';
 
 const DrawerWrapper = styled(Drawer)(

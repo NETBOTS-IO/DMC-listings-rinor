@@ -14,8 +14,8 @@ import {
   Typography,
   styled
 } from '@mui/material';
-import { useDispatch, useSelector } from '../store';
-import { updateList } from '../slices/projects_board';
+import { useDispatch, useSelector } from '../../../store';
+import { updateList } from '../../../slices/projects_board';
 import Label from '../../../components/Label';
 import { useTranslation } from 'react-i18next';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';

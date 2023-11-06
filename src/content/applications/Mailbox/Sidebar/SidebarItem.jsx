@@ -1,7 +1,7 @@
 import { NavLink as RouterLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
-import Label from '../../../components/Label';
+import Label from '../../../../components/Label/index';
 
 import InboxTwoToneIcon from '@mui/icons-material/InboxTwoTone';
 import OutboxTwoToneIcon from '@mui/icons-material/OutboxTwoTone';

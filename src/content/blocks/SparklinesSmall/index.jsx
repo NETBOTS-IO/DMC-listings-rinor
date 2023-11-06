@@ -9,7 +9,7 @@ import Block1 from './Block1';
 import Block2 from './Block2';
 import Block3 from './Block3';
 import Block4 from './Block4';
-import Block5 from './Block5.jsxx';
+import Block5 from './Block5';
 import Block6 from './Block6';
 import Block7 from './Block7';
 import Block8 from './Block8';

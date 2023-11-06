@@ -6,55 +6,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Container, IconButton } from '@mui/material';
 import { Button } from '@mui/material';
 import { Grid, Card, CardContent, CardMedia, Typography } from '@mui/material';
-import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography } from 'mdb-react-ui-kit';
+import { Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText } from '@mui/material';
 
 
 
-const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
-    {
-        field: 'hotelname', headerName: 'Hotel Name', width: 150,
-    },
-    {
-        field: 'hoteltype', headerName: 'Hotel type', width: 150,
-    },
-    {
-        field: 'city', headerName: 'City', width: 150,
-    },
-    {
-        field: 'contactnumber', headerName: 'Contact Number', type: 'number', width: 110,
-    },
-    {
-        field: 'rating', headerName: 'Rating', type: 'number', width: 110,
-    },
-    {
-        field: 'actions',
-        headerName: 'Actions',
-        width: 150,
-        renderCell: (params) => (
-            <div>
-                <IconButton
-                    aria-label="view"
-                    onClick={() => handleViewClick(params.row.id)}
-                >
-                    <VisibilityIcon />
-                </IconButton>
-                <IconButton
-                    aria-label="edit"
-                    onClick={() => handleEditClick(params.row.id)}
-                >
-                    <EditIcon />
-                </IconButton>
-                <IconButton
-                    aria-label="delete"
-                    onClick={() => handleDeleteClick(params.row.id)}
-                >
-                    <DeleteIcon />
-                </IconButton>
-            </div>
-        ),
-    },
-];
 const roomColumns = [
     { field: 'id', headerName: 'ID', width: 70 },
     { field: 'name', headerName: 'Name', width: 150 },
@@ -98,19 +53,67 @@ const amenitiesData = {
 };
 const policiesData = {
     cancellations: {
-      cancelFreeDays: 7,
-      penaltyPercentage: 20,
-      protectAgainstAccidentalBookings: true,
+        cancelFreeDays: 7,
+        penaltyPercentage: 20,
+        protectAgainstAccidentalBookings: true,
     },
     checkInTime: "14:00", // Example check-in time
     checkOutTime: "12:00", // Example check-out time
     accommodateChildren: true,
     allowPets: "Small pets allowed", // Example pet policy
     petCharges: "Additional charges may apply", // Example pet charges
-  };
+};
 import './ProfileCard.css'; // Create a CSS file for styling
+import { useState } from 'react';
+import { width } from 'dom7';
 
 const Table = () => {
+    const [isPopupOpen, setISPopupOpen] = useState(false);
+    const columns = [
+        { field: 'id', headerName: 'ID', width: 90 },
+        {
+            field: 'hotelname', headerName: 'Hotel Name', width: 150,
+        },
+        {
+            field: 'hoteltype', headerName: 'Hotel type', width: 150,
+        },
+        {
+            field: 'city', headerName: 'City', width: 150,
+        },
+        {
+            field: 'contactnumber', headerName: 'Contact Number', type: 'number', width: 110,
+        },
+        {
+            field: 'rating', headerName: 'Rating', type: 'number', width: 110,
+        },
+        {
+            field: 'actions',
+            headerName: 'Actions',
+            width: 150,
+            renderCell: (params) => (
+                <div>
+                    <IconButton
+                        aria-label="view"
+                        onClick={() => handleViewClick(params.row.id)}
+                    >
+                        <VisibilityIcon />
+                    </IconButton>
+                    <IconButton
+                        aria-label="edit"
+                        onClick={() => handleEditClick(params.row.id)}
+                    >
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton
+                        aria-label="delete"
+                        onClick={() => handleDeleteClick(params.row.id)}
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </div>
+            ),
+        },
+    ];
     const data = {
         basicInfo: {
             propertyType: "Luxury Hotel",
@@ -185,7 +188,9 @@ const Table = () => {
         }
     };
     const handleViewClick = (id) => {
-        // Add logic to navigate to view page
+
+        setISPopupOpen(true);
+        console.log("popup vlaue", isPopupOpen);
     };
 
     const handleEditClick = (id) => {
@@ -216,158 +221,175 @@ const Table = () => {
             </Container>
             <Container>
 
-                <div className="gradient-custom-2">
-                    <Container className="py-5 h-100">
-                        <Grid container justifyContent="center" alignItems="center" className="h-100">
-                            <Grid item xs={11} lg={10} xl={9}>
-                                <Card spacing={2}>
 
-                                    <div className="rounded-top text-white d-flex flex-row" sx={{ backgroundColor: '#000', height: '200px' }}>
+                <Dialog open={isPopupOpen} onClose={() => setISPopupOpen(false) } maxWidth='lg' fullWidth>
+                    <DialogTitle style={{ textAlign: 'center' }}>
+                        Details
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            <div className="gradient-custom-2">
+                                <Container className="py-5 h-100">
 
-                                    </div>
+                                    <Grid container justifyContent="center" alignItems="center" className="h-100">
+                                        <Grid item xs={11} lg={10} xl={9}>
+                                            <Card spacing={2}>
 
-                                    <CardContent>
-                                        <div className="name" >
-                                            <div className="ms-3" sx={{ marginTop: '20px' }}>
-                                                <Typography variant="h2">Hotel Name</Typography>
-                                                <Typography variant="h5">Hotel Type</Typography>
-                                            </div>
-                                            <div className="ms-3" style={{ marginTop: '20px', alignItems: 'flex-end', marginRight: '40px' }}>
-                                                <Typography variant='h3'>4.9</Typography>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                    <CardContent className="p-4 text-black rounded-3 mb-4" sx={{ margin: '10px', backgroundColor: '#f8f9fa' }}>
-                                        <div className="py-1">
-                                            <div>
-                                                <Typography variant="h4" className="mb-4">city</Typography>                                            </div>
-                                            <div className="px-3">
-                                                <Typography variant="h5" className="mb-1">Address Line:street address</Typography>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                    <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
-                                        <div className="mb-5">
-                                            <Typography variant="h4" className="fw-normal mb-1">Contact</Typography>
-                                            <div className="p-4" sx={{ backgroundColor: '#f8f9fa' }}>
-                                                <Typography variant="body1" className="font-italic mb-1">Name : Number , Alt-Number</Typography>
-                                                <Typography variant="body1" className="font-italic mb-1">Email: abc@xyz.com</Typography>
-                                            </div>
-                                            <Typography variant="body1" className="font-italic mb-0">Social-Link: Link </Typography>
-                                        </div>
-                                    </CardContent>
-                                    <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
-                                        <div style={{ height: 400, width: '100%' }}>
-                                            <DataGrid
-                                                rows={roomRows}
-                                                columns={roomColumns}
-                                                initialState={{
-                                                    pagination: {
-                                                        paginationModel: {
-                                                            pageSize: 5,
-                                                        },
-                                                    },
-                                                }}
-                                                pageSizeOptions={[5, 10, 20]}
-                                                checkboxSelection
-                                                disableRowSelectionOnClick
-                                            />
-                                        </div>
-                                        <div className="d-flex justify-content-between align-items-center mb-4">
-                                            <Typography variant="h6" className="fw-normal mb-0">Recent photos</Typography>
-                                            {/* <Typography variant="body1" className="mb-0"><a href="#!" className="text-muted">Show all</a></Typography> */}
-                                        </div>
+                                                <div className="rounded-top text-white d-flex flex-row" sx={{ backgroundColor: '#000', height: '200px' }}>
 
-                                        <Grid container spacing={2} className='mb-4'>
-                                            <Grid item xs={6} md={6} lg={6} xl={6}>
-                                                <CardMedia
-                                                    component="img"
-                                                    alt="Image 1"
-                                                    height="200"
-                                                    image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
-                                                    className="w-100 rounded-3"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6} md={6} lg={6} xl={6}>
-                                                <CardMedia
-                                                    component="img"
-                                                    alt="Image 2"
-                                                    height="200"
-                                                    image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
-                                                    className="w-100 rounded-3"
-                                                />
-                                            </Grid>
+                                                </div>
+
+                                                <CardContent>
+                                                    <div className="name" >
+                                                        <div className="ms-3" sx={{ marginTop: '20px' }}>
+                                                            <Typography variant="h2">Hotel Name</Typography>
+                                                            <Typography variant="h5">Hotel Type</Typography>
+                                                        </div>
+                                                        <div className="ms-3" style={{ marginTop: '20px', alignItems: 'flex-end', marginRight: '40px' }}>
+                                                            <Typography variant='h3'>4.9</Typography>
+                                                        </div>
+                                                    </div>
+                                                </CardContent>
+                                                <CardContent className="p-4 text-black rounded-3 mb-4" sx={{ margin: '10px', backgroundColor: '#f8f9fa' }}>
+                                                    <div className="py-1">
+                                                        <div>
+                                                            <Typography variant="h4" className="mb-4">city</Typography>                                            </div>
+                                                        <div className="px-3">
+                                                            <Typography variant="h5" className="mb-1">Address Line:street address</Typography>
+                                                        </div>
+                                                    </div>
+                                                </CardContent>
+                                                <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
+                                                    <div className="mb-5">
+                                                        <Typography variant="h4" className="fw-normal mb-1">Contact</Typography>
+                                                        <div className="p-4" sx={{ backgroundColor: '#f8f9fa' }}>
+                                                            <Typography variant="body1" className="font-italic mb-1">Name : Number , Alt-Number</Typography>
+                                                            <Typography variant="body1" className="font-italic mb-1">Email: abc@xyz.com</Typography>
+                                                        </div>
+                                                        <Typography variant="body1" className="font-italic mb-0">Social-Link: Link </Typography>
+                                                    </div>
+                                                </CardContent>
+                                                <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
+                                                    <div style={{ height: 400, width: '100%' }}>
+                                                        <DataGrid
+                                                            rows={roomRows}
+                                                            columns={roomColumns}
+                                                            initialState={{
+                                                                pagination: {
+                                                                    paginationModel: {
+                                                                        pageSize: 5,
+                                                                    },
+                                                                },
+                                                            }}
+                                                            pageSizeOptions={[5, 10, 20]}
+                                                            checkboxSelection
+                                                            disableRowSelectionOnClick
+                                                        />
+                                                    </div>
+                                                    <div className="d-flex justify-content-between align-items-center mb-4">
+                                                        <Typography variant="h6" className="fw-normal mb-0">Recent photos</Typography>
+                                                        {/* <Typography variant="body1" className="mb-0"><a href="#!" className="text-muted">Show all</a></Typography> */}
+                                                    </div>
+
+                                                    <Grid container spacing={2} className='mb-4'>
+                                                        <Grid item xs={6} md={6} lg={6} xl={6}>
+                                                            <CardMedia
+                                                                component="img"
+                                                                alt="Image 1"
+                                                                height="200"
+                                                                image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                                                                className="w-100 rounded-3"
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={6} md={6} lg={6} xl={6}>
+                                                            <CardMedia
+                                                                component="img"
+                                                                alt="Image 2"
+                                                                height="200"
+                                                                image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                                                                className="w-100 rounded-3"
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                    <Grid container spacing={2}>
+                                                        <Grid item xs={6} md={6} lg={6} xl={6}>
+                                                            <CardMedia
+                                                                component="img"
+                                                                alt="Image 3"
+                                                                height="200"
+                                                                image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
+                                                                className="w-100 rounded-3"
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={6} md={6} lg={6} xl={6}>
+                                                            <CardMedia
+                                                                component="img"
+                                                                alt="Image 4"
+                                                                height="200"
+                                                                image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
+                                                                className="w-100 rounded-3"
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
+                                                </CardContent>
+                                                <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
+                                                    <div className="px-3">
+                                                        <Typography variant="h5" className="mb-1">{amenitiesData.instructional}</Typography>
+                                                    </div>
+                                                    <div>
+                                                        <ul>
+                                                            {amenitiesData.mostRequestedByGuests.map((items, index) => (
+                                                                <li key={index}>
+                                                                    {items}
+                                                                </li>
+                                                            ))}
+                                                        </ul>
+                                                    </div>
+                                                </CardContent>
+                                                <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
+                                                    <div>
+                                                        <h2>Policies</h2>
+                                                        <ul>
+                                                            <li>
+                                                                <strong>Cancellation Policy:</strong>
+                                                                <ul>
+                                                                    <li>Free cancellation up to {policiesData.cancellations.cancelFreeDays} days prior to arrival.</li>
+                                                                    <li>{policiesData.cancellations.penaltyPercentage}% penalty for late cancellations.</li>
+                                                                    <li>{policiesData.cancellations.protectAgainstAccidentalBookings ? "Protection against accidental bookings." : "No protection against accidental bookings."}</li>
+                                                                </ul>
+                                                            </li>
+                                                            <li>
+                                                                <strong>Check-In Time:</strong> {policiesData.checkInTime}
+                                                            </li>
+                                                            <li>
+                                                                <strong>Check-Out Time:</strong> {policiesData.checkOutTime}
+                                                            </li>
+                                                            <li>
+                                                                <strong>Accommodate Children:</strong> {policiesData.accommodateChildren ? "Yes" : "No"}
+                                                            </li>
+                                                            <li>
+                                                                <strong>Allow Pets:</strong> {policiesData.allowPets}
+                                                            </li>
+                                                            <li>
+                                                                <strong>Pet Charges:</strong> {policiesData.petCharges}
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </CardContent>
+                                            </Card>
                                         </Grid>
-                                        <Grid container spacing={2}>
-                                            <Grid item xs={6} md={6} lg={6} xl={6}>
-                                                <CardMedia
-                                                    component="img"
-                                                    alt="Image 3"
-                                                    height="200"
-                                                    image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(108).webp"
-                                                    className="w-100 rounded-3"
-                                                />
-                                            </Grid>
-                                            <Grid item xs={6} md={6} lg={6} xl={6}>
-                                                <CardMedia
-                                                    component="img"
-                                                    alt="Image 4"
-                                                    height="200"
-                                                    image="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(114).webp"
-                                                    className="w-100 rounded-3"
-                                                />
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                    <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
-                                        <div className="px-3">
-                                            <Typography variant="h5" className="mb-1">{amenitiesData.instructional}</Typography>
-                                        </div>
-                                        <div>
-                                            <ul>
-                                                {amenitiesData.mostRequestedByGuests.map((items, index) => (
-                                                    <li key={index}>
-                                                        {items}
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </CardContent>
-                                    <CardContent className=" rounded-3 mb-4 text-black p-4" sx={{ margin: '10px' }}>
-                                        <div>
-                                            <h2>Policies</h2>
-                                            <ul>
-                                                <li>
-                                                    <strong>Cancellation Policy:</strong>
-                                                    <ul>
-                                                        <li>Free cancellation up to {policiesData.cancellations.cancelFreeDays} days prior to arrival.</li>
-                                                        <li>{policiesData.cancellations.penaltyPercentage}% penalty for late cancellations.</li>
-                                                        <li>{policiesData.cancellations.protectAgainstAccidentalBookings ? "Protection against accidental bookings." : "No protection against accidental bookings."}</li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <strong>Check-In Time:</strong> {policiesData.checkInTime}
-                                                </li>
-                                                <li>
-                                                    <strong>Check-Out Time:</strong> {policiesData.checkOutTime}
-                                                </li>
-                                                <li>
-                                                    <strong>Accommodate Children:</strong> {policiesData.accommodateChildren ? "Yes" : "No"}
-                                                </li>
-                                                <li>
-                                                    <strong>Allow Pets:</strong> {policiesData.allowPets}
-                                                </li>
-                                                <li>
-                                                    <strong>Pet Charges:</strong> {policiesData.petCharges}
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-                        </Grid>
-                    </Container>
-                </div >
+                                    </Grid>
+                                </Container>
+                            </div >
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={() => setISPopupOpen(false)} color="primary" variant="contained">
+                            Close
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+
             </Container >
         </>
     )
