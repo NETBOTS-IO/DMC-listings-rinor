@@ -25,7 +25,7 @@ import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
-import Logo from '../components/LogoSign';
+import Logo from '../../../../../components/LogoSign';
 
 const MainContent = styled(Box)(
   () => `

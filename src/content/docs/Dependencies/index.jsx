@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 
 import { Helmet } from 'react-helmet-async';
-import PageHeader from '../components/PageHeaderDocs';
+import PageHeader from '../../../components/PageHeaderDocs';
 
 function Dependencies() {
   return (

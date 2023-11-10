@@ -1,7 +1,7 @@
 import { Container, Typography, Grid } from '@mui/material';
 
 import { Helmet } from 'react-helmet-async';
-import PageHeader from '../components/PageHeaderDocs';
+import PageHeader from '../../../components/PageHeaderDocs';
 import { Prism } from 'react-syntax-highlighter';
 import a11yDark from 'react-syntax-highlighter/dist/cjs/styles/prism/a11y-dark';
 

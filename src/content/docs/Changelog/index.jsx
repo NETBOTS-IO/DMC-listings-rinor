@@ -1,7 +1,7 @@
 import { Container, Grid, List, ListItem, Typography } from '@mui/material';
 
 import { Helmet } from 'react-helmet-async';
-import PageHeader from '../components/PageHeaderDocs';
+import PageHeader from '../../../components/PageHeaderDocs';
 
 function Changelog() {
   return (

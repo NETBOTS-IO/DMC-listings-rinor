@@ -198,7 +198,7 @@ const Table = () => {
     };
 
     const handleDeleteClick = (id) => {
-        // Add logic to delete item
+        
     };
     return (
         <>

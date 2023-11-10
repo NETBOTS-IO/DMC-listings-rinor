@@ -7,7 +7,7 @@ import Footer from '../../components/Footer';
 
 import Logo from '../../components/LogoSign';
 import Hero from './Hero';
-import Highlights from '../../Highlights';
+import Highlights from './Highlights';
 
 const HeaderWrapper = styled(Card)(
   ({ theme }) => `

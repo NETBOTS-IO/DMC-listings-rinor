@@ -6,7 +6,7 @@ import Footer from '../../../components/Footer';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
 
 import { Grid } from '@mui/material';
-import useRefMounted from '../hooks/useRefMounted';
+import useRefMounted from '../../../hooks/useRefMounted';
 
 import Results from './Results';
 import Statistics from './Statistics';

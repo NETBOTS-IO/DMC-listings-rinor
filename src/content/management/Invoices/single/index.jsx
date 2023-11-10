@@ -1,13 +1,13 @@
 import { useState, useCallback, useEffect } from 'react';
 
 import { Helmet } from 'react-helmet-async';
-import Footer from '../../../components/Footer';
-import PageTitleWrapper from '../../../components/PageTitleWrapper';
+import Footer from '../../../../components/Footer';
+import PageTitleWrapper from '../../../../components/PageTitleWrapper';
 
 import { Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import useRefMounted from '../hooks/useRefMounted';
-import axios from '../../../utils/axios';
+import useRefMounted from '../../../../hooks/useRefMounted';
+import axios from '../../../../utils/axios';
 
 import InvoiceBody from './InvoiceBody';
 import PageHeader from './PageHeader';

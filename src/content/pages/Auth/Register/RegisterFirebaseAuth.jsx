@@ -11,8 +11,8 @@ import {
   CircularProgress,
   styled
 } from '@mui/material';
-import useAuth from '../../../hooks/useAuth';
-import useRefMounted from '../hooks/useRefMounted';
+import useAuth from '../../../../hooks/useAuth';
+import useRefMounted from '../../../../hooks/useRefMounted';
 import { useTranslation } from 'react-i18next';
 
 const ImgWrapper = styled('img')(
