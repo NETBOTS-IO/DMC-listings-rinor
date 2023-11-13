@@ -193,40 +193,22 @@ function MultiStepForm() {
                 if (!errors) {
 
 
-                    const formikToFormData = (values) => {
-                        const formData = new FormData();
+                    const formData = new FormData();
+                    formData.append('basicInfo', formik.values.basicInfo);
+                    formData.append('contactDetails', formik.values.contactDetails);
+                    formData.append('propertyLocation', formik.values.propertyLocation);
+                    formData.append('roomDetails', formik.values.roomDetails);
+                    formData.append('pricing', formik.values.pricing);
+                    formData.append('cancellations', formik.values.cancellations);
+                    formData.append('hotelAmenities', formik.values.hotelAmenities);
+                    formData.append('policies', formik.values.policies);
+                    formData.append('checkInTime', formik.values.checkInTime);
+                    formData.append('checkOutTime', formik.values.checkOutTime);
+                    formData.append('roomPhotos', formik.values.roomPhotos);
+                    formData.append('propertyPhotos', formik.values.propertyPhotos);
 
-                        const appendField = (key, value) => {
-                            if (Array.isArray(value)) {
-                                // Handle arrays by appending each item individually
-                                value.forEach((item, index) => {
-                                    formData.append(`${key}[${index}]`, item);
-                                });
-                            } else if (typeof value === 'object') {
-                                // Handle nested objects by recursively traversing them
-                                for (const subKey in value) {
-                                    appendField(`${key}.${subKey}`, value[subKey]);
-                                }
-                            } else {
-                                // Append the field to the FormData
-                                formData.append(key, value);
-                            }
-                        };
-
-                        for (const key in values) {
-                            appendField(key, values[key]);
-                        }
-
-                        return formData;
-                    };
 
                     // Example usage:
-
-
-                    const formData = formikToFormData(formik.values);
-
-
-
                     axios
                         .post('http://localhost:8000/api/listing/properties', formData, {
                             headers: {
