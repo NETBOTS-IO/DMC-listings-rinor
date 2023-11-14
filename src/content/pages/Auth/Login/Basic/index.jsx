@@ -82,97 +82,65 @@ function LoginBasic() {
       <Helmet>
         <title>Login - Basic</title>
       </Helmet>
-      <MainContent>
-        <TopWrapper>
-          <Container maxWidth="sm">
-            <Logo />
-            <Card
+      <Container maxWidth="sm">
+        <Card
+          sx={{
+            mt: 3,
+            px: 4,
+            pt: 5,
+            pb: 3
+          }}
+        >
+          <Box>
+            <Typography
+              variant="h2"
               sx={{
-                mt: 3,
-                px: 4,
-                pt: 5,
-                pb: 3
+                mb: 1
               }}
             >
-              <Box>
-                <Typography
-                  variant="h2"
-                  sx={{
-                    mb: 1
-                  }}
-                >
-                  {t('Sign in')}
-                </Typography>
-                <Typography
-                  variant="h4"
-                  color="text.secondary"
-                  fontWeight="normal"
-                  sx={{
-                    mb: 3
-                  }}
-                >
-                  {t('Fill in the fields below to sign into your account.')}
-                </Typography>
-              </Box>
-              {method === 'Auth0' && <Auth0Login />}
-              {method === 'FirebaseAuth' && <FirebaseAuthLogin />}
-              {method === 'JWT' && <JWTLogin />}
-              {method === 'Amplify' && <AmplifyLogin />}
-              <Box my={4}>
-                <Typography
-                  component="span"
-                  variant="subtitle2"
-                  color="text.primary"
-                  fontWeight="bold"
-                >
-                  {t('Don’t have an account, yet?')}
-                </Typography>{' '}
-                <Link component={RouterLink} to="/account/register-basic">
-                  <b>Sign up here</b>
-                </Link>
-              </Box>
-              {method !== 'Auth0' && (
-                <Tooltip
-                  title={t('Used only for the live preview demonstration !')}
-                >
-                  <Alert severity="warning">
-                    Use <b>demo@example.com</b> and password{' '}
-                    <b>Rinor ERPPass1@</b>
-                  </Alert>
-                </Tooltip>
-              )}
-            </Card>
-            <BottomWrapper>
-              <Tooltip arrow placement="top" title="Auth0">
-                <CardImg>
-                  <img height={50} alt="Auth0" src={icons.Auth0} />
-                </CardImg>
-              </Tooltip>
-              <Tooltip arrow placement="top" title="Firebase">
-                <CardImg>
-                  <img height={50} alt="Firebase" src={icons.FirebaseAuth} />
-                </CardImg>
-              </Tooltip>
-              <Tooltip arrow placement="top" title="JSON Web Token">
-                <CardImg>
-                  <img height={50} alt="JSON Web Token" src={icons.JWT} />
-                </CardImg>
-              </Tooltip>
-              <Tooltip arrow placement="top" title="Amplify">
-                <CardImg>
-                  <img height={50} alt="Amplify" src={icons.Amplify} />
-                </CardImg>
-              </Tooltip>
-            </BottomWrapper>
+              {t('Sign in')}
+            </Typography>
+            <Typography
+              variant="h4"
+              color="text.secondary"
+              fontWeight="normal"
+              sx={{
+                mb: 3
+              }}
+            >
+              {t('Fill in the fields below to sign into your account.')}
+            </Typography>
+          </Box>
+          {method === 'Auth0' && <Auth0Login />}
+          {method === 'FirebaseAuth' && <FirebaseAuthLogin />}
+          {method === 'JWT' && <JWTLogin />}
+          {method === 'Amplify' && <AmplifyLogin />}
+          <Box my={4}>
+            <Typography
+              component="span"
+              variant="subtitle2"
+              color="text.primary"
+              fontWeight="bold"
+            >
+              {t('Don’t have an account, yet?')}
+            </Typography>{' '}
+            <Link component={RouterLink} to="/account/register-basic">
+              <b>Sign up here</b>
+            </Link>
+          </Box>
+          {method !== 'Auth0' && (
+            <Tooltip
+              title={t('Used only for the live preview demonstration !')}
+            >
+              <Alert severity="warning">
+                Use <b>demo@example.com</b> and password{' '}
+                <b>Rinor ERPPass1@</b>
+              </Alert>
+            </Tooltip>
+          )}
+        </Card>
+      </Container>
 
-            <Alert severity="error">
-              {t(
-                'Learn how to switch between auth methods by reading the section we’ve prepared in the documentation.'
-              )}
-            </Alert>
-          </Container>
-        </TopWrapper>
-      </MainContent>
     </>
   );
 }

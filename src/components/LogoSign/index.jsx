@@ -8,6 +8,10 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import image from "../../assets/icons/Rinor_text_logo.png"
+import { maxWidth } from '@mui/system';
+import { auto } from '@popperjs/core';
+import image1 from "../../assets/icons/favicon-32x32.png"
 
 const LogoWrapper = styled(Link)(
   ({ theme }) => `
@@ -27,55 +31,6 @@ const LogoSignWrapper = styled(Box)(
 `
 );
 
-const LogoSign = styled(Box)(
-  ({ theme }) => `
-        background: ${theme.general.reactFrameworkColor};
-        width: 18px;
-        height: 18px;
-        border-radius: ${theme.general.borderRadiusSm};
-        position: relative;
-        transform: rotate(45deg);
-        top: 3px;
-        left: 17px;
-
-        &:after, 
-        &:before {
-            content: "";
-            display: block;
-            width: 18px;
-            height: 18px;
-            position: absolute;
-            top: -1px;
-            right: -20px;
-            transform: rotate(0deg);
-            border-radius: ${theme.general.borderRadiusSm};
-        }
-
-        &:before {
-            background: ${theme.palette.primary.main};
-            right: auto;
-            left: 0;
-            top: 20px;
-        }
-
-        &:after {
-            background: ${theme.palette.secondary.main};
-        }
-`
-);
-
-const LogoSignInner = styled(Box)(
-  ({ theme }) => `
-        width: 16px;
-        height: 16px;
-        position: absolute;
-        top: 12px;
-        left: 12px;
-        z-index: 5;
-        border-radius: ${theme.general.borderRadiusSm};
-        background: ${theme.header.background};
-`
-);
 
 const TooltipWrapper = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -101,26 +56,12 @@ function Logo() {
   return (
     <TooltipWrapper title={t('RINOR Management System')} arrow>
       <LogoWrapper to="/overview">
-        <Badge
-          sx={{
-            '.MuiBadge-badge': {
-              fontSize: theme.typography.pxToRem(11),
-              right: -2,
-              top: 8
-            }
-          }}
-          overlap="circular"
-          color="success"
-          badgeContent="3.0"
-        >
-          <LogoSignWrapper>
-            <LogoSign>
-              <LogoSignInner />
-            </LogoSign>
-          </LogoSignWrapper>
-        </Badge>
+
+        <img src={image1} alt='Logo' width={100} height={38} sx={{ mr: 2 }} />
+
       </LogoWrapper>
     </TooltipWrapper>
+
   );
 }
 
