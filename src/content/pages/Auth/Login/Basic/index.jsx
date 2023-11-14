@@ -11,10 +11,10 @@ import {
 } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import Logo from '../components/LogoSign';
+import Logo from '../../../../../components/LogoSign';
 
 import { Helmet } from 'react-helmet-async';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../../../../hooks/useAuth';
 import Auth0Login from '../LoginAuth0';
 import FirebaseAuthLogin from '../LoginFirebaseAuth';
 import JWTLogin from '../LoginJWT';

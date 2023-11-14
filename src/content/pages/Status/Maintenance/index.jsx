@@ -8,7 +8,7 @@ import {
   styled
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import Logo from '../components/LogoSign';
+import Logo from '../../../../components/LogoSign';
 
 import { useTranslation } from 'react-i18next';
 import FacebookIcon from '@mui/icons-material/Facebook';

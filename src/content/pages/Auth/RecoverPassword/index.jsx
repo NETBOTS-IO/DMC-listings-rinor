@@ -20,11 +20,11 @@ import {
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 
-import useRefMounted from '../hooks/useRefMounted';
+import useRefMounted from '../../../../hooks/useRefMounted';
 import CloseIcon from '@mui/icons-material/Close';
 
 import { useTranslation } from 'react-i18next';
-import Logo from '../components/LogoSign';
+import Logo from '../../../../components/LogoSign';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 
 const Transition = forwardRef(function Transition(props, ref) {

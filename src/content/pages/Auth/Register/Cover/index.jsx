@@ -14,11 +14,11 @@ import {
   styled
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import CheckCircleOutlineTwoToneIcon from '@mui/icons-material/CheckCircleOutlineTwoTone';
-import Scrollbar from '../../../components/Scrollbar';
-import Logo from '../components/LogoSign';
+import Scrollbar from '../../../../../components/Scrollbar';
+import Logo from '../../../../../components/LogoSign';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import ChevronRightTwoToneIcon from '@mui/icons-material/ChevronRightTwoTone';
 import ChevronLeftTwoToneIcon from '@mui/icons-material/ChevronLeftTwoTone';

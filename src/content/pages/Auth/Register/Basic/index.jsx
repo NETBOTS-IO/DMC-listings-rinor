@@ -10,9 +10,9 @@ import {
   styled
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
-import useAuth from '../../../hooks/useAuth';
+import useAuth from '../../../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
-import Logo from '../components/LogoSign';
+import Logo from '../../../../../components/LogoSign';
 import Auth0Register from '../RegisterAuth0';
 import FirebaseAuthRegister from '../RegisterFirebaseAuth';
 import JWTRegister from '../RegisterJWT';
