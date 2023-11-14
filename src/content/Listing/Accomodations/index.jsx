@@ -1,4 +1,6 @@
+
 import React, { useState } from 'react';
+import axios from "axios";
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -6,6 +8,12 @@ import {
     Stepper,
     Step,
     StepLabel,
+    Button,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
 } from '@mui/material';
 
 import {
@@ -13,16 +21,20 @@ import {
     ContactDetailsForm,
     PropertyLocationForm,
     RoomDetailsForm,
-    PricingForm,
     AmenitiesForm,
     PoliciesForm,
-} from "./Components"
+    SubmitData
+} from './Components';
+
+
 
 const initialValues = {
     basicInfo: {
         propertyType: "",
         propertyName: "",
-        starRating: 0,
+        hotelChain: "",
+        description: "",
+        starRating: 1,
     },
     contactDetails: {
         additionalContacts: [
@@ -42,30 +54,28 @@ const initialValues = {
         district: "",
         city: "",
         address: "",
-        postCode: 0,
+        postCode: 1,
     },
     roomDetails: [
         {
-            roomType: "",
-            roomName: "",
-            numberOfRooms: 10,
-            bedType: "",
+            roomType: " ",
+            roomName: " ",
+            numberOfRooms: 1,
+            bedType: " ",
             bedQuantity: 2,
             maxGuests: 2,
             roomSize: 30,
-           
             basePricePerNight: 1000,
-            offerLowerRate: true,
-            discountAmount: 10, // Percentage
-            minOccupancyForDiscount: 4,
-            roomPhoto: [],
+
+
         },
     ],
+    roomPhotos: [],
+    offerLowerRate: true,
+    discountAmount: 10, // Percentage
+    minOccupancyForDiscount: 4,
+
     pricing: {
-        basePricePerNight: 1000, // PKR
-        offerLowerRate: true,
-        discountAmount: 10, // Percentage
-        minOccupancyForDiscount: 7,
         extraBedOptions: {
             provideExtraBeds: true,
             numberOfExtraBeds: 2,
@@ -73,66 +83,65 @@ const initialValues = {
             accommodateAdultsInExtraBeds: false,
         },
     },
-    amenities: {
-        instructional: "",
-        mostRequestedByGuests: [],
+    hotelAmenities: [],
+    propertyPhotos: [],
+    policies: [],
+    checkInTime: "",
+    checkOutTime: "",
+    cancellations: {
+        cancelFreeDays: 7,
+        penaltyPercentage: 20,
+        protectAgainstAccidentalBookings: true,
     },
-    propertyPhotos: [], // You can add image URLs here
-    policies: {
-        cancellations: {
-            cancelFreeDays: 7,
-            penaltyPercentage: 20,
-            protectAgainstAccidentalBookings: true,
-        },
-        checkInTime: "",
-        checkOutTime: "",
-        accommodateChildren: true,
-        allowPets: "",
-        petCharges: "",
-    }
+
 };
 
 
 const yupSchema = Yup.object().shape({
     basicInfo: Yup.object().shape({
-        propertyName: Yup.string().required('Property Name is required'),
-        starRating: Yup.number().min(1, 'Minimum rating is 1').max(5, 'Maximum rating is 5'),
+        propertyType: Yup.string(),
+        propertyName: Yup.string(),
+        hotelChain: Yup.string(),
+        description: Yup.string(),
+        starRating: Yup.number(),
     }),
     contactDetails: Yup.object().shape({
-        contactName: Yup.string().required('Contact Name is required'),
-        phoneNumber: Yup.string().required('Phone Number is required'),
-        altPhoneNumber: Yup.string(),
+        additionalContacts: Yup.array().of(
+            Yup.object().shape({
+                title: Yup.string(),
+                contactName: Yup.string(),
+                phoneNumber: Yup.string(),
+                altPhoneNumber: Yup.string(),
+                email: Yup.string().email(),
+            })
+        ),
+        socialAccLink: Yup.string(),
         ownMultipleHotels: Yup.boolean(),
     }),
-    channelManager: Yup.object().shape({
-        useChannelManager: Yup.boolean(),
-        channelManagerName: Yup.string(),
-    }),
     propertyLocation: Yup.object().shape({
-        streetAddress: Yup.string().required('Street Address is required'),
-        addressLine2: Yup.string(),
-        countryRegion: Yup.string().required('Country/Region is required'),
-        city: Yup.string().required('City is required'),
+        countryRegion: Yup.string(),
+        district: Yup.string(),
+        city: Yup.string(),
+        address: Yup.string(),
         postCode: Yup.number().integer(),
     }),
     roomDetails: Yup.array().of(
         Yup.object().shape({
-            roomType: Yup.string().required('Room Type is required'),
-            roomName: Yup.string().required('Room Name is required'),
+            roomType: Yup.string(),
+            roomName: Yup.string(),
             numberOfRooms: Yup.number().integer().min(1, 'Minimum 1 room'),
-            bedOptions: Yup.object().shape({
-                bedType: Yup.string().required('Bed Type is required'),
-                bedQuantity: Yup.number().integer().min(1, 'Minimum 1 bed'),
-            }),
+            bedType: Yup.string(),
+            bedQuantity: Yup.number().integer().min(1, 'Minimum 1 bed'),
             maxGuests: Yup.number().integer().min(1, 'Minimum 1 guest'),
             roomSize: Yup.number().integer(),
+            basePricePerNight: Yup.number().min(0, 'Price cannot be negative'),
         })
     ),
+    roomPhotos: Yup.array(),
+    offerLowerRate: Yup.boolean(),
+    discountAmount: Yup.number().integer().min(0, 'Discount cannot be negative'),
+    minOccupancyForDiscount: Yup.number().integer().min(1, 'Minimum 1 occupancy'),
     pricing: Yup.object().shape({
-        basePricePerNight: Yup.number().min(0, 'Price cannot be negative').required('Base Price is required'),
-        offerLowerRate: Yup.boolean(),
-        discountAmount: Yup.number().integer().min(0, 'Discount cannot be negative'),
-        minOccupancyForDiscount: Yup.number().integer().min(1, 'Minimum 1 occupancy'),
         extraBedOptions: Yup.object().shape({
             provideExtraBeds: Yup.boolean(),
             numberOfExtraBeds: Yup.number().integer().min(0, 'Minimum 0 extra beds'),
@@ -140,52 +149,107 @@ const yupSchema = Yup.object().shape({
             accommodateAdultsInExtraBeds: Yup.boolean(),
         }),
     }),
-    amenities: Yup.object().shape({
-        instructional: Yup.string(),
-        mostRequestedByGuests: Yup.array(),
-    }),
+    hotelAmenities: Yup.array().of(Yup.string()),
     propertyPhotos: Yup.array(),
     policies: Yup.object().shape({
+        checkInTime: Yup.string(),
+        checkOutTime: Yup.string(),
         cancellations: Yup.object().shape({
             cancelFreeDays: Yup.number().integer().min(0, 'Minimum 0 days'),
             penaltyPercentage: Yup.number().integer().min(0, 'Minimum 0 percentage'),
             protectAgainstAccidentalBookings: Yup.boolean(),
         }),
-        checkInTime: Yup.string(),
-        checkOutTime: Yup.string(),
-        accommodateChildren: Yup.boolean(),
-        allowPets: Yup.string(),
-        petCharges: Yup.string(),
     }),
 });
-
-const steps = ['1', '2', '3', '4', '5', '6', '7'];
-
 function MultiStepForm() {
     const [activeStep, setActiveStep] = useState(1);
+    const [isSubmitSuccess, setSubmitSuccess] = useState(false);
+    const [isPopupOpen, setPopupOpen] = useState(false);
 
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: yupSchema,
         onSubmit: (values) => {
-            // Handle form submission here
-            console.log("Submitted Values", values);
+            console.log("Form Submitted")
         },
+
     });
 
-    const isLastStep = activeStep === steps.length - 1;
 
-    const handleNext = () => {
+    // Rest of your component...
+
+    const handlePopupClose = () => {
+        setPopupOpen(false);
+        setActiveStep(1);
+    };
+
+    const steps = ["1", "2", "3", "4", "5", "6", "7"]
+    const isLastStep = activeStep === steps.length - 1;
+    const handleNext = async () => {
         if (isLastStep) {
-            formik.submitForm();
+            try {
+                const errors = await formik.submitForm();
+                console.log("Formik Saved Values", formik.values)
+                if (!errors) {
+
+
+                    const formData = new FormData();
+                    formData.append('basicInfo', formik.values.basicInfo);
+                    formData.append('contactDetails', formik.values.contactDetails);
+                    formData.append('propertyLocation', formik.values.propertyLocation);
+                    formData.append('roomDetails', formik.values.roomDetails);
+                    formData.append('pricing', formik.values.pricing);
+                    formData.append('cancellations', formik.values.cancellations);
+                    formData.append('hotelAmenities', formik.values.hotelAmenities);
+                    formData.append('policies', formik.values.policies);
+                    formData.append('checkInTime', formik.values.checkInTime);
+                    formData.append('checkOutTime', formik.values.checkOutTime);
+                    formData.append('roomPhotos', formik.values.roomPhotos);
+                    formData.append('propertyPhotos', formik.values.propertyPhotos);
+
+
+                    // Example usage:
+                    axios
+                        .post('http://localhost:8000/api/listing/properties', formData, {
+                            headers: {
+                                'Content-Type': 'multipart/form-data',
+                            },
+                        })
+                        .then((response) => {
+                            if (response.status === 200) {
+                                console.log("Property Added in the DB", response.data)
+                                setSubmitSuccess(true);
+                            } else {
+                                console.log("Failed to Add in the DB")
+                                setSubmitSuccess(false);
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error posting data to the backend:', error);
+                            setSubmitSuccess(false);
+                        })
+                        .finally(() => {
+                            setPopupOpen(true);
+                        });
+                } else {
+                    // Form submission has errors, you can handle them as needed
+                    console.log('Form has validation errors:', errors);
+                }
+            } catch (error) {
+                // Handle any submission errors (e.g., network issues)
+                console.error('Form submission error:', error);
+            }
         } else {
             setActiveStep(activeStep + 1);
         }
     };
 
+
+
     const handleBack = () => {
         setActiveStep(activeStep - 1);
     };
+
 
     return (
         <Container>
@@ -217,7 +281,6 @@ function MultiStepForm() {
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
-
                     )}
                     {activeStep === 4 && (
                         <RoomDetailsForm
@@ -227,33 +290,44 @@ function MultiStepForm() {
                         />
                     )}
                     {activeStep === 5 && (
-                        <PricingForm
-                            isLastStep={isLastStep}
-                            handleBack={handleBack}
-                            handleNext={handleNext}
-                        />
-                    )}
-                    {activeStep === 6 && (
                         <AmenitiesForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 7 && (
+                    {activeStep === 6 && (
                         <PoliciesForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
+
                 </Form>
             </FormikProvider>
+
+            <Dialog open={isPopupOpen} onClose={handlePopupClose}>
+                <DialogTitle style={{ textAlign: 'center' }}>
+                    {isSubmitSuccess
+                        ? 'Form submitted successfully!'
+                        : 'Form submission failed.'}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText style={{ textAlign: 'center' }}>
+                        {isSubmitSuccess
+                            ? 'Your form has been submitted successfully!'
+                            : 'There was an error submitting the form. Please try again later.'}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handlePopupClose} color="primary" variant="contained">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
         </Container>
     );
 }
-
-
-
 
 export default MultiStepForm;

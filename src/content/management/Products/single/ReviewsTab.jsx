@@ -17,8 +17,8 @@ import {
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import RateReviewTwoToneIcon from '@mui/icons-material/RateReviewTwoTone';
-import usFlag from '../../../assets/vite.svg';
-import deFlag from '../../../assets/vite.svg';
+import usFlag from '../../../../assets/vite.svg';
+import deFlag from '../../../../assets/vite.svg';
 import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
 import ThumbUpTwoToneIcon from '@mui/icons-material/ThumbUpTwoTone';
 import ThumbDownTwoToneIcon from '@mui/icons-material/ThumbDownTwoTone';

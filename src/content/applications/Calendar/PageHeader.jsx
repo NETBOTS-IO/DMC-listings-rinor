@@ -38,7 +38,7 @@ PageHeader.propTypes = {
 };
 
 PageHeader.defaultProps = {
-  handleCreateEvent: () => {}
+  handleCreateEvent: () => { }
 };
 
 export default PageHeader;

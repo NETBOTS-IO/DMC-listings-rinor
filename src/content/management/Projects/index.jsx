@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { Grid } from '@mui/material';
 import Footer from '../../../components/Footer';
 import PageTitleWrapper from '../../../components/PageTitleWrapper';
-import useRefMounted from '../hooks/useRefMounted';
+import useRefMounted from '../../../hooks/useRefMounted';
 
 import PageHeader from './PageHeader';
 

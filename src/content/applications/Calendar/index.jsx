@@ -19,7 +19,7 @@ import {
   useTheme
 } from '@mui/material';
 
-import { useDispatch, useSelector } from '../../../store/index';
+import { useDispatch, useSelector } from '../../../store';
 import {
   getEvents,
   updateEvent,

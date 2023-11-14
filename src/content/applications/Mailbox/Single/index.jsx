@@ -20,7 +20,7 @@ import {
   lighten,
   styled
 } from '@mui/material';
-import { useDispatch, useSelector } from '../../../../store/index';
+import { useDispatch, useSelector } from '../../../../store';
 import { getMail } from '../../../../slices/mailbox';
 import useAuth from '../../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';

@@ -25,7 +25,7 @@ import {
   Zoom
 } from '@mui/material';
 import { DateTimePicker } from '@mui/lab';
-import { useDispatch } from '../../../store/index';
+import { useDispatch } from '../../../store';
 import { createEvent, updateEvent, deleteEvent } from '../../../slices/calendar';
 import { useTranslation } from 'react-i18next';
 

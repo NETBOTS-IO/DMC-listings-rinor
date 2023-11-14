@@ -3,8 +3,8 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
-import wait from '../utils/wait';
-import ReactQuill from 'react-quill';
+import wait from '../../../utils/wait';
+//import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
 import {
