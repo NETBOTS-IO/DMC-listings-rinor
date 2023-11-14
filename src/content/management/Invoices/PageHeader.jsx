@@ -3,7 +3,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import { styled } from '@mui/material/styles';
-import wait from '../utils/wait';
+import wait from '../../../utils/wait';
 import numeral from 'numeral';
 
 import {

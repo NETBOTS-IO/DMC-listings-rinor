@@ -1,7 +1,7 @@
 import { Fragment, useState, useEffect } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { useDispatch, useSelector } from '../store';
-import { getBoard, moveTask } from '../slices/projects_board';
+import { useDispatch, useSelector } from '../../../store';
+import { getBoard, moveTask } from '../../../slices/projects_board';
 import { Helmet } from 'react-helmet-async';
 import Footer from '../../../components/Footer';
 import { useTranslation } from 'react-i18next';

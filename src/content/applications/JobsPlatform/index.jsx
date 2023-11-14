@@ -20,7 +20,7 @@ import { useTranslation } from 'react-i18next';
 import axios from '../../../utils/axios';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 
-import useRefMounted from '../hooks/useRefMounted';
+import useRefMounted from '../../../hooks/useRefMounted';
 
 import Scrollbar from '../../../components/Scrollbar';
 import Results from './Results';

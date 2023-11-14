@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
-import { getTags, openSidebar } from '../slices/mailbox';
-import { useDispatch } from '../store';
+import { getTags, openSidebar } from '../../../slices/mailbox';
+import { useDispatch } from '../../../store';
 import MenuTwoToneIcon from '@mui/icons-material/MenuTwoTone';
 import Results from './Results';
 import Single from './Single';

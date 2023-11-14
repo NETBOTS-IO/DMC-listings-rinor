@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 
 import { Helmet } from 'react-helmet-async';
-import Footer from '../../../components/Footer';
+import Footer from '../../../../components/Footer';
 import Scrollbar from '../../../../components/Scrollbar';
 
 import { styled, Box, Grid, IconButton, Drawer, useTheme } from '@mui/material';

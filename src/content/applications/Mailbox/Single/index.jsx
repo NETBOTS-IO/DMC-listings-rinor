@@ -20,9 +20,9 @@ import {
   lighten,
   styled
 } from '@mui/material';
-import { useDispatch, useSelector } from '../store';
-import { getMail } from '../slices/mailbox';
-import useAuth from '../../../hooks/useAuth';
+import { useDispatch, useSelector } from '../../../../store';
+import { getMail } from '../../../../slices/mailbox';
+import useAuth from '../../../../hooks/useAuth';
 import { useTranslation } from 'react-i18next';
 import ArrowBackTwoToneIcon from '@mui/icons-material/ArrowBackTwoTone';
 import ArchiveTwoToneIcon from '@mui/icons-material/ArchiveTwoTone';

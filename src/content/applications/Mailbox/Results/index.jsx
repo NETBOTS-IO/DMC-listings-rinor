@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Divider, Pagination, Box, Typography } from '@mui/material';
-import { useDispatch, useSelector } from '../store';
-import { getMails } from '../slices/mailbox';
+import { useDispatch, useSelector } from '../../../../store';
+import { getMails } from '../../../../slices/mailbox';
 import ResultsActionBar from './ResultsActionBar';
 import ResultsItem from './ResultsItem';
 

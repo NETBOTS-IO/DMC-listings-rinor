@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import { formatDistance } from 'date-fns';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from '../store';
+import { useSelector } from '../../../store';
 import CommentTwoToneIcon from '@mui/icons-material/CommentTwoTone';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
 import AttachFileTwoToneIcon from '@mui/icons-material/AttachFileTwoTone';
