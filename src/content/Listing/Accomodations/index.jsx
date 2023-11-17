@@ -49,31 +49,42 @@ const initialValues = {
         socialAccLink: "",
         ownMultipleHotels: false,
     },
-    propertyLocation: {
-        countryRegion: "",
-        district: "",
-        city: "",
-        address: "",
-        postCode: 1,
-    },
+    propertyLocation: [
+        {
+            countryRegion: "",
+            district: "",
+            city: "",
+            address: "",
+            postCode: 1,
+        }
+    ],
     roomDetails: [
         {
             roomType: " ",
-            roomName: " ",
-            numberOfRooms: 1,
-            bedType: " ",
-            bedQuantity: 2,
-            maxGuests: 2,
-            roomSize: 30,
-            basePricePerNight: 1000,
+            roomQty: 1,
+            details: [
+                {
+                    roomName: " ",
+                    bedDetails: [
+                        {
+                            bedType: " ",
+                            bedQuantity: 2,
+                        }
+                    ],
+                    maxGuests: 2,
+                    basePricePerNight: 1000,
+                    extraCharges: 0,
+                }
 
+            ],
+
+            offerLowerRate: true,
+            discountAmount: 10, // Percentage
+            minOccupancyForDiscount: 4,
 
         },
     ],
     roomPhotos: [],
-    offerLowerRate: true,
-    discountAmount: 10, // Percentage
-    minOccupancyForDiscount: 4,
 
     pricing: {
         extraBedOptions: {

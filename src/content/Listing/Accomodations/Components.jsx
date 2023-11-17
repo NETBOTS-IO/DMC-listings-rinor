@@ -3,20 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useFormikContext, Field, FieldArray } from 'formik';
-import {
-    Button,
-    Grid,
-    Typography,
-    TextField,
-    FormControl,
-    FormControlLabel,
-    InputLabel,
-    Select,
-    Checkbox,
-    MenuItem,
-    FormLabel,
-    Rating,
-} from '@mui/material';
+import { Button, Grid, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, FormLabel, Rating, } from '@mui/material';
 
 const propertyTypes = [
     { label: 'Hotel', value: 'Hotel' },
@@ -284,59 +271,117 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                 <Grid item xs={12}>
                     <Typography variant="h1">Property Location</Typography>
                 </Grid>
-                <Grid item xs={6} sm={6}>
-                    <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
-                        <InputLabel id="district">Select District</InputLabel>
-                        <Select
-                            labelId="district"
-                            name="propertyLocation.district"
-                            label="Select District"
-                            onChange={(e) => formik.setFieldValue("propertyLocation.district", e.target.value)}
-
-                            error={formik.touched.propertyLocation?.district && Boolean(formik.errors.propertyLocation?.district)}
-                            helpertext={formik.touched.propertyLocation?.district && formik.errors.propertyLocation?.district}
-                        >
-                            {districts.map((district) => (
-                                <MenuItem key={district} value={district}>
-                                    {district}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
-                </Grid>
-                <Grid item xs={6}>
-                    <Field
-                        style={{ marginTop: "18px" }}
-                        as={TextField}
-                        name="propertyLocation.city"
-                        label="City"
-                        fullWidth
-                        error={formik.touched.propertyLocation?.city && Boolean(formik.errors.propertyLocation?.city)}
-                        helpertext={formik.touched.propertyLocation?.city && formik.errors.propertyLocation?.city}
-                    />
-                </Grid>
+                {formik.values.propertyLocation.map((location, index) => (
+                    <Grid container spacing={2} key={index} sx={{ mt: 2 }}>
+                        <Grid item xs={6} sm={6}>
+                            <FormControl fullWidth sx={{ mt: 2 }}>
+                                <InputLabel id={`district-${index}`}>Select District</InputLabel>
+                                <Select
+                                    labelId={`district-${index}`}
+                                    name={`propertyLocation[${index}].district`}
+                                    label="Select District"
+                                    value={location.district}
+                                    onChange={(e) =>
+                                        formik.setFieldValue(`propertyLocation[${index}].district`, e.target.value)
+                                    }
+                                    error={
+                                        formik.touched.propertyLocation?.[index]?.district &&
+                                        Boolean(formik.errors.propertyLocation?.[index]?.district)
+                                    }
+                                    helpertext={
+                                        formik.touched.propertyLocation?.[index]?.district &&
+                                        formik.errors.propertyLocation?.[index]?.district
+                                    }
+                                >
+                                    {districts.map((district, idx) => (
+                                        <MenuItem key={idx} value={district}>
+                                            {district}
+                                        </MenuItem>
+                                    ))}
+                                </Select>
+                            </FormControl>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <Field
+                                as={TextField}
+                                style={{ marginTop: '18px' }}
+                                name={`propertyLocation[${index}].city`}
+                                label="City"
+                                fullWidth
+                                value={location.city}
+                                onChange={formik.handleChange}
+                                error={
+                                    formik.touched.propertyLocation?.[index]?.city &&
+                                    Boolean(formik.errors.propertyLocation?.[index]?.city)
+                                }
+                                helpertext={
+                                    formik.touched.propertyLocation?.[index]?.city &&
+                                    formik.errors.propertyLocation?.[index]?.city
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                as={TextField}
+                                multiline
+                                minRows={1}
+                                name={`propertyLocation[${index}].address`}
+                                label="Address"
+                                fullWidth
+                                value={location.address}
+                                onChange={formik.handleChange}
+                                error={
+                                    formik.touched.propertyLocation?.[index]?.address &&
+                                    Boolean(formik.errors.propertyLocation?.[index]?.address)
+                                }
+                                helpertext={
+                                    formik.touched.propertyLocation?.[index]?.address &&
+                                    formik.errors.propertyLocation?.[index]?.address
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Field
+                                as={TextField}
+                                name={`propertyLocation[${index}].postCode`}
+                                label="Post Code"
+                                type="number"
+                                fullWidth
+                                value={location.postCode}
+                                onChange={formik.handleChange}
+                                error={
+                                    formik.touched.propertyLocation?.[index]?.postCode &&
+                                    Boolean(formik.errors.propertyLocation?.[index]?.postCode)
+                                }
+                                helpertext={
+                                    formik.touched.propertyLocation?.[index]?.postCode &&
+                                    formik.errors.propertyLocation?.[index]?.postCode
+                                }
+                            />
+                        </Grid>
+                    </Grid>
+                ))}
                 <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        multiline
-                        minRows={1}
-                        name="propertyLocation.address"
-                        label="Address"
-                        fullWidth
-                        error={formik.touched.propertyLocation?.address && Boolean(formik.errors.propertyLocation?.address)}
-                        helpertext={formik.touched.propertyLocation?.address && formik.errors.propertyLocation?.address}
-                    />
-                </Grid>
-                <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        name="propertyLocation.postCode"
-                        label="Post Code"
-                        type="number"
-                        fullWidth
-                        error={formik.touched.propertyLocation?.postCode && Boolean(formik.errors.propertyLocation?.postCode)}
-                        helpertext={formik.touched.propertyLocation?.postCode && formik.errors.propertyLocation?.postCode}
-                    />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => {
+                            formik.setValues({
+                                ...formik.values,
+                                propertyLocation: [
+                                    ...formik.values.propertyLocation,
+                                    {
+                                        district: '',
+                                        city: '',
+                                        address: '',
+                                        postCode: 1,
+                                    },
+                                ],
+                            });
+                        }}
+                    >
+                        Add Another Location
+                    </Button>
                 </Grid>
             </Grid>
             <Grid container justifyContent="space-between">
@@ -344,7 +389,7 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                     onClick={handleBack}
                     variant="contained"
                     color="primary"
-                    style={{ margin: "30px", float: "left" }}
+                    style={{ margin: '30px', float: 'left' }}
                 >
                     Back
                 </Button>
@@ -352,7 +397,7 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                     onClick={handleNext}
                     variant="contained"
                     color="primary"
-                    style={{ margin: "30px", width: "30%", float: "right" }}
+                    style={{ margin: '30px', width: '30%', float: 'right' }}
                 >
                     {isLastStep ? 'Submit' : 'Next'}
                 </Button>
@@ -361,215 +406,301 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
     );
 }
 
-const roomTypes = ['Single', 'Double', 'Twin', 'Triple', 'Quadruple', 'Family', 'Suite', 'Studio', 'Apartment', 'Deluxe', 'Luxury', 'Other'];
-const bedTypes = ['Single', 'Double', 'Master Size', 'King Size', 'Bunk Bed', 'Sofa Bed', 'Futon Mat', 'Other'];
+const roomTypes = ['Single', 'Double', 'Twin', 'Triple', 'Quadruple', 'Family', 'Suite', 'Studio', 'Apartment', 'Deluxe', 'Luxury', 'Glamp', 'Other'];
+const bedTypes = ['Single', 'Double', 'Master Size', 'King Size', 'Bunk Bed', 'Sofa Bed', 'Futon Mat', 'Mattress', 'Other'];
 
 function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
-    const [lastIndex, setLastIndex] = useState(0);
-
-    const offerLowerRate = formik.values.offerLowerRate;
-    const [tempPhotos, setTempPhotos] = useState([]); // State variable to temporarily store files
-
+    const [tempPhotos, setTempPhotos] = useState([]);
+    console.log('formik.values.roomDetails:', formik.values.roomDetails);
     const handleRoomFileChange = (files) => {
         setTempPhotos(files);
     };
 
     const handleSaveFiles = () => {
         formik.setFieldValue('roomPhotos', [...formik.values.roomPhotos, ...tempPhotos]);
-
-        console.log("Room Photos", formik.values.roomPhotos)
-
-        setTempPhotos([]); // Clear temporary files after saving
+        setTempPhotos([]);
     };
+
     return (
         <>
             <Grid container spacing={2} sx={{ mb: 3 }}>
                 <Grid item xs={12}>
                     <Typography
-                        style={{ fontSize: "35px", fontFamily: "Inter", fontWeight: "700", marginBottom: "18px" }}
+                        style={{
+                            fontSize: '35px',
+                            fontFamily: 'Inter',
+                            fontWeight: '700',
+                            marginBottom: '18px',
+                        }}
                         variant="h1"
-                    >Room Details</Typography>
+                    >
+                        Room Details
+                    </Typography>
                 </Grid>
-                <FieldArray
-                    name="roomDetails"
-                    render={(arrayHelpers) => (
-                        formik.values.roomDetails.map((room, roomIndex) => (
-                            <Grid container spacing={2} key={roomIndex}>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].roomType`}
-                                        label="Room Type"
-                                        fullWidth
-                                        select
-                                        error={formik.touched.roomDetails?.[roomIndex]?.roomType && Boolean(formik.errors.roomDetails?.[roomIndex]?.roomType)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.roomType && formik.errors.roomDetails?.[roomIndex]?.roomType}
-                                    >
-                                        {roomTypes.map((type, idx) => (
-                                            <MenuItem key={idx} value={type}>
-                                                {type}
-                                            </MenuItem>
-                                        ))}
-                                    </Field>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].roomName`}
-                                        label="Room Name"
-                                        fullWidth
-                                        error={formik.touched.roomDetails?.[roomIndex]?.roomName && Boolean(formik.errors.roomDetails?.[roomIndex]?.roomName)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.roomName && formik.errors.roomDetails?.[roomIndex]?.roomName}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].numberOfRooms`}
-                                        label="Number of Rooms"
-                                        fullWidth
-                                        type="number"
-                                        error={formik.touched.roomDetails?.[roomIndex]?.numberOfRooms && Boolean(formik.errors.roomDetails?.[roomIndex]?.numberOfRooms)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.numberOfRooms && formik.errors.roomDetails?.[roomIndex]?.numberOfRooms}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].bedType`}
-                                        label="Bed Type"
-                                        fullWidth
-                                        select
-                                        error={formik.touched.roomDetails?.[roomIndex]?.bedType && Boolean(formik.errors.roomDetails?.[roomIndex]?.bedType)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.bedType && formik.errors.roomDetails?.[roomIndex]?.bedType}
-                                    >
-                                        {bedTypes.map((type, idx) => (
-                                            <MenuItem key={idx} value={type}>
-                                                {type}
-                                            </MenuItem>
-                                        ))}
-                                    </Field>
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].bedQuantity`}
-                                        label="Bed Quantity"
-                                        fullWidth
-                                        type="number"
-                                        error={formik.touched.roomDetails?.[roomIndex]?.bedQuantity && Boolean(formik.errors.roomDetails?.[roomIndex]?.bedQuantity)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.bedQuantity && formik.errors.roomDetails?.[roomIndex]?.bedQuantity}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].maxGuests`}
-                                        label="Max Guests"
-                                        fullWidth
-                                        type="number"
-                                        error={formik.touched.roomDetails?.[roomIndex]?.maxGuests && Boolean(formik.errors.roomDetails?.[roomIndex]?.maxGuests)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.maxGuests && formik.errors.roomDetails?.[roomIndex]?.maxGuests}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].roomSize`}
-                                        label="Room Size (sqft)"
-                                        fullWidth
-                                        type="number"
-                                        error={formik.touched.roomDetails?.[roomIndex]?.roomSize && Boolean(formik.errors.roomDetails?.[roomIndex]?.roomSize)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.roomSize && formik.errors.roomDetails?.[roomIndex]?.roomSize}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sm={6}>
-                                    <Field
-                                        as={TextField}
-                                        name={`roomDetails[${roomIndex}].basePricePerNight`}
-                                        label="Base Price per Night"
-                                        fullWidth
-                                        type="number"
-                                        error={formik.touched.roomDetails?.[roomIndex]?.basePricePerNight && Boolean(formik.errors.roomDetails?.[roomIndex]?.basePricePerNight)}
-                                        helpertext={formik.touched.roomDetails?.[roomIndex]?.basePricePerNight && formik.errors.roomDetails?.[roomIndex]?.basePricePerNight}
-                                    />
-                                </Grid>
-
-                                <Grid container justifyContent={'flex-end'}>
-                                    {(lastIndex === roomIndex || lastIndex === 0) && (
-                                        <Button
-                                            sx={{ mt: 2 }}
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => {
-                                                arrayHelpers.push({
-                                                    roomType: '',
-                                                    roomName: '',
-                                                    numberOfRooms: 0,
-                                                    bedType: '',
-                                                    bedQuantity: 0,
-                                                    maxGuests: 0,
-                                                    roomSize: 0,
-                                                    roomPhoto: [],
-                                                });
-                                                setLastIndex(roomIndex);
-                                            }}
+                <Grid container spacing={2} sx={{ mt: 2 }}>
+                    <FieldArray
+                        name="roomDetails"
+                        render={(arrayHelpers) => (
+                            formik.values.roomDetails.map((room, roomIndex) => (
+                                <Grid container spacing={2} key={roomIndex} sx={{ mt: 2, ml: 2 }}>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            name={`roomDetails[${roomIndex}].roomType`}
+                                            label="Room Type"
+                                            fullWidth
+                                            select
+                                            error={formik.touched.roomDetails?.[roomIndex]?.roomType && Boolean(formik.errors.roomDetails?.[roomIndex]?.roomType)}
+                                            helperText={formik.touched.roomDetails?.[roomIndex]?.roomType && formik.errors.roomDetails?.[roomIndex]?.roomType}
                                         >
-                                            Add Room
-                                        </Button>
+                                            {roomTypes.map((type, idx) => (
+                                                <MenuItem key={idx} value={type}>
+                                                    {type}
+                                                </MenuItem>
+                                            ))}
+                                        </Field>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6}>
+                                        <Field
+                                            as={TextField}
+                                            name={`roomDetails[${roomIndex}].roomQty`}
+                                            label="Number of Rooms"
+                                            fullWidth
+                                            type="number"
+                                            error={formik.touched.roomDetails?.[roomIndex]?.roomQty && Boolean(formik.errors.roomDetails?.[roomIndex]?.roomQty)}
+                                            helperText={formik.touched.roomDetails?.[roomIndex]?.roomQty && formik.errors.roomDetails?.[roomIndex]?.roomQty}
+                                        />
+                                    </Grid>
+                                    <Grid container spacing={2} sx={{ ml: 2, mt: 2 }} >
+                                        <FieldArray
+                                            name={`roomDetails.${roomIndex}.details`}
+                                            render={(detailsArrayHelpers) => (
+                                                room.details.map((detail, detailIndex) => (
+                                                    <Grid container spacing={2} key={detailIndex} sx={{ mt: 2 }}>
+                                                        <Grid item xs={12} >
+                                                            <Field
+                                                                as={TextField}
+                                                                name={`roomDetails[${roomIndex}].details[${detailIndex}].roomName`}
+                                                                label="Room Name"
+                                                                fullWidth
+                                                                error={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.roomName && Boolean(formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.roomName)}
+                                                                helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.roomName && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.roomName}
+                                                            />
+                                                        </Grid>
+                                                        <Grid container spacing={2} sx={{ mt: 2 }} >
+                                                            <FieldArray
+                                                                name={`roomDetails.${roomIndex}.details.${detailIndex}.bedDetails`}
+                                                                render={(bedArrayHelpers) => (
+                                                                    detail.bedDetails.map((bed, bedIndex) => (
+                                                                        <>
+                                                                            <Grid container spacing={2} key={bedIndex} sx={{ mt: 2, ml: 2 }}>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Field
+                                                                                        as={TextField}
+                                                                                        name={`roomDetails[${roomIndex}].details[${detailIndex}].bedDetails[${bedIndex}].bedType`}
+                                                                                        label="Bed Type"
+                                                                                        fullWidth
+                                                                                        select
+                                                                                        error={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedType && Boolean(formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedType)}
+                                                                                        helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedType && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedType}
+                                                                                    >
+                                                                                        {bedTypes.map((type, idx) => (
+                                                                                            <MenuItem key={idx} value={type}>
+                                                                                                {type}
+                                                                                            </MenuItem>
+                                                                                        ))}
+                                                                                    </Field>
+                                                                                </Grid>
+                                                                                <Grid item xs={12} sm={6}>
+                                                                                    <Field
+                                                                                        as={TextField}
+                                                                                        name={`roomDetails[${roomIndex}].details[${detailIndex}].bedDetails[${bedIndex}].bedQuantity`}
+                                                                                        label="Bed Quantity"
+                                                                                        fullWidth
+                                                                                        type="number"
+                                                                                        error={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedQuantity && Boolean(formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedQuantity)}
+                                                                                        helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedQuantity && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedQuantity}
+                                                                                    />
+                                                                                </Grid>
+
+
+                                                                            </Grid>
+                                                                            <Grid container justifyContent={'flex-end'}>
+                                                                                {(bedIndex === detailIndex || bedIndex === 0) && (
+                                                                                    <Button
+                                                                                        sx={{ mt: 2 }}
+                                                                                        variant="contained"
+                                                                                        color="primary"
+                                                                                        onClick={() => {
+                                                                                            bedArrayHelpers.push({
+                                                                                                bedType: '',
+                                                                                                bedQuantity: 2,
+                                                                                            });
+                                                                                        }}
+                                                                                    >
+                                                                                        Add Bed
+                                                                                    </Button>
+                                                                                )}
+                                                                            </Grid>
+                                                                        </>
+                                                                    ))
+                                                                )}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={6}>
+                                                            <Field
+                                                                as={TextField}
+                                                                name={`roomDetails[${roomIndex}].details[${detailIndex}].maxGuests`}
+                                                                label="Max Guests"
+                                                                fullWidth
+                                                                type="number"
+                                                                error={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.maxGuests && Boolean(formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.maxGuests)}
+                                                                helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.maxGuests && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.maxGuests}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={6}>
+                                                            <Field
+                                                                as={TextField}
+                                                                name={`roomDetails[${roomIndex}].details[${detailIndex}].basePricePerNight`}
+                                                                label="Base Price per Night"
+                                                                fullWidth
+                                                                type="number"
+                                                                error={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.basePricePerNight && Boolean(formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.basePricePerNight)}
+                                                                helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.basePricePerNight && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.basePricePerNight}
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={12} sm={6}>
+                                                            <Field
+                                                                as={TextField}
+                                                                name={`roomDetails[${roomIndex}].details[${detailIndex}].extraCharges`}
+                                                                label="Extra Charges"
+                                                                fullWidth
+                                                                type="number"
+                                                                error={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.extraCharges && Boolean(formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.extraCharges)}
+                                                                helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.extraCharges && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.extraCharges}
+                                                            />
+                                                        </Grid>
+                                                        <Grid container justifyContent={'flex-end'}>
+                                                            {(detailIndex === roomIndex || detailIndex === 0) && (
+                                                                <Button
+                                                                    sx={{ mt: 2 }}
+                                                                    variant="contained"
+                                                                    color="primary"
+                                                                    onClick={() => {
+                                                                        detailsArrayHelpers.push({
+                                                                            roomName: '',
+                                                                            bedDetails: [
+                                                                                {
+                                                                                    bedType: '',
+                                                                                    bedQuantity: 2,
+                                                                                },
+                                                                            ],
+                                                                            maxGuests: 2,
+                                                                            basePricePerNight: 1000,
+                                                                            extraCharges: 0,
+                                                                        });
+                                                                    }}
+                                                                >
+                                                                    Add Room
+                                                                </Button>
+                                                            )}
+                                                        </Grid>
+
+
+                                                    </Grid>
+                                                ))
+                                            )}
+                                        />
+
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <FormControlLabel
+                                            control={
+                                                <Field
+                                                    as={Checkbox}
+                                                    name={`roomDetails[${roomIndex}].offerLowerRate`}
+                                                    type="checkbox"
+                                                />
+                                            }
+                                            label="Offer a discount rate?"
+                                        />
+                                    </Grid>
+
+                                    {formik.values.roomDetails[roomIndex].offerLowerRate && (
+                                        <>
+                                            <Grid item xs={12} sm={6}>
+                                                <Field
+                                                    as={TextField}
+                                                    name={`roomDetails[${roomIndex}].discountAmount`}
+                                                    label="Discount Amount (%)"
+                                                    fullWidth
+                                                    type="number"
+                                                    error={formik.touched.roomDetails?.[roomIndex]?.discountAmount && Boolean(formik.errors.roomDetails?.[roomIndex]?.discountAmount)}
+                                                    helperText={formik.touched.roomDetails?.[roomIndex]?.discountAmount && formik.errors.roomDetails?.[roomIndex]?.discountAmount}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
+                                                <Field
+                                                    as={TextField}
+                                                    name={`roomDetails[${roomIndex}].minOccupancyForDiscount`}
+                                                    label="Min Occupancy for Discount"
+                                                    fullWidth
+                                                    type="number"
+                                                    error={formik.touched.roomDetails?.[roomIndex]?.minOccupancyForDiscount && Boolean(formik.errors.roomDetails?.[roomIndex]?.minOccupancyForDiscount)}
+                                                    helperText={formik.touched.roomDetails?.[roomIndex]?.minOccupancyForDiscount && formik.errors.roomDetails?.[roomIndex]?.minOccupancyForDiscount}
+                                                />
+                                            </Grid>
+                                        </>
                                     )}
+                                    <Grid container justifyContent={'flex-end'}>
+                                        {(roomIndex === 0) && (
+                                            <Button
+                                                sx={{ mt: 2 }}
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={() => {
+                                                    arrayHelpers.push({
+                                                        roomType: '',
+                                                        roomQty: 1,
+                                                        details: [
+                                                            {
+                                                                roomName: '',
+                                                                bedDetails: [
+                                                                    {
+                                                                        bedType: '',
+                                                                        bedQuantity: 2,
+                                                                    },
+                                                                ],
+                                                                maxGuests: 2,
+                                                                basePricePerNight: 1000,
+                                                                extraCharges: 0,
+                                                            },
+                                                        ],
+                                                        offerLowerRate: true,
+                                                        discountAmount: 10,
+                                                        minOccupancyForDiscount: 4,
+                                                    });
+                                                }}
+                                            >
+                                                Add Room Type
+                                            </Button>
+                                        )}
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        ))
-                    )}
-                />
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Field
-                                as={Checkbox}
-                                name="offerLowerRate"
-                                type="checkbox"
-                            />
-                        }
-                        label="Offer a lower rate when there are less than 7 guests?"
+                            ))
+                        )}
                     />
                 </Grid>
 
-                {offerLowerRate && (
-                    <>
-                        <Grid item xs={12} sm={6}>
-                            <Field
-                                as={TextField}
-                                name="discountAmount"
-                                label="Discount Amount (%)"
-                                fullWidth
-                                type="number"
-                                error={formik.touched.discountAmount && Boolean(formik.errors.discountAmount)}
-                                helpertext={formik.touched.discountAmount && formik.errors.discountAmount}
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <Field
-                                as={TextField}
-                                name="minOccupancyForDiscount"
-                                label="Min Occupancy for Discount"
-                                fullWidth
-                                type="number"
-                                error={formik.touched.minOccupancyForDiscount && Boolean(formik.errors.minOccupancyForDiscount)}
-                                helpertext={formik.touched.minOccupancyForDiscount && formik.errors.minOccupancyForDiscount}
-                            />
-                        </Grid>
-                    </>
-                )}
+
             </Grid>
             <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <DropzoneArea
                         onChange={handleRoomFileChange}
                         acceptedFiles={['image/*']}
-                        filesLimit={20 - formik.values.roomPhotos.length} // Limit based on remaining slots
+                        filesLimit={20 - formik.values.roomPhotos.length}
                         dropzoneText="Drag and drop images here or click"
                         getFileLimitExceedMessage={(filesLimit) =>
                             `You can only upload a maximum of ${filesLimit} files.`
@@ -590,7 +721,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                             </div>
                         )}
                     />
-                    <button type='submit' onClick={handleSaveFiles}>Save Files</button>
+                    <button type="button" onClick={handleSaveFiles}>Save Files</button>
                 </Grid>
             </Grid>
             <Grid justifyContent="space-between">
@@ -598,7 +729,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                     onClick={handleBack}
                     variant="contained"
                     color="primary"
-                    style={{ margin: "30px", float: "left" }}
+                    style={{ margin: '30px', float: 'left' }}
                 >
                     Back
                 </Button>
@@ -606,7 +737,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                     onClick={handleNext}
                     variant="contained"
                     color="primary"
-                    style={{ margin: "30px", width: "30%", float: "right" }}
+                    style={{ margin: '30px', width: '30%', float: 'right' }}
                 >
                     {isLastStep ? 'Submit' : 'Next'}
                 </Button>
@@ -614,6 +745,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
         </>
     );
 }
+
 
 const mostRequestedByGuestsOptions = [
     "Free Wi-Fi", "Parking", "24-Hour Front Desk", "Air Conditioning", "Room Service", "Restaurant", "Swimming Pool", "Fitness Center", "Lounge", "Business Center", "Conference/Meeting Rooms", "Laundry Service", "Concierge Service", "Airport Shuttle", "Pet-Friendly", "Non-Smoking Rooms", "Family Rooms", "Kitchenette", "Coffee/Tea Maker", "Cable/Satellite TV", "Safe", "Ironing Facilities", "Hair Dryer", "Bathrobe", "Slippers", "In-Room Jacuzzi", "Balcony/Patio", "Sea View", "Mountain View", "Garden", "Playground", "Shuttle Service", "Hiking Trails", "Bicycle Rental", "Room Safe", "Desk", "Telephone", "Wake-up Service", "Dry Cleaning", "Car Rental", "Free Breakfast", "Express Check-in/Check-out", "Luggage Storage", "Newspapers", "Handicapped Accessibility", "Elevator", "In-Room Dining", "Fireplaces"
