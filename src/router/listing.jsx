@@ -13,7 +13,7 @@ const Loader = (Component) => (props) =>
 // listing
 const Accommodations = Loader(lazy(() => import("../content/Listing/Accomodations/index")));
 const Table = Loader(lazy(() => import("../content/Listing/Accomodations/Table")));
-const Transportation = Loader(lazy(() => import("../content/Listing/Vehicles/index")));
+const Transportation = Loader(lazy(() => import("../content/Listing/Transportation/index")));
 const Destination = Loader(lazy(() => import("../content/Listing/Destinations/index")));
 // const SelectOptions = Loader(lazy(() => import("../content/Listing/Accomodations/folder/entryPoint")));
 
