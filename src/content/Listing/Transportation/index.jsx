@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Button, Container, Box } from '@mui/material';
+import { Button, Container, Grid, Card, CardContent, Typography } from '@mui/material';
 import Driver from './driver/driver';
 import Vehicle from './vehicle/vehicle';
+import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const Index = () => {
-  const [activeComponent, setActiveComponent] = useState('vehicle');
+  const [activeComponent, setActiveComponent] = useState(null);
 
   const switchToVehicle = () => {
     setActiveComponent('vehicle');
@@ -13,31 +15,77 @@ const Index = () => {
   const switchToDriver = () => {
     setActiveComponent('driver');
   };
-
+  const CardIcon = ({ component }) => {
+    return component === 'vehicle' ? <DirectionsCarIcon fontSize="large" /> : <PersonAddIcon fontSize="large" />;
+  };
   return (
     <Container>
-      <Box display="flex" justifyContent="center" mt={3} mb={3}>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ marginRight: '20px', width: '250px', height: '50px', fontSize: '1.5rem' }}
-          onClick={switchToVehicle}
-        >
-          Add Vehicle
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          style={{ width: '250px', height: '50px', fontSize: '1.5rem' }}
-          onClick={switchToDriver}
-        >
-          Add Driver
-        </Button>
-      </Box>
+      <Grid container spacing={2} justifyContent="center" alignItems="center" style={{ marginTop: '50px' }}>
+        {activeComponent === null && (
+          <>
+            <Grid item xs={12} md={6}>
+              <Card
+                variant="outlined"
+                style={{
+                  height: '400px',
+                  cursor: 'pointer',
+                  backgroundColor: '#2196f3',
+                  color: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={switchToVehicle}
+              >
+                <CardContent
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <CardIcon component="vehicle" />
+                  <Typography variant="h5" component="div" sx={{ ml: 1 }}>
+                    Add Vehicle
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Card
+                variant="outlined"
+                style={{
+                  height: '400px',
+                  cursor: 'pointer',
+                  backgroundColor: '#2196f3',
+                  color: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onClick={switchToDriver}
+              >
+                <CardContent
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <CardIcon component="driver" />
+                  <Typography variant="h5" component="div" sx={{ ml: 1 }}>
+                    Add Driver
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </>
+        )}
 
-      {activeComponent === 'vehicle' && <Vehicle />}
-      {activeComponent === 'driver' && <Driver />}
-    </Container>
+        {activeComponent === 'vehicle' && <Vehicle />}
+        {activeComponent === 'driver' && <Driver />}
+      </Grid>
+    </Container >
   );
 };
 
