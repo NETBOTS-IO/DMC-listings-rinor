@@ -12,6 +12,7 @@ import {
     DriverInformationForm,
     DriverLicenseForm,
     DriverExperienceForm,
+    DriverExpertiseForm,
     DrivingRecordForm,
     BackgroundCheckForm,
     EmergencyContactForm
@@ -44,12 +45,12 @@ const initialFormValues = {
     ],
     driverExperties: [
         {
-            vehicletype: '',
-            route: '',
-            certificate: '',
-            formalTraning: '',
+          vehicletype: '',
+          route: '',
+          hasCertificate: false, 
+          hasFormalTraining: false, 
         },
-    ],
+      ],
 
     drivingRecord: {
         summary: '',
@@ -105,7 +106,7 @@ function MultiStepForm() {
 
     });
 
-    const steps = ["1", "2", "3", "4", "5", "6"]
+    const steps = ["1", "2", "3", "4", "5", "6", "7"]
     const isLastStep = activeStep === steps.length;
 
 
@@ -161,21 +162,28 @@ function MultiStepForm() {
                         />
                     )}
                     {activeStep === 4 && (
-                        <DrivingRecordForm
+                        <DriverExpertiseForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
                     {activeStep === 5 && (
-                        <BackgroundCheckForm
+                        <DrivingRecordForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
                     {activeStep === 6 && (
-                        <EmergencyContactForm
+                        <EmergencyContactForm 
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 7 && (
+                        <BackgroundCheckForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}

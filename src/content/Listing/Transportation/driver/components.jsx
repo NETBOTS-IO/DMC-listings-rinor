@@ -241,7 +241,116 @@ const DriverExperienceForm = ({ handleBack, handleNext, isLastStep }) => {
   );
 };
 
+const DriverExpertiseForm = ({ handleBack, handleNext, isLastStep }) => {
+  const formik = useFormikContext();
 
+  return (
+    <div>
+      <FieldArray
+        name="driverExperties"
+        render={({ push, remove }) => (
+          <div>
+            {(formik.values.driverExperties).map((expertise, index) => (
+              <Grid container spacing={2} key={index} sx={{ mb: 5 }}>
+                <Grid item xs={12}>
+                  <Typography variant='h2'> Expertise {index + 1}</Typography>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControl fullWidth>
+                    <InputLabel id={`driverExperties-${index}-vehicleType-label`}>Vehicle Type</InputLabel>
+                    <Field
+                      as={Select}
+                      name={`driverExperties[${index}].vehicleType`}
+                      labelId={`driverExperties-${index}-vehicleType-label`}
+                      label="Vehicle Type"
+                      fullWidth
+                      value={formik.values.driverExperties?.[index]?.vehicleType || ''}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.driverExperties?.[index]?.vehicleType && Boolean(formik.errors.driverExperties?.[index]?.vehicleType)}
+                      helperText={formik.touched.driverExperties?.[index]?.vehicleType && formik.errors.driverExperties?.[index]?.vehicleType}
+                    >
+                      {vehicleTypes.map((type) => (
+                        <MenuItem key={type} value={type}>
+                          {type}
+                        </MenuItem>
+                      ))}
+                    </Field>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <Field
+                    as={TextField}
+                    name={`driverExperties[${index}].route`}
+                    label="Route"
+                    fullWidth
+                    value={formik.values.driverExperties?.[index]?.route || ''}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.driverExperties?.[index]?.route && Boolean(formik.errors.driverExperties?.[index]?.route)}
+                    helperText={formik.touched.driverExperties?.[index]?.route && formik.errors.driverExperties?.[index]?.route}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={expertise.hasCertificate}
+                        onChange={formik.handleChange}
+                        name={`driverExperties[${index}].hasCertificate`}
+                      />
+                    }
+                    label="Certificate"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={expertise.hasFormalTraining}
+                        onChange={formik.handleChange}
+                        name={`driverExperties[${index}].hasFormalTraining`}
+                      />
+                    }
+                    label="Formal Training"
+                  />
+                </Grid>
+              </Grid>
+            ))}
+            <Grid container justifyContent="flex-end">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => push({ vehicleType: '', route: '', hasCertificate: false, hasFormalTraining: false })}
+              >
+                Add Another Expertise
+              </Button>
+            </Grid>
+          </div>
+        )}
+      />
+
+      <Grid container justifyContent="space-between">
+        <Button
+          onClick={handleBack}
+          variant="contained"
+          color="primary"
+          style={{ margin: "30px", float: "left" }}
+        >
+          Back
+        </Button>
+        <Button
+          onClick={handleNext}
+          variant="contained"
+          color="primary"
+          style={{ margin: "30px", width: "30%", float: "right" }}
+        >
+          {isLastStep ? 'Submit' : 'Next'}
+        </Button>
+      </Grid>
+    </div>
+  );
+};
 
 
 const DriverLicenseForm = ({ isLastStep, handleBack, handleNext }) => {
@@ -322,35 +431,59 @@ const DrivingRecordForm = ({ isLastStep, handleBack, handleNext }) => {
         <Grid item xs={12}>
           <Typography variant="h1">Driving Record Information</Typography>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            multiline
-            minRows={3}
-            label="Summary"
-            name="drivingRecord.summary"
-            value={formik.values.drivingRecord.summary}
+            label="Number of Accidents"
+            type="number"
+            name="drivingRecord.numberOfAccidents"
+            value={formik.values.drivingRecord?.numberOfAccidents}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.drivingRecord?.summary && Boolean(formik.errors.drivingRecord?.summary)}
-            helperText={formik.touched.drivingRecord?.summary && formik.errors.drivingRecord?.summary}
+            error={formik.touched.drivingRecord?.numberOfAccidents && Boolean(formik.errors.drivingRecord?.numberOfAccidents)}
+            helperText={formik.touched.drivingRecord?.numberOfAccidents && formik.errors.drivingRecord?.numberOfAccidents}
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
-            multiline
-            minRows={3}
-            label="Accidents and Violations"
-            name="drivingRecord.accidentsViolations"
-            value={formik.values.drivingRecord.accidentsViolations}
+            label="Nature of Accidents"
+            name="drivingRecord.natureOfAccidents"
+            value={formik.values.drivingRecord?.natureOfAccidents || ''}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.drivingRecord?.accidentsViolations && Boolean(formik.errors.drivingRecord?.accidentsViolations)}
-            helperText={formik.touched.drivingRecord?.accidentsViolations && formik.errors.drivingRecord?.accidentsViolations}
+            error={formik.touched.drivingRecord?.natureOfAccidents && Boolean(formik.errors.drivingRecord?.natureOfAccidents)}
+            helperText={formik.touched.drivingRecord?.natureOfAccidents && formik.errors.drivingRecord?.natureOfAccidents}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            label="Number of Violations and Challans"
+            type="number"
+            name="drivingRecord.numberOfViolationsAndChallans"
+            value={formik.values.drivingRecord?.numberOfViolationsAndChallans}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.drivingRecord?.numberOfViolationsAndChallans && Boolean(formik.errors.drivingRecord?.numberOfViolationsAndChallans)}
+            helperText={formik.touched.drivingRecord?.numberOfViolationsAndChallans && formik.errors.drivingRecord?.numberOfViolationsAndChallans}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            fullWidth
+            label="Number of Terminations"
+            type="number"
+            name="drivingRecord.numberOfTerminations"
+            value={formik.values.drivingRecord?.numberOfTerminations}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            error={formik.touched.drivingRecord?.numberOfTerminations && Boolean(formik.errors.drivingRecord?.numberOfTerminations)}
+            helperText={formik.touched.drivingRecord?.numberOfTerminations && formik.errors.drivingRecord?.numberOfTerminations}
           />
         </Grid>
       </Grid>
+
       <Grid container justifyContent="space-between">
         <Button
           onClick={handleBack}
@@ -374,6 +507,7 @@ const DrivingRecordForm = ({ isLastStep, handleBack, handleNext }) => {
 };
 
 
+
 const BackgroundCheckForm = ({ isLastStep, handleBack, handleNext }) => {
   const formik = useFormikContext();
 
@@ -393,10 +527,23 @@ const BackgroundCheckForm = ({ isLastStep, handleBack, handleNext }) => {
                 name="backgroundCheck.cleanCriminalRecord"
               />
             }
-            label="Clean Criminal Record"
+            label="Do you have a clean criminal record certificate?"
           />
         </Grid>
+        {formik.values.backgroundCheck.cleanCriminalRecord && (
+          <>
+            <Grid item xs={12}>
+              <Typography variant="h2">Upload Certificate</Typography>
+              <DropzoneArea
+                acceptedFiles={['image/*']}
+                dropzoneText="Drag and drop an image of the certificate here or click"
+                onChange={(files) => formik.setFieldValue("backgroundCheck.certificatePhoto", files[0])}
+              />
+            </Grid>
+          </>
+        )}
         <Grid item xs={12}>
+          <Typography variant="h2">Upload Profile Picture</Typography>
           <DropzoneArea
             acceptedFiles={['image/*']}
             dropzoneText="Drag and drop an image of the driver here or click"
@@ -487,6 +634,7 @@ export {
   DriverInformationForm,
   DriverLicenseForm,
   DriverExperienceForm,
+  DriverExpertiseForm,
   DrivingRecordForm,
   BackgroundCheckForm,
   EmergencyContactForm
