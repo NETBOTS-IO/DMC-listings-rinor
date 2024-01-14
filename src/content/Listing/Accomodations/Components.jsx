@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-
+import { Dropzone, FileMosaic, FullScreen, ImagePreview, VideoPreview, } from "@files-ui/react";
 import React, { useState } from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useFormikContext, Field, FieldArray } from 'formik';
-import { Button, Grid, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, FormLabel, Rating, } from '@mui/material';
+import { Button, Grid, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, FormLabel, Rating, Dialog, DialogTitle, DialogContent, } from '@mui/material';
+import { column } from 'stylis';
 
 const propertyTypes = [
     { label: 'Hotel', value: 'Hotel' },
@@ -747,9 +748,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
 }
 
 
-const mostRequestedByGuestsOptions = [
-    "Free Wi-Fi", "Parking", "24-Hour Front Desk", "Air Conditioning", "Room Service", "Restaurant", "Swimming Pool", "Fitness Center", "Lounge", "Business Center", "Conference/Meeting Rooms", "Laundry Service", "Concierge Service", "Airport Shuttle", "Pet-Friendly", "Non-Smoking Rooms", "Family Rooms", "Kitchenette", "Coffee/Tea Maker", "Cable/Satellite TV", "Safe", "Ironing Facilities", "Hair Dryer", "Bathrobe", "Slippers", "In-Room Jacuzzi", "Balcony/Patio", "Sea View", "Mountain View", "Garden", "Playground", "Shuttle Service", "Hiking Trails", "Bicycle Rental", "Room Safe", "Desk", "Telephone", "Wake-up Service", "Dry Cleaning", "Car Rental", "Free Breakfast", "Express Check-in/Check-out", "Luggage Storage", "Newspapers", "Handicapped Accessibility", "Elevator", "In-Room Dining", "Fireplaces"
-];
+const mostRequestedByGuestsOptions = ["Free Wi-Fi", "Parking", "24-Hour Front Desk", "Air Conditioning", "Room Service", "Personal Restaurant", "Swimming Pool", "Fitness Center", "Lounge/common place", "Business Center", "Conference/Meeting Rooms", "Laundry Service", "Concierge Service", "Airport Shuttle", "Pet-Friendly", "Non-Smoking Rooms", "Family Rooms", "Kitchenette", "Coffee/Tea Maker", "Cable/Satellite TV", "Safe", "Ironing Facilities", "Hair Dryer", "Bathrobe", "Slippers", "In-Room Jacuzzi", "Balcony/Patio", "Sea View", "Mountain View", "Garden", "Playground", "Shuttle Service", "Hiking Trails", "Bicycle Rental", "Room Safe", "Desk", "Telephone", "Wake-up Service", "Dry Cleaning", "Car Rental", "Free Breakfast", "Express Check-in/Check-out", "Luggage Storage", "Newspapers", "Handicapped Accessibility", "Elevator", "In-Room Dining", "Fireplaces"];
 function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
     const [tempFiles, setTempFiles] = useState([]); // State variable to temporarily store files
@@ -966,7 +965,7 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
                         </Field>
                     </FormControl>
                 </Grid>
-                <Grid justifyContent="space-between">
+                <Grid container justifyContent="space-between">
                     <Button
                         onClick={handleBack}
                         variant="contained"
@@ -989,6 +988,162 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
             </Grid>
         </>
     );
+}
+
+function Photos({ isLastStep, handleBack, handleNext }) {
+    const formik = useFormikContext();
+
+    const [extFiles, setExtFiles] = useState([]);
+    const [imageSrc, setImageSrc] = useState(undefined);
+    const [videoSrc, setVideoSrc] = useState(undefined);
+
+    const BASE_URL = "https://www.myserver.com";
+
+    const updateFiles = (incommingFiles) => {
+        console.log("incomming files", incommingFiles);
+        setExtFiles(incommingFiles);
+    };
+    const onDelete = (id) => {
+        setExtFiles(extFiles.filter((x) => x.id !== id));
+    };
+    const handleSee = (imageSource) => {
+        setImageSrc(imageSource);
+    };
+    const handleWatch = (videoSource) => {
+        setVideoSrc(videoSource);
+    };
+    const handleStart = (filesToUpload) => {
+        console.log("advanced demo start upload", filesToUpload);
+    };
+    const handleFinish = (uploadedFiles) => {
+        console.log("advanced demo finish upload", uploadedFiles);
+    };
+    const handleAbort = (id) => {
+        setExtFiles(
+            extFiles.map((ef) => {
+                if (ef.id === id) {
+                    return { ...ef, uploadStatus: "aborted" };
+                } else return { ...ef };
+            })
+        );
+    };
+    const handleCancel = (id) => {
+        setExtFiles(
+            extFiles.map((ef) => {
+                if (ef.id === id) {
+                    return { ...ef, uploadStatus: undefined };
+                } else return { ...ef };
+            })
+        );
+    };
+    return (
+        <>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Dropzone
+                        onChange={updateFiles}
+                        minHeight="195px"
+                        value={extFiles}
+                        accept="image/*, video/*"
+                        maxFiles={3}
+                        maxFileSize={2 * 1024 * 1024}
+                        label="Drag'n drop files here or click to browse"
+                        uploadConfig={{
+                            // autoUpload: true
+                            url: BASE_URL + "/file",
+                            cleanOnUpload: true
+                        }}
+                        onUploadStart={handleStart}
+                        onUploadFinish={handleFinish}
+                        fakeUpload
+                        actionButtons={{
+                            position: "after",
+                            abortButton: {},
+                            deleteButton: {},
+                            uploadButton: {}
+                        }}
+                    >
+                        {extFiles.map((file) => (
+                            <FileMosaic
+                                {...file}
+                                key={file.id}
+                                onDelete={onDelete}
+                                onSee={handleSee}
+                                onWatch={handleWatch}
+                                onAbort={handleAbort}
+                                onCancel={handleCancel}
+                                resultOnTooltip
+                                alwaysActive
+                                preview
+                                info
+                            />
+                        ))}
+                    </Dropzone>
+                    <Grid container sx={{ zIndex: 10, mt: 5 }} >
+                        <Dialog
+                            open={imageSrc !== undefined}
+                            onClose={() => setImageSrc(undefined)}
+                            maxWidth='lg'
+                        >
+                            <DialogContent>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <div fullWidth style={{ display: 'flex', flexDirection: 'column', minWidth: '100px', width: '200px' }}>
+                                        <Typography variant='h4' sx={{ mt: 5 }}>Room List</Typography>
+                                        <Typography variant='p' sx={{ mb: 5 }}>Select the room to which the picture is associated.</Typography>
+                                        {formik.values.roomDetails.map((room, index) => (
+                                            room.details.map((detail, idx) => (
+                                                <FormControlLabel
+                                                    key={idx}
+                                                    control={
+                                                        <Field
+                                                            as={Checkbox}
+                                                            // name={`roomPhoto[}]`}
+                                                            type="checkbox"
+                                                        />
+                                                    }
+                                                    label={detail.roomName}
+                                                />
+                                            ))
+                                        ))}
+
+
+                                    </div>
+                                    <div sx={{ p: 2 }}>
+
+                                        <ImagePreview src={imageSrc} />
+                                    </div>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+                        <FullScreen
+                            open={videoSrc !== undefined}
+                            onClose={() => setVideoSrc(undefined)}
+                        >
+                            <VideoPreview src={videoSrc} autoPlay controls />
+                        </FullScreen>
+                    </Grid>
+                </Grid>
+                <Grid container justifyContent="space-between">
+                    <Button
+                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", float: "left" }}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleNext}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", width: "30%", float: "right" }}
+                    >
+                        {isLastStep ? 'Submit' : 'Next'}
+                    </Button>
+                </Grid>
+            </Grid>
+        </>
+    )
 }
 
 function SubmitData() {
@@ -1024,7 +1179,7 @@ function SubmitData() {
 
     const navigate = useNavigate();
 
-    const handleBackButtonClick = () => {
+    const handleDoneButtonClick = () => {
         navigate('/listing/add-property'); // Navigate to the specified URL
     };
 
@@ -1036,10 +1191,10 @@ function SubmitData() {
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={handleBackButtonClick}
+                    onClick={() => { handleDoneButtonClick }}
                     style={backButtonStyle}
                 >
-                    Back
+                    Done
                 </Button>
             </div>
         </div>
@@ -1052,5 +1207,6 @@ export {
     RoomDetailsForm,
     AmenitiesForm,
     PoliciesForm,
+    Photos,
     SubmitData
 };

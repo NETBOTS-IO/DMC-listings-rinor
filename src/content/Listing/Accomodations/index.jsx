@@ -23,8 +23,10 @@ import {
     RoomDetailsForm,
     AmenitiesForm,
     PoliciesForm,
+    Photos,
     SubmitData
 } from './Components';
+import { Photo } from '@mui/icons-material';
 
 
 
@@ -173,7 +175,7 @@ const yupSchema = Yup.object().shape({
     }),
 });
 function MultiStepForm() {
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
     const [isSubmitSuccess, setSubmitSuccess] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
 
@@ -191,7 +193,7 @@ function MultiStepForm() {
 
     const handlePopupClose = () => {
         setPopupOpen(false);
-        setActiveStep(1);
+        setActiveStep(0);
     };
 
     const steps = ["1", "2", "3", "4", "5", "6", "7"]
@@ -273,46 +275,56 @@ function MultiStepForm() {
                             </Step>
                         ))}
                     </Stepper>
-                    {activeStep === 1 && (
+                    {activeStep === 0 && (
                         <BasicInfoForm
                             isLastStep={isLastStep}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 2 && (
+                    {activeStep === 1 && (
                         <ContactDetailsForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 3 && (
+                    {activeStep === 2 && (
                         <PropertyLocationForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 4 && (
+                    {activeStep === 3 && (
                         <RoomDetailsForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 5 && (
+                    {activeStep === 4 && (
                         <AmenitiesForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 6 && (
+                    {activeStep === 5 && (
                         <PoliciesForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
+                    )}
+                    {activeStep === 6 && (
+                        <Photos
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
+                    {activeStep === 7 && (
+                        <SubmitData/>
                     )}
 
                 </Form>
