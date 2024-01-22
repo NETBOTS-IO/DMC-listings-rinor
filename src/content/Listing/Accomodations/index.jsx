@@ -86,7 +86,6 @@ const initialValues = {
 
         },
     ],
-    roomPhotos: [],
 
     pricing: {
         extraBedOptions: {
@@ -97,7 +96,18 @@ const initialValues = {
         },
     },
     hotelAmenities: [],
-    propertyPhotos: [],
+    roomPhotos:[
+        {
+            roomNames:[],
+            photo:""
+
+        },
+    ],
+    propertyPhotos: {
+        
+        externalPhotos:[],
+        internalPhotos:[],
+    },
     policies: [],
     checkInTime: "",
     checkOutTime: "",

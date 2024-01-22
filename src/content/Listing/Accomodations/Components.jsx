@@ -696,7 +696,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
 
 
             </Grid>
-            <Grid container spacing={2}>
+            {/* <Grid container spacing={2}>
                 <Grid item xs={12}>
                     <DropzoneArea
                         onChange={handleRoomFileChange}
@@ -724,7 +724,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                     />
                     <button type="button" onClick={handleSaveFiles}>Save Files</button>
                 </Grid>
-            </Grid>
+            </Grid> */}
             <Grid justifyContent="space-between">
                 <Button
                     onClick={handleBack}
@@ -996,6 +996,9 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     const [extFiles, setExtFiles] = useState([]);
     const [imageSrc, setImageSrc] = useState(undefined);
     const [videoSrc, setVideoSrc] = useState(undefined);
+    const [checkedRooms, setCheckedRooms] = useState({});
+    const [tempRoomNamesArray, setTempRoomNamesArray] = useState([]);
+
 
     const BASE_URL = "https://www.myserver.com";
 
@@ -1008,6 +1011,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     };
     const handleSee = (imageSource) => {
         setImageSrc(imageSource);
+        console.log("imageSrc", imageSrc);
     };
     const handleWatch = (videoSource) => {
         setVideoSrc(videoSource);
@@ -1045,7 +1049,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                         minHeight="195px"
                         value={extFiles}
                         accept="image/*, video/*"
-                        maxFiles={3}
+                        maxFiles={5}
                         maxFileSize={2 * 1024 * 1024}
                         label="Drag'n drop files here or click to browse"
                         uploadConfig={{
@@ -1079,39 +1083,209 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                             />
                         ))}
                     </Dropzone>
-                    <Grid container sx={{ zIndex: 10, mt: 5 }} >
+                    <Grid container sx={{ mt: 5 }} >
                         <Dialog
                             open={imageSrc !== undefined}
-                            onClose={() => setImageSrc(undefined)}
+                            onClose={() => {
+                                setImageSrc(undefined);
+                            }}
                             maxWidth='lg'
                         >
                             <DialogContent>
                                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                                    <div fullWidth style={{ display: 'flex', flexDirection: 'column', minWidth: '100px', width: '200px' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', minWidth: '100px', width: '200px' }}>
                                         <Typography variant='h4' sx={{ mt: 5 }}>Room List</Typography>
                                         <Typography variant='p' sx={{ mb: 5 }}>Select the room to which the picture is associated.</Typography>
+                                        {/* {console.log("imageSrc", imageSrc)} */}
                                         {formik.values.roomDetails.map((room, index) => (
                                             room.details.map((detail, idx) => (
                                                 <FormControlLabel
                                                     key={idx}
                                                     control={
                                                         <Field
-                                                            as={Checkbox}
-                                                            // name={`roomPhoto[}]`}
+                                                            name={`roomDetails[${index}].details[${idx}].roomName`}
                                                             type="checkbox"
+                                                            onChange={() => {
+                                                                setCheckedRooms(prevState => ({
+                                                                    ...prevState,
+                                                                    [`${index}-${idx}`]: !prevState[`${index}-${idx}`]
+                                                                }));
+                                                                // console.log("Index",index,"idx",idx,formik.values.roomDetails[index].details[idx].roomPhotos);
+                                                                const currentRoomNames = formik.values.roomPhotos;
+                                                                const roomPhotoIndex = currentRoomNames.findIndex(
+                                                                    (photo) => photo.photo === imageSrc || photo.photo === ""
+                                                                );
+                                                                const adjustedIndex = roomPhotoIndex === -1 ? 0 : roomPhotoIndex;
+
+
+                                                                console.log("current", currentRoomNames)
+                                                                if (checkedRooms[`${index}-${idx}`]) {
+                                                                    // Unchecked: Remove the current imageSrc from the array
+                                                                    const updatedRoomNames = tempRoomNamesArray.filter(
+                                                                        (name) => name !== detail.roomName
+                                                                    );
+                                                                    setTempRoomNamesArray(updatedRoomNames);
+                                                                    console.log("temp unchecked", tempRoomNamesArray)
+
+                                                                } else {
+                                                                    // Checked: Add the imageSrc to the array if it doesn't exist
+
+                                                                    // const newRoomNames = [...tempRoomNamesArray, detail.roomName];
+                                                                    // console.log("new", newRoomNames);
+                                                                    setTempRoomNamesArray([...tempRoomNamesArray, detail.roomName]); // Update the temporary array
+                                                                    console.log("temp checked", tempRoomNamesArray)
+
+
+                                                                }
+                                                                // formik.setFieldValue(`roomDetails[${index}].details[${idx}].roomPhotos`, [...formik.values.roomDetails[index].details[idx].roomPhotos, imageSrc]);
+                                                            }}
+                                                            checked={checkedRooms[`${index}-${idx}`]}
                                                         />
                                                     }
                                                     label={detail.roomName}
                                                 />
                                             ))
                                         ))}
+                                        <FormControlLabel
+                                            control={
+                                                <Field
+                                                    as={Checkbox}
+                                                    name="propertyPhotos.externalPhotos"
+                                                    type="checkbox"
+                                                    onChange={() => {
+                                                        setCheckedRooms(prevState => ({
+                                                            ...prevState,
+                                                            external: !prevState.external
+                                                        }));
+                                                        const currentExtPhotos = formik.values.propertyPhotos.externalPhotos;
 
+                                                        if (checkedRooms.external) {
+                                                            // Unchecked: Remove the current imageSrc from the array
+                                                            const updatedRoomPhotos = currentExtPhotos.filter((photo) => photo !== imageSrc);
+                                                            formik.setFieldValue(
+                                                                `propertyPhotos.externalPhotos`,
+                                                                updatedRoomPhotos
+                                                            );
+                                                        } else {
+                                                            // Checked: Add the imageSrc to the array if it doesn't exist
+                                                            if (!currentExtPhotos.includes(imageSrc)) {
+                                                                formik.setFieldValue(
+                                                                    `propertyPhotos.externalPhotos`,
+                                                                    [...currentExtPhotos, imageSrc]
+                                                                );
+                                                            }
+                                                        }
 
+                                                        // formik.setFieldValue('propertyPhotos.externalPhotos', [...formik.values.propertyPhotos.externalPhotos, imageSrc]);
+                                                    }}
+                                                    checked={checkedRooms.external}
+                                                />
+                                            }
+                                            label='External'
+                                        />
+                                        <FormControlLabel
+                                            control={
+                                                <Field
+                                                    as={Checkbox}
+                                                    name="propertyPhotos.internalPhotos"
+                                                    type="checkbox"
+                                                    onChange={() => {
+                                                        setCheckedRooms(prevState => ({
+                                                            ...prevState,
+                                                            internal: !prevState.internal
+                                                        }));
+                                                        const currentIntPhotos = formik.values.propertyPhotos.internalPhotos;
+
+                                                        if (checkedRooms.external) {
+                                                            // Unchecked: Remove the current imageSrc from the array
+                                                            const updatedRoomPhotos = currentIntPhotos.filter((photo) => photo !== imageSrc);
+                                                            formik.setFieldValue(
+                                                                `propertyPhotos.internalPhotos`,
+                                                                updatedRoomPhotos
+                                                            );
+                                                        } else {
+                                                            // Checked: Add the imageSrc to the array if it doesn't exist
+                                                            if (!currentIntPhotos.includes(imageSrc)) {
+                                                                formik.setFieldValue(
+                                                                    `propertyPhotos.internalPhotos`,
+                                                                    [...currentIntPhotos, imageSrc]
+                                                                );
+                                                            }
+                                                        }
+
+                                                        // formik.setFieldValue('propertyPhotos.internalPhotos', [...formik.values.propertyPhotos.internalPhotos, imageSrc]);
+                                                    }}
+                                                    checked={checkedRooms.internal}
+                                                />
+                                            }
+                                            label='Internal'
+                                        />
                                     </div>
                                     <div sx={{ p: 2 }}>
 
                                         <ImagePreview src={imageSrc} />
                                     </div>
+                                </div>
+                                <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 5 }}>
+                                    <Button
+                                        onClick={() => {
+                                            setImageSrc(undefined);
+                                            setTempRoomNamesArray([]);
+                                            setCheckedRooms({});
+                                        }}
+                                        color='error'
+                                        variant='outlined'
+                                        sx={{ mr: 1 }}
+                                    >
+                                        Cancel
+                                    </Button>
+                                    <Button
+                                        onClick={() => {
+                                            const currentRoomNames = formik.values.roomPhotos;
+                                            const roomPhotoIndex = currentRoomNames.findIndex(
+                                                (photo) => photo.photo === imageSrc || photo.photo === ""
+                                            );
+                                            const adjustedIndex = roomPhotoIndex === -1 ? currentRoomNames.length : roomPhotoIndex;
+                                            console.log("imageSrc", imageSrc);
+                                            console.log("Index", adjustedIndex)
+
+                                            const existingRoomNames = formik.values.roomPhotos[adjustedIndex]?.roomNames || [];
+                                            const existingPhoto = "" || formik.values.roomPhotos[adjustedIndex]?.photo;
+                                            // Compare incoming values with existing values and filter out duplicates
+                                            const newRoomNamesArray = tempRoomNamesArray.filter(
+                                                (roomName) => !existingRoomNames.includes(roomName)
+                                            );
+
+                                            // Update the formik field with the combined array
+                                            if (existingPhoto !== "" && existingPhoto !== imageSrc) {
+                                                // Create a new object in the roomPhotos array
+                                                formik.setFieldValue(`roomPhotos[${currentRoomNames.length}]`, {
+                                                    roomNames: newRoomNamesArray,
+                                                    photo: imageSrc,
+                                                });
+                                            } else {
+                                                // Update the formik field with the combined array and set the photo
+                                                formik.setFieldValue(`roomPhotos[${adjustedIndex}].roomNames`, [
+                                                    ...existingRoomNames,
+                                                    ...newRoomNamesArray,
+                                                ]);
+
+                                                // Set the photo only if it's an empty string (indicating a new object)
+                                                if (existingPhoto === "") {
+                                                    formik.setFieldValue(`roomPhotos[${adjustedIndex}].photo`, imageSrc);
+                                                }
+                                            }
+                                            setTempRoomNamesArray([]);
+                                            setCheckedRooms({});
+                                            console.log("checked", formik.values.propertyPhotos)
+                                            console.log("rooms", formik.values.roomPhotos)
+                                            setImageSrc(undefined);
+                                        }}
+                                        color='success'
+                                        variant='outlined'
+                                    >
+                                        Confirm
+                                    </Button>
                                 </div>
                             </DialogContent>
                         </Dialog>
