@@ -5,6 +5,7 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import { useFormikContext, Field, FieldArray } from 'formik';
 import { Button, Grid, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, FormLabel, Rating, Dialog, DialogTitle, DialogContent, } from '@mui/material';
 import { column } from 'stylis';
+import { Solid } from 'mdi-material-ui';
 
 const propertyTypes = [
     { label: 'Hotel', value: 'Hotel' },
@@ -123,122 +124,129 @@ function ContactDetailsForm({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
 
     return (
-        <Grid container spacing={2} sx={{ mb: 3 }}>
-            <Grid item xs={12}>
-                <Typography variant="h1">Contact Details</Typography>
-            </Grid>
-            <Grid item xs={12}>
-                <FieldArray
-                    name="contactDetails.additionalContacts"
-                    render={(arrayHelpers) => (
-                        <div>
-                            {formik.values.contactDetails.additionalContacts.map((contact, index) => (
-                                <div key={index}>
-                                    <Grid container sx={{ mb: 2, mt: 2 }} spacing={2}>
-                                        <Grid item xs={12} sm={6}>
-                                            <FormControl fullWidth sx={{ mt: 2, mb: 2 }}>
-                                                <InputLabel id={`contact-title-label-${index}`}>Select Type</InputLabel>
-                                                <Select
+        <>
+            <Grid container spacing={2} sx={{ mb: 3 }}>
+                <Grid item xs={12}>
+                    <Typography variant="h1">Contact Details</Typography>
+                </Grid>
+                <Grid container spacing={2} sx={{ mt: 2, ml: 2 }}>
+                    <FieldArray
+                        name="contactDetails.additionalContacts"
+                        render={(arrayHelpers) => (
+                            <div>
+                                {formik.values.contactDetails.additionalContacts.map((contact, index) => (
+                                    <>
+                                        <Grid container spacing={2} key={index} sx={{ mb: 2, mt: 2, m: 1, p: 1, border: 1 }} >
+                                            <Grid item xs={12} sm={6}>
+                                                <Field
+                                                    as={Select}
                                                     labelId={`contact-title-label-${index}`}
-                                                    name={`contactDetails.additionalContacts.${index}.title`}
+                                                    name={`contactDetails.additionalContacts[${index}].title`}
                                                     label="Select Type"
-                                                    onChange={(e) => formik.setFieldValue(`contactDetails.additionalContacts.${index}.title`, e.target.value)}
-
+                                                    onChange={(e) => formik.setFieldValue(`contactDetails.additionalContacts[${index}].title`, e.target.value)}
                                                     fullWidth
+                                                    native={false}
+                                                    error={formik.touched.contactDetails?.additionalContacts?.[index]?.title && Boolean(formik.errors.contactDetails?.additionalContacts?.[index]?.title)}
+                                                    helperText={formik.touched.contactDetails?.additionalContacts?.[index]?.title && formik.errors.contactDetails?.additionalContacts?.[index]?.title}
                                                 >
                                                     {titles.map((title) => (
                                                         <MenuItem key={title} value={title}>
                                                             {title}
                                                         </MenuItem>
                                                     ))}
-                                                </Select>
-                                            </FormControl>
+                                                </Field>
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
+                                                <Field
+                                                    as={TextField}
+                                                    name={`contactDetails.additionalContacts.${index}.contactName`}
+                                                    label="Contact Name"
+                                                    fullWidth
+                                                    error={formik.touched.contactDetails?.additionalContacts?.[index]?.contactName && Boolean(formik.errors.contactDetails?.additionalContacts?.[index]?.contactName)}
+                                                    helpertext={formik.touched.contactDetails?.additionalContacts?.[index]?.contactName && formik.errors.contactDetails?.additionalContacts?.[index]?.contactName}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
+                                                <Field
+                                                    as={TextField}
+                                                    name={`contactDetails.additionalContacts.${index}.phoneNumber`}
+                                                    label="Phone Number"
+                                                    fullWidth
+                                                    error={formik.touched.contactDetails?.additionalContacts?.[index]?.phoneNumber && Boolean(formik.errors.contactDetails?.additionalContacts?.[index]?.phoneNumber)}
+                                                    helpertext={formik.touched.contactDetails?.additionalContacts?.[index]?.phoneNumber && formik.errors.contactDetails?.additionalContacts?.[index]?.phoneNumber}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
+                                                <Field
+                                                    as={TextField}
+                                                    name={`contactDetails.additionalContacts.${index}.altPhoneNumber`}
+                                                    label="Alternative Phone Number"
+                                                    fullWidth
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12} sm={6}>
+                                                <Field
+                                                    as={TextField}
+                                                    name={`contactDetails.additionalContacts.${index}.email`}
+                                                    label="Email"
+                                                    fullWidth
+                                                    error={formik.touched.contactDetails?.additionalContacts?.[index]?.email && Boolean(formik.errors.contactDetails?.additionalContacts?.[index]?.email)}
+                                                    helpertext={formik.touched.contactDetails?.additionalContacts?.[index]?.email && formik.errors.contactDetails?.additionalContacts?.[index]?.email}
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                    {index !== 0 && (
+                                                        <Button
+                                                            variant="contained"
+                                                            color="error"
+                                                            onClick={() => arrayHelpers.remove(index)}
+                                                        >
+                                                            Remove Contact
+                                                        </Button>
+                                                    )}
+                                                </div>
+                                            </Grid>
                                         </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <Field
-                                                as={TextField}
-                                                name={`contactDetails.additionalContacts.${index}.contactName`}
-                                                label="Contact Name"
-                                                fullWidth
-                                                error={formik.touched.contactDetails?.additionalContacts?.[index]?.contactName && Boolean(formik.errors.contactDetails?.additionalContacts?.[index]?.contactName)}
-                                                helpertext={formik.touched.contactDetails?.additionalContacts?.[index]?.contactName && formik.errors.contactDetails?.additionalContacts?.[index]?.contactName}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <Field
-                                                as={TextField}
-                                                name={`contactDetails.additionalContacts.${index}.phoneNumber`}
-                                                label="Phone Number"
-                                                fullWidth
-                                                error={formik.touched.contactDetails?.additionalContacts?.[index]?.phoneNumber && Boolean(formik.errors.contactDetails?.additionalContacts?.[index]?.phoneNumber)}
-                                                helpertext={formik.touched.contactDetails?.additionalContacts?.[index]?.phoneNumber && formik.errors.contactDetails?.additionalContacts?.[index]?.phoneNumber}
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <Field
-                                                as={TextField}
-                                                name={`contactDetails.additionalContacts.${index}.altPhoneNumber`}
-                                                label="Alternative Phone Number"
-                                                fullWidth
-                                            />
-                                        </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <Field
-                                                as={TextField}
-                                                name={`contactDetails.additionalContacts.${index}.email`}
-                                                label="Email"
-                                                fullWidth
-                                                error={formik.touched.contactDetails?.additionalContacts?.[index]?.email && Boolean(formik.errors.contactDetails?.additionalContacts?.[index]?.email)}
-                                                helpertext={formik.touched.contactDetails?.additionalContacts?.[index]?.email && formik.errors.contactDetails?.additionalContacts?.[index]?.email}
-                                            />
-                                        </Grid>
-                                    </Grid>
-                                    {index > 0 && (
-                                        <Button
-                                            variant="contained"
-                                            color="error"
-                                            onClick={() => arrayHelpers.remove(index)}
-                                        >
-                                            Remove
-                                        </Button>
-                                    )}
-                                </div>
-                            ))}
-                            <Grid container justifyContent='flex-end'>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={() => arrayHelpers.push({
-                                        title: '',
-                                        contactName: '',
-                                        phoneNumber: '',
-                                        altPhoneNumber: '',
-                                        email: '',
-                                    })}
-                                >
-                                    Add Another
-                                </Button>
-                            </Grid>
-                        </div>
-                    )}
+                                        {(index === formik.values.contactDetails.additionalContacts.length - 1) && (
+                                            <Grid container justifyContent='center'>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => arrayHelpers.push({
+                                                        title: '',
+                                                        contactName: '',
+                                                        phoneNumber: '',
+                                                        altPhoneNumber: '',
+                                                        email: '',
+                                                    })}
+                                                >
+                                                    Add Another
+                                                </Button>
+                                            </Grid>
+                                        )}
+                                    </>
+                                ))}
+                            </div>
+                        )}
 
-                />
-
-            </Grid>
-            <Grid item xs={12} sm={8} md={8}>
-                <Field
-                    as={TextField}
-                    name="contactDetails.socialAccLink"
-                    label="Social Account Link"
-                    fullWidth
-                />
-            </Grid>
-            <Grid item xs={12} sm={4} md={4}>
-                <Field
-                    as={Checkbox}
-                    name="contactDetails.ownMultipleHotels"
-                />
-                <FormLabel>Do you own multiple hotels?</FormLabel>
+                    />
+                    <Grid item xs={12} sm={8} md={8}>
+                        <Field
+                            as={TextField}
+                            name="contactDetails.socialAccLink"
+                            label="Social Account Link"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={4} md={4}>
+                        <Field
+                            as={Checkbox}
+                            name="contactDetails.ownMultipleHotels"
+                        />
+                        <FormLabel>Do you own multiple hotels?</FormLabel>
+                    </Grid>
+                </Grid>
             </Grid>
             <Grid container justifyContent="space-between">
                 <Button
@@ -258,7 +266,8 @@ function ContactDetailsForm({ isLastStep, handleBack, handleNext }) {
                     {isLastStep ? 'Submit' : 'Next'}
                 </Button>
             </Grid>
-        </Grid>
+
+        </>
     );
 }
 
@@ -272,119 +281,142 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                 <Grid item xs={12}>
                     <Typography variant="h1">Property Location</Typography>
                 </Grid>
-                {formik.values.propertyLocation.map((location, index) => (
-                    <Grid container spacing={2} key={index} sx={{ mt: 2 }}>
-                        <Grid item xs={6} sm={6}>
-                            <FormControl fullWidth sx={{ mt: 2 }}>
-                                <InputLabel id={`district-${index}`}>Select District</InputLabel>
-                                <Select
-                                    labelId={`district-${index}`}
-                                    name={`propertyLocation[${index}].district`}
-                                    label="Select District"
-                                    value={location.district}
-                                    onChange={(e) =>
-                                        formik.setFieldValue(`propertyLocation[${index}].district`, e.target.value)
-                                    }
-                                    error={
-                                        formik.touched.propertyLocation?.[index]?.district &&
-                                        Boolean(formik.errors.propertyLocation?.[index]?.district)
-                                    }
-                                    helpertext={
-                                        formik.touched.propertyLocation?.[index]?.district &&
-                                        formik.errors.propertyLocation?.[index]?.district
-                                    }
-                                >
-                                    {districts.map((district, idx) => (
-                                        <MenuItem key={idx} value={district}>
-                                            {district}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Field
-                                as={TextField}
-                                style={{ marginTop: '18px' }}
-                                name={`propertyLocation[${index}].city`}
-                                label="City"
-                                fullWidth
-                                value={location.city}
-                                onChange={formik.handleChange}
-                                error={
-                                    formik.touched.propertyLocation?.[index]?.city &&
-                                    Boolean(formik.errors.propertyLocation?.[index]?.city)
-                                }
-                                helpertext={
-                                    formik.touched.propertyLocation?.[index]?.city &&
-                                    formik.errors.propertyLocation?.[index]?.city
-                                }
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Field
-                                as={TextField}
-                                multiline
-                                minRows={1}
-                                name={`propertyLocation[${index}].address`}
-                                label="Address"
-                                fullWidth
-                                value={location.address}
-                                onChange={formik.handleChange}
-                                error={
-                                    formik.touched.propertyLocation?.[index]?.address &&
-                                    Boolean(formik.errors.propertyLocation?.[index]?.address)
-                                }
-                                helpertext={
-                                    formik.touched.propertyLocation?.[index]?.address &&
-                                    formik.errors.propertyLocation?.[index]?.address
-                                }
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Field
-                                as={TextField}
-                                name={`propertyLocation[${index}].postCode`}
-                                label="Post Code"
-                                type="number"
-                                fullWidth
-                                value={location.postCode}
-                                onChange={formik.handleChange}
-                                error={
-                                    formik.touched.propertyLocation?.[index]?.postCode &&
-                                    Boolean(formik.errors.propertyLocation?.[index]?.postCode)
-                                }
-                                helpertext={
-                                    formik.touched.propertyLocation?.[index]?.postCode &&
-                                    formik.errors.propertyLocation?.[index]?.postCode
-                                }
-                            />
-                        </Grid>
-                    </Grid>
-                ))}
-                <Grid item xs={12}>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {
-                            formik.setValues({
-                                ...formik.values,
-                                propertyLocation: [
-                                    ...formik.values.propertyLocation,
-                                    {
-                                        district: '',
-                                        city: '',
-                                        address: '',
-                                        postCode: 1,
-                                    },
-                                ],
-                            });
-                        }}
-                    >
-                        Add Another Location
-                    </Button>
+                <Grid container spacing={2} sx={{ mt: 2, ml: 2 }}>
+                    <FieldArray
+                        name="propertyLocation"
+                        render={(arrayHelpers) => (
+                            formik.values.propertyLocation.map((location, index) => (
+                                <>
+                                    <Grid container spacing={2} key={index} sx={{ mt: 2, m: 2, p: 1, border: 1 }}>
+                                        <Grid item xs={6} sm={6}>
+                                            <FormControl fullWidth sx={{ mt: 2 }}>
+                                                <InputLabel id={`district-${index}`}>Select District</InputLabel>
+                                                <Select
+                                                    labelId={`district-${index}`}
+                                                    name={`propertyLocation[${index}].district`}
+                                                    label="Select District"
+                                                    value={location.district}
+                                                    onChange={(e) =>
+                                                        formik.setFieldValue(`propertyLocation[${index}].district`, e.target.value)
+                                                    }
+                                                    error={
+                                                        formik.touched.propertyLocation?.[index]?.district &&
+                                                        Boolean(formik.errors.propertyLocation?.[index]?.district)
+                                                    }
+                                                    helpertext={
+                                                        formik.touched.propertyLocation?.[index]?.district &&
+                                                        formik.errors.propertyLocation?.[index]?.district
+                                                    }
+                                                >
+                                                    {districts.map((district, idx) => (
+                                                        <MenuItem key={idx} value={district}>
+                                                            {district}
+                                                        </MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Field
+                                                as={TextField}
+                                                style={{ marginTop: '18px' }}
+                                                name={`propertyLocation[${index}].city`}
+                                                label="City"
+                                                fullWidth
+                                                value={location.city}
+                                                onChange={formik.handleChange}
+                                                error={
+                                                    formik.touched.propertyLocation?.[index]?.city &&
+                                                    Boolean(formik.errors.propertyLocation?.[index]?.city)
+                                                }
+                                                helpertext={
+                                                    formik.touched.propertyLocation?.[index]?.city &&
+                                                    formik.errors.propertyLocation?.[index]?.city
+                                                }
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Field
+                                                as={TextField}
+                                                multiline
+                                                minRows={1}
+                                                name={`propertyLocation[${index}].address`}
+                                                label="Address"
+                                                fullWidth
+                                                value={location.address}
+                                                onChange={formik.handleChange}
+                                                error={
+                                                    formik.touched.propertyLocation?.[index]?.address &&
+                                                    Boolean(formik.errors.propertyLocation?.[index]?.address)
+                                                }
+                                                helpertext={
+                                                    formik.touched.propertyLocation?.[index]?.address &&
+                                                    formik.errors.propertyLocation?.[index]?.address
+                                                }
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <Field
+                                                as={TextField}
+                                                name={`propertyLocation[${index}].postCode`}
+                                                label="Post Code"
+                                                type="number"
+                                                fullWidth
+                                                value={location.postCode}
+                                                onChange={formik.handleChange}
+                                                error={
+                                                    formik.touched.propertyLocation?.[index]?.postCode &&
+                                                    Boolean(formik.errors.propertyLocation?.[index]?.postCode)
+                                                }
+                                                helpertext={
+                                                    formik.touched.propertyLocation?.[index]?.postCode &&
+                                                    formik.errors.propertyLocation?.[index]?.postCode
+                                                }
+                                            />
+                                        </Grid>
+                                        {(index !== 0) && (
+                                            <Grid item xs={12}>
+                                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                    <Button
+                                                        variant="contained"
+                                                        color="error"
+                                                        onClick={() => arrayHelpers.remove(index)}
+
+                                                    >
+                                                        Remove Location
+                                                    </Button>
+                                                </div>
+                                            </Grid>)}
+                                    </Grid >
+
+
+
+                                    {(index === formik.values.propertyLocation.length - 1) && (
+                                        < Grid item xs={12}>
+                                            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => arrayHelpers.push(
+
+                                                        {
+                                                            district: '',
+                                                            city: '',
+                                                            address: '',
+                                                            postCode: 1,
+                                                        }
+                                                    )}
+                                                >
+                                                    Add Another Location
+                                                </Button>
+                                            </div>
+                                        </Grid>)}
+                                </>
+                            ))
+                        )}
+                    />
                 </Grid>
-            </Grid>
+            </Grid >
             <Grid container justifyContent="space-between">
                 <Button
                     onClick={handleBack}
@@ -439,12 +471,12 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                         Room Details
                     </Typography>
                 </Grid>
-                <Grid container spacing={2} sx={{ mt: 2 }}>
+                <Grid container spacing={2} sx={{ mt: 2, ml: 2 }}>
                     <FieldArray
                         name="roomDetails"
                         render={(arrayHelpers) => (
                             formik.values.roomDetails.map((room, roomIndex) => (
-                                <Grid container spacing={2} key={roomIndex} sx={{ mt: 2, ml: 2 }}>
+                                <Grid container spacing={2} key={roomIndex} sx={{ mt: 2, m: 1, p: 1, border: 1 }}>
                                     <Grid item xs={12} sm={6}>
                                         <Field
                                             as={TextField}
@@ -473,12 +505,12 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                                             helperText={formik.touched.roomDetails?.[roomIndex]?.roomQty && formik.errors.roomDetails?.[roomIndex]?.roomQty}
                                         />
                                     </Grid>
-                                    <Grid container spacing={2} sx={{ ml: 2, mt: 2 }} >
+                                    <Grid container spacing={2} sx={{ mt: 2, ml: 2 }} >
                                         <FieldArray
                                             name={`roomDetails.${roomIndex}.details`}
                                             render={(detailsArrayHelpers) => (
                                                 room.details.map((detail, detailIndex) => (
-                                                    <Grid container spacing={2} key={detailIndex} sx={{ mt: 2 }}>
+                                                    <Grid container spacing={2} key={detailIndex} sx={{ mt: 2, m: 1, p: 1, border: 1 }}>
                                                         <Grid item xs={12} >
                                                             <Field
                                                                 as={TextField}
@@ -489,7 +521,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                                                                 helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.roomName && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.roomName}
                                                             />
                                                         </Grid>
-                                                        <Grid container spacing={2} sx={{ mt: 2 }} >
+                                                        <Grid container spacing={2} sx={{ mt: 2, m: 1, p: 1, border: 1 }}>
                                                             <FieldArray
                                                                 name={`roomDetails.${roomIndex}.details.${detailIndex}.bedDetails`}
                                                                 render={(bedArrayHelpers) => (
@@ -513,7 +545,7 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                                                                                         ))}
                                                                                     </Field>
                                                                                 </Grid>
-                                                                                <Grid item xs={12} sm={6}>
+                                                                                <Grid item xs={12} sm={bedIndex === 0 ? 6 : 5}>
                                                                                     <Field
                                                                                         as={TextField}
                                                                                         name={`roomDetails[${roomIndex}].details[${detailIndex}].bedDetails[${bedIndex}].bedQuantity`}
@@ -524,11 +556,24 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                                                                                         helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedQuantity && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.bedDetails?.[bedIndex]?.bedQuantity}
                                                                                     />
                                                                                 </Grid>
-
+                                                                                <Grid item xs={12} sm={1}>
+                                                                                    {(bedIndex !== 0) && (
+                                                                                        <Button
+                                                                                            variant='contained'
+                                                                                            color='error'
+                                                                                            fullWidth
+                                                                                            onClick={(bedIndex) => {
+                                                                                                bedArrayHelpers.remove(bedIndex)
+                                                                                            }}
+                                                                                        >
+                                                                                            Delete
+                                                                                        </Button>
+                                                                                    )}
+                                                                                </Grid>
 
                                                                             </Grid>
                                                                             <Grid container justifyContent={'flex-end'}>
-                                                                                {(bedIndex === detailIndex || bedIndex === 0) && (
+                                                                                {(bedIndex === formik.values.roomDetails[roomIndex].details[detailIndex].bedDetails.length - 1) && (
                                                                                     <Button
                                                                                         sx={{ mt: 2 }}
                                                                                         variant="contained"
@@ -582,8 +627,22 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                                                                 helperText={formik.touched.roomDetails?.[roomIndex]?.details?.[detailIndex]?.extraCharges && formik.errors.roomDetails?.[roomIndex]?.details?.[detailIndex]?.extraCharges}
                                                             />
                                                         </Grid>
+                                                        <Grid item xs={12} sm={6} >
+                                                            {(detailIndex !== 0) && (
+                                                                <Button
+                                                                    variant='contained'
+                                                                    color='error'
+                                                                    fullWidth
+                                                                    onClick={(detailIndex) => {
+                                                                        detailsArrayHelpers.remove(detailIndex)
+                                                                    }}
+                                                                >
+                                                                    Delete
+                                                                </Button>
+                                                            )}
+                                                        </Grid>
                                                         <Grid container justifyContent={'flex-end'}>
-                                                            {(detailIndex === roomIndex || detailIndex === 0) && (
+                                                            {(detailIndex === formik.values.roomDetails[roomIndex].details.length - 1) && (
                                                                 <Button
                                                                     sx={{ mt: 2 }}
                                                                     variant="contained"
@@ -654,8 +713,24 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
                                             </Grid>
                                         </>
                                     )}
+                                    <Grid item xs={12} >
+                                        {(roomIndex !== 0) && (
+                                            <div style={{ display: 'flex', justifyContent: 'end' }}>
+                                                <Button
+                                                    variant='contained'
+                                                    color='error'
+                                                    // fullWidth
+                                                    onClick={(roomIndex) => {
+                                                        arrayHelpers.remove(roomIndex)
+                                                    }}
+                                                >
+                                                    Delete
+                                                </Button>
+                                            </div>
+                                        )}
+                                    </Grid>
                                     <Grid container justifyContent={'flex-end'}>
-                                        {(roomIndex === 0) && (
+                                        {(roomIndex === formik.values.roomDetails.length - 1) && (
                                             <Button
                                                 sx={{ mt: 2 }}
                                                 variant="contained"
@@ -696,35 +771,6 @@ function RoomDetailsForm({ isLastStep, handleBack, handleNext }) {
 
 
             </Grid>
-            {/* <Grid container spacing={2}>
-                <Grid item xs={12}>
-                    <DropzoneArea
-                        onChange={handleRoomFileChange}
-                        acceptedFiles={['image/*']}
-                        filesLimit={20 - formik.values.roomPhotos.length}
-                        dropzoneText="Drag and drop images here or click"
-                        getFileLimitExceedMessage={(filesLimit) =>
-                            `You can only upload a maximum of ${filesLimit} files.`
-                        }
-                        clearOnUnmount={false}
-                        Icon={(props) => (
-                            <div
-                                style={{
-                                    fontSize: 40,
-                                    textAlign: 'center',
-                                    border: '2px dashed #a9a9a9',
-                                    borderRadius: 10,
-                                    padding: 20,
-                                    margin: 50,
-                                }}
-                            >
-                                Upload your property pictures
-                            </div>
-                        )}
-                    />
-                    <button type="button" onClick={handleSaveFiles}>Save Files</button>
-                </Grid>
-            </Grid> */}
             <Grid justifyContent="space-between">
                 <Button
                     onClick={handleBack}
@@ -815,36 +861,6 @@ function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
 
                     </Grid>
                 </Grid>
-                <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                        <DropzoneArea
-                            onChange={handleFileChange}
-                            acceptedFiles={['image/*']}
-                            filesLimit={20 - formik.values.propertyPhotos.length} // Limit based on remaining slots
-                            dropzoneText="Drag and drop images here or click"
-                            getFileLimitExceedMessage={(filesLimit) =>
-                                `You can only upload a maximum of ${filesLimit} files.`
-                            }
-                            clearOnUnmount={false}
-                            Icon={(props) => (
-                                <div
-                                    style={{
-                                        fontSize: 40,
-                                        textAlign: 'center',
-                                        border: '2px dashed #a9a9a9',
-                                        borderRadius: 10,
-                                        padding: 20,
-                                        margin: 50,
-                                    }}
-                                >
-                                    Upload your property pictures
-                                </div>
-                            )}
-                        />
-                        <button type='button' onClick={handleSaveFiles}>Save Files</button>
-                    </Grid>
-                </Grid>
-
             </Grid>
             <Grid container justifyContent="space-between">
                 <Button
@@ -1088,6 +1104,8 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                             open={imageSrc !== undefined}
                             onClose={() => {
                                 setImageSrc(undefined);
+                                console.log("checked", formik.values.propertyPhotos)
+                                console.log("rooms", formik.values.roomPhotos)
                             }}
                             maxWidth='lg'
                         >
@@ -1111,30 +1129,31 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                                                     [`${index}-${idx}`]: !prevState[`${index}-${idx}`]
                                                                 }));
                                                                 // console.log("Index",index,"idx",idx,formik.values.roomDetails[index].details[idx].roomPhotos);
-                                                                const currentRoomNames = formik.values.roomPhotos;
-                                                                const roomPhotoIndex = currentRoomNames.findIndex(
-                                                                    (photo) => photo.photo === imageSrc || photo.photo === ""
-                                                                );
-                                                                const adjustedIndex = roomPhotoIndex === -1 ? 0 : roomPhotoIndex;
+                                                                // const currentRoomNames = formik.values.roomPhotos;
+                                                                // const roomPhotoIndex = currentRoomNames.findIndex(
+                                                                //     (photo) => photo.photo === imageSrc || photo.photo === ""
+                                                                // );
+                                                                // const adjustedIndex = roomPhotoIndex === -1 ? currentRoomNames.length : roomPhotoIndex;
 
 
-                                                                console.log("current", currentRoomNames)
-                                                                if (checkedRooms[`${index}-${idx}`]) {
+                                                                // console.log("current", currentRoomNames)
+                                                                if (!checkedRooms[`${index}-${idx}`]) {
                                                                     // Unchecked: Remove the current imageSrc from the array
-                                                                    const updatedRoomNames = tempRoomNamesArray.filter(
-                                                                        (name) => name !== detail.roomName
-                                                                    );
-                                                                    setTempRoomNamesArray(updatedRoomNames);
-                                                                    console.log("temp unchecked", tempRoomNamesArray)
+                                                                    const newRoomNames = [...tempRoomNamesArray, detail.roomName];
+                                                                    console.log("value", detail.roomName);
+                                                                    setTempRoomNamesArray(newRoomNames); // Update the temporary array
+                                                                    console.log("temp checked", ...tempRoomNamesArray);
 
                                                                 } else {
                                                                     // Checked: Add the imageSrc to the array if it doesn't exist
 
                                                                     // const newRoomNames = [...tempRoomNamesArray, detail.roomName];
                                                                     // console.log("new", newRoomNames);
-                                                                    setTempRoomNamesArray([...tempRoomNamesArray, detail.roomName]); // Update the temporary array
-                                                                    console.log("temp checked", tempRoomNamesArray)
-
+                                                                    const updatedRoomNames = tempRoomNamesArray.filter(
+                                                                        (name) => name !== detail.roomName
+                                                                    );
+                                                                    setTempRoomNamesArray(updatedRoomNames);
+                                                                    console.log("temp unchecked", tempRoomNamesArray);
 
                                                                 }
                                                                 // formik.setFieldValue(`roomDetails[${index}].details[${idx}].roomPhotos`, [...formik.values.roomDetails[index].details[idx].roomPhotos, imageSrc]);
@@ -1246,9 +1265,9 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                                 (photo) => photo.photo === imageSrc || photo.photo === ""
                                             );
                                             const adjustedIndex = roomPhotoIndex === -1 ? currentRoomNames.length : roomPhotoIndex;
-                                            console.log("imageSrc", imageSrc);
+                                            // console.log("imageSrc", imageSrc);
                                             console.log("Index", adjustedIndex)
-
+                                            console.log("rooms", tempRoomNamesArray);
                                             const existingRoomNames = formik.values.roomPhotos[adjustedIndex]?.roomNames || [];
                                             const existingPhoto = "" || formik.values.roomPhotos[adjustedIndex]?.photo;
                                             // Compare incoming values with existing values and filter out duplicates
@@ -1277,8 +1296,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                             }
                                             setTempRoomNamesArray([]);
                                             setCheckedRooms({});
-                                            console.log("checked", formik.values.propertyPhotos)
-                                            console.log("rooms", formik.values.roomPhotos)
+
                                             setImageSrc(undefined);
                                         }}
                                         color='success'
