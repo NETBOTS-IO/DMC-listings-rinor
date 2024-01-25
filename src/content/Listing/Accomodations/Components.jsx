@@ -4,8 +4,7 @@ import React, { useState } from 'react';
 import { DropzoneArea } from 'material-ui-dropzone';
 import { useFormikContext, Field, FieldArray } from 'formik';
 import { Button, Grid, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, FormLabel, Rating, Dialog, DialogTitle, DialogContent, } from '@mui/material';
-import { column } from 'stylis';
-import { Solid } from 'mdi-material-ui';
+
 
 const propertyTypes = [
     { label: 'Hotel', value: 'Hotel' },
@@ -1069,13 +1068,13 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                         maxFileSize={2 * 1024 * 1024}
                         label="Drag'n drop files here or click to browse"
                         uploadConfig={{
-                            // autoUpload: true
+                            autoUpload: true,
                             url: BASE_URL + "/file",
                             cleanOnUpload: true
                         }}
                         onUploadStart={handleStart}
                         onUploadFinish={handleFinish}
-                        fakeUpload
+                        // fakeUpload
                         actionButtons={{
                             position: "after",
                             abortButton: {},
@@ -1128,27 +1127,15 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                                                     ...prevState,
                                                                     [`${index}-${idx}`]: !prevState[`${index}-${idx}`]
                                                                 }));
-                                                                // console.log("Index",index,"idx",idx,formik.values.roomDetails[index].details[idx].roomPhotos);
-                                                                // const currentRoomNames = formik.values.roomPhotos;
-                                                                // const roomPhotoIndex = currentRoomNames.findIndex(
-                                                                //     (photo) => photo.photo === imageSrc || photo.photo === ""
-                                                                // );
-                                                                // const adjustedIndex = roomPhotoIndex === -1 ? currentRoomNames.length : roomPhotoIndex;
-
-
-                                                                // console.log("current", currentRoomNames)
+                                                               
                                                                 if (!checkedRooms[`${index}-${idx}`]) {
-                                                                    // Unchecked: Remove the current imageSrc from the array
                                                                     const newRoomNames = [...tempRoomNamesArray, detail.roomName];
                                                                     console.log("value", detail.roomName);
-                                                                    setTempRoomNamesArray(newRoomNames); // Update the temporary array
+                                                                    setTempRoomNamesArray(newRoomNames); 
                                                                     console.log("temp checked", ...tempRoomNamesArray);
 
                                                                 } else {
-                                                                    // Checked: Add the imageSrc to the array if it doesn't exist
-
-                                                                    // const newRoomNames = [...tempRoomNamesArray, detail.roomName];
-                                                                    // console.log("new", newRoomNames);
+                                                                    
                                                                     const updatedRoomNames = tempRoomNamesArray.filter(
                                                                         (name) => name !== detail.roomName
                                                                     );
@@ -1156,7 +1143,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                                                     console.log("temp unchecked", tempRoomNamesArray);
 
                                                                 }
-                                                                // formik.setFieldValue(`roomDetails[${index}].details[${idx}].roomPhotos`, [...formik.values.roomDetails[index].details[idx].roomPhotos, imageSrc]);
                                                             }}
                                                             checked={checkedRooms[`${index}-${idx}`]}
                                                         />
@@ -1195,7 +1181,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                                             }
                                                         }
 
-                                                        // formik.setFieldValue('propertyPhotos.externalPhotos', [...formik.values.propertyPhotos.externalPhotos, imageSrc]);
                                                     }}
                                                     checked={checkedRooms.external}
                                                 />
@@ -1232,7 +1217,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                                             }
                                                         }
 
-                                                        // formik.setFieldValue('propertyPhotos.internalPhotos', [...formik.values.propertyPhotos.internalPhotos, imageSrc]);
                                                     }}
                                                     checked={checkedRooms.internal}
                                                 />
