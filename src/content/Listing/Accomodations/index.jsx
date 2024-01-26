@@ -96,17 +96,17 @@ const initialValues = {
         },
     },
     hotelAmenities: [],
-    roomPhotos:[
+    roomPhotos: [
         {
-            roomNames:[],
-            photo:""
+            roomNames: [],
+            photo: ""
 
         },
     ],
     propertyPhotos: {
-        
-        externalPhotos:[],
-        internalPhotos:[],
+
+        externalPhotos: [],
+        internalPhotos: [],
     },
     policies: [],
     checkInTime: "",
@@ -229,15 +229,17 @@ function MultiStepForm() {
                     formData.append('checkOutTime', formik.values.checkOutTime);
                     formData.append('roomPhotos', formik.values.roomPhotos);
                     formData.append('propertyPhotos', formik.values.propertyPhotos);
-
+                    console.log("formData ", formik.values)
 
                     // Example usage:
                     axios
-                        .post('http://localhost:8000/api/listing/properties', formData, {
-                            headers: {
-                                'Content-Type': 'multipart/form-data',
-                            },
-                        })
+                        .post('http://localhost:8000/api/listing/properties', formik.values
+                            // {
+                            // headers: {
+                            //     'Content-Type': 'multipart/form-data',
+                            // },
+                            // }
+                        )
                         .then((response) => {
                             if (response.status === 200) {
                                 console.log("Property Added in the DB", response.data)
@@ -334,7 +336,7 @@ function MultiStepForm() {
                         />
                     )}
                     {activeStep === 7 && (
-                        <SubmitData/>
+                        <SubmitData />
                     )}
 
                 </Form>

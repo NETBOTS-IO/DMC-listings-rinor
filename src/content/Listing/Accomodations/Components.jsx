@@ -1015,7 +1015,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     const [tempRoomNamesArray, setTempRoomNamesArray] = useState([]);
 
 
-    const BASE_URL = "https://www.myserver.com";
+    const BASE_URL = "http://localhost:8000/api/listing/";
 
     const updateFiles = (incommingFiles) => {
         console.log("incomming files", incommingFiles);
@@ -1063,14 +1063,15 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                         onChange={updateFiles}
                         minHeight="195px"
                         value={extFiles}
-                        accept="image/*, video/*"
+                        accept="image/*"
                         maxFiles={5}
                         maxFileSize={2 * 1024 * 1024}
                         label="Drag'n drop files here or click to browse"
                         uploadConfig={{
-                            autoUpload: true,
-                            url: BASE_URL + "/file",
-                            cleanOnUpload: true
+                            // autoUpload: true,
+                            url: BASE_URL + "files",
+                            cleanOnUpload: true,
+                            method:"POST",
                         }}
                         onUploadStart={handleStart}
                         onUploadFinish={handleFinish}
