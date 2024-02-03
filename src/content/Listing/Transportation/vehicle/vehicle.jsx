@@ -14,7 +14,7 @@ import {
     DocumentationForm,
     PricingForm,
     OwnerInfoForm,
-    ImagesForm
+    Photos
 } from './component';
 
 const initialValues = {
@@ -53,20 +53,20 @@ const initialValues = {
         discounts: 0,
         cancellationPolicy: '',
     },
-    images: {
-        exterior: '',
-        interior: '',
-        additionalImages: [],
-    },
+
     ownerInfo: {
         contactInfo: {
-            name:'',
-            contact:0,
-            address:''
+            name: '',
+            contact: 0,
+            address: ''
         },
         reviews: [],
     },
     termsAndConditions: '',
+    photos: {
+        ownerPhoto: '',
+        vehiclePhotos: []
+    },
 };
 
 
@@ -103,7 +103,7 @@ const yupSchema = yup.object().shape({
 });
 
 function MultiStepForm() {
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
 
     const formik = useFormik({
         initialValues: initialValues,
@@ -115,7 +115,7 @@ function MultiStepForm() {
     });
 
     const steps = ["1", "2", "3", "4", "5", "6"]
-    const isLastStep = activeStep === steps.length;
+    const isLastStep = activeStep === steps.length-1;
 
 
     const handleNext = async () => {
@@ -149,42 +149,42 @@ function MultiStepForm() {
                             </Step>
                         ))}
                     </Stepper>
-                    {activeStep === 1 && (
+                    {activeStep === 0 && (
                         <VehicleInformationForm
                             isLastStep={isLastStep}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 2 && (
+                    {activeStep === 1 && (
                         <VehicleFeaturesForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 3 && (
+                    {activeStep === 2 && (
                         <DocumentationForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 4 && (
+                    {activeStep === 3 && (
                         <PricingForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 5 && (
+                    {activeStep === 4 && (
                         <OwnerInfoForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 6 && (
-                        <ImagesForm
+                    {activeStep === 5 && (
+                        <Photos
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}

@@ -1057,27 +1057,31 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     const handleUpload = async () => {
         console.log("i am hreer");
         const formData = new FormData();
+        formData.append("name", formik.values.basicInfo.propertyName);
+
         for (let i = 0; i < extFiles.length; i++) {
             formData.append("files", extFiles[i].file);
-            console.log("files", extFiles[i].file)
         }
-        // extFiles.forEach((file, index) => { formData.append(`Image ${index + 1}`, file) });
-        console.log("files", formData)
-        await axios.post('http://localhost:8000/api/listing/files', formData,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                }
+        for (const pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+        await axios.post('http://localhost:8000/api/listing/files', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
             },
+        }, handleStart
         ).then((res) => {
-
-            console.log("Response", res)
-        })
+            handleFinish
+            console.log("Response", res);
+        });
 
     }
     return (
         <>
             <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Typography variant="h1">Upload Photo</Typography>
+                </Grid>
                 <Grid item xs={12}>
                     <Dropzone
                         onChange={updateFiles}

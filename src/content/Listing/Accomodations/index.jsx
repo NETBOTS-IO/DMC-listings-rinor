@@ -26,7 +26,6 @@ import {
     Photos,
     SubmitData
 } from './Components';
-import { Photo } from '@mui/icons-material';
 
 
 

@@ -14,8 +14,8 @@ import {
     DriverExperienceForm,
     DriverExpertiseForm,
     DrivingRecordForm,
-    BackgroundCheckForm,
-    EmergencyContactForm
+    EmergencyContactForm,
+    Photos
 } from './components';
 
 const initialFormValues = {
@@ -45,25 +45,30 @@ const initialFormValues = {
     ],
     driverExperties: [
         {
-          vehicletype: '',
-          route: '',
-          hasCertificate: false, 
-          hasFormalTraining: false, 
+            vehicletype: '',
+            route: '',
+            hasCertificate: false,
+            hasFormalTraining: false,
         },
-      ],
+    ],
 
     drivingRecord: {
-        summary: '',
-        accidentsViolations: '',
+        numberOfAccidents: '',
+        natureOfAccidents: '',
+        numberOfVoilationsAndChalans: '',
+        numberOfTerminations: '',
     },
     backgroundCheck: {
         cleanCriminalRecord: false,
-        driverPhoto: '',
     },
-    emergencyContact: {
+    emergencyContact: [{
         name: '',
         contactInformation: '',
-    },
+    }],
+    photos: {
+        profile: '',
+        certificatePhoto: [],
+    }
 };
 
 
@@ -95,7 +100,7 @@ const yupSchema = yup.object().shape({
 });
 
 function MultiStepForm() {
-    const [activeStep, setActiveStep] = useState(1);
+    const [activeStep, setActiveStep] = useState(0);
 
     const formik = useFormik({
         initialValues: initialFormValues,
@@ -107,7 +112,7 @@ function MultiStepForm() {
     });
 
     const steps = ["1", "2", "3", "4", "5", "6", "7"]
-    const isLastStep = activeStep === steps.length;
+    const isLastStep = activeStep === steps.length - 1;
 
 
     const handleNext = async () => {
@@ -141,54 +146,55 @@ function MultiStepForm() {
                             </Step>
                         ))}
                     </Stepper>
-                    {activeStep === 1 && (
+                    {activeStep === 0 && (
                         <DriverInformationForm
                             isLastStep={isLastStep}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 2 && (
+                    {activeStep === 1 && (
                         <DriverLicenseForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 3 && (
+                    {activeStep === 2 && (
                         <DriverExperienceForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 4 && (
+                    {activeStep === 3 && (
                         <DriverExpertiseForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 5 && (
+                    {activeStep === 4 && (
                         <DrivingRecordForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
+                    {activeStep === 5 && (
+                        <EmergencyContactForm
+                            isLastStep={isLastStep}
+                            handleBack={handleBack}
+                            handleNext={handleNext}
+                        />
+                    )}
                     {activeStep === 6 && (
-                        <EmergencyContactForm 
+                        <Photos
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
-                    {activeStep === 7 && (
-                        <BackgroundCheckForm
-                            isLastStep={isLastStep}
-                            handleBack={handleBack}
-                            handleNext={handleNext}
-                        />
-                    )}
+                    
 
                 </Form>
             </FormikProvider>

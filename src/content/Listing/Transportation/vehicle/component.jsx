@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState }from 'react';
 import { useFormikContext, Field } from 'formik';
 import { DropzoneArea } from 'material-ui-dropzone';
-import { Grid, Typography, TextField, Select, MenuItem, Checkbox, FormControl, FormControlLabel, InputLabel, Button, FormGroup } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Dropzone, FileMosaic, FullScreen, ImagePreview, VideoPreview, } from "@files-ui/react";
+import { Button, Grid, Box, Typography, TextField, FormGroup, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 
 const VehicleInformationForm = ({ isLastStep, handleBack, handleNext }) => {
     const formik = useFormikContext();
@@ -104,6 +106,12 @@ const VehicleFeaturesForm = ({ isLastStep, handleBack, handleNext }) => {
         formik.setFieldValue('vehicleFeatures.additionalAmenities', newAmenity);
         formik.setFieldValue('vehicleFeatures.newAmenity', ''); // Reset the input field
     };
+    const handleRemoveAmenity = (index) => {
+        const newAmenity = formik.values.vehicleFeatures.additionalAmenities || [];
+        newAmenity.pop(formik.values.vehicleFeatures.additionalAmenities[index] || '');
+        formik.setFieldValue('vehicleFeatures.additionalAmenities', newAmenity);
+        formik.setFieldValue('vehicleFeatures.newAmenity', ''); // Reset the input field
+    };
 
     return (
         <>
@@ -188,12 +196,25 @@ const VehicleFeaturesForm = ({ isLastStep, handleBack, handleNext }) => {
                         />
                         {formik.values.vehicleFeatures.additionalAmenities &&
                             formik.values.vehicleFeatures.additionalAmenities.map((amenity, index) => (
-                                <FormControlLabel
-                                    key={index}
-                                    control={<Checkbox defaultChecked />}
-                                    label={amenity}
-                                />
-                            ))}
+                                <Grid container sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Grid item xs={8} sm={4} md={2}>
+                                        <FormControlLabel
+                                            key={index}
+                                            control={<Checkbox defaultChecked />}
+                                            label={amenity}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+                                        <DeleteIcon
+                                            color="error"
+                                            onClick={() => handleRemoveAmenity(index)}
+                                        >
+                                            Delete
+                                        </DeleteIcon>
+                                    </Grid>
+                                </Grid>
+                            )
+                            )}
                     </FormGroup>
 
                 </Grid>
@@ -480,7 +501,7 @@ const OwnerInfoForm = ({ isLastStep, handleBack, handleNext }) => {
                         as={TextField}
                         fullWidth
                         multiline
-                        minRows={3} 
+                        minRows={3}
                         label="Address"
                         name="ownerInfo.contactInfo.address"
                         value={formik.values.ownerInfo.contactInfo.address}
@@ -541,70 +562,233 @@ const OwnerInfoForm = ({ isLastStep, handleBack, handleNext }) => {
 
 
 
-const ImagesForm = ({ isLastStep, handleBack, handleNext }) => {
+function Photos({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
 
+    const [extFiles, setExtFiles] = useState([]);
+    const [imageSrc, setImageSrc] = useState(undefined);
+    const [tempChecked, setTempChecked] = useState({});
+
+    const checkboxArray = [
+        { label: 'Owner Photo', fieldName: 'ownerPhoto' },
+        { label: 'Vehicle Photos', fieldName: 'vehiclePhotos' },
+        // Add more labels and field names as needed
+    ];
+
+    const BASE_URL = "http://localhost:8000/api/listing/";
+
+    const updateFiles = (incommingFiles) => {
+        console.log("incomming files", incommingFiles);
+        setExtFiles(incommingFiles);
+    };
+    const onDelete = (id) => {
+        setExtFiles(extFiles.filter((x) => x.id !== id));
+    };
+    const handleSee = (imageSource) => {
+        setImageSrc(imageSource);
+        console.log("imageSrc", imageSrc);
+    };
+    const handleWatch = (videoSource) => {
+        setVideoSrc(videoSource);
+    };
+    const handleStart = (filesToUpload) => {
+        console.log("advanced demo start upload", filesToUpload);
+    };
+    const handleFinish = (uploadedFiles) => {
+        console.log("advanced demo finish upload", uploadedFiles);
+    };
+    const handleAbort = (id) => {
+        setExtFiles(
+            extFiles.map((ef) => {
+                if (ef.id === id) {
+                    return { ...ef, uploadStatus: "aborted" };
+                } else return { ...ef };
+            })
+        );
+    };
+    const handleCancel = (id) => {
+        setExtFiles(
+            extFiles.map((ef) => {
+                if (ef.id === id) {
+                    return { ...ef, uploadStatus: undefined };
+                } else return { ...ef };
+            })
+        );
+    };
+
+    const handleCancelBtn = () => {
+        setImageSrc(undefined);
+        setTempChecked({});
+    };
+
+    const handleUpload = async () => {
+        console.log("i am hreer");
+        const formData = new FormData();
+        formData.append("name", formik.values.basicInfo.propertyName);
+
+        for (let i = 0; i < extFiles.length; i++) {
+            formData.append("files", extFiles[i].file);
+        }
+        for (const pair of formData.entries()) {
+            console.log(pair[0] + ', ' + pair[1]);
+        }
+        await axios.post('http://localhost:8000/api/listing/files', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        }, handleStart
+        ).then((res) => {
+            handleFinish
+            console.log("Response", res);
+        });
+
+    }
     return (
         <>
-            <Grid container spacing={2} sx={{ mb: 3 }}>
+            <Grid container spacing={2}>
                 <Grid item xs={12}>
-                    <Typography variant="h1">Images</Typography>
+                    <Typography variant='h1'>Upload Photo</Typography>
                 </Grid>
                 <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        fullWidth
-                        label="Exterior Image URL"
-                        name="images.exterior"
-                        value={formik.values.images.exterior}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.images?.exterior && Boolean(formik.errors.images?.exterior)}
-                        helperText={formik.touched.images?.exterior && formik.errors.images?.exterior}
-                    />
+                    <Dropzone
+                        onChange={updateFiles}
+                        minHeight="195px"
+                        value={extFiles}
+                        accept="image/*"
+                        maxFiles={5}
+                        maxFileSize={2 * 1024 * 1024}
+                        label="Drag'n drop files here or click to browse"
+
+                        onUploadStart={handleStart}
+                        onUploadFinish={handleFinish}
+                    // fakeUpload
+                    >
+                        {extFiles.map((file) => (
+                            <FileMosaic
+                                {...file}
+                                key={file.id}
+                                onDelete={onDelete}
+                                onSee={handleSee}
+                                onWatch={handleWatch}
+                                onAbort={handleAbort}
+                                onCancel={handleCancel}
+                                resultOnTooltip
+                                alwaysActive
+                                preview
+                                info
+                            />
+                        ))}
+                    </Dropzone>
+                    <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+                        <Button
+                            variant='contained'
+                            sx={{ m: 1, display: 'flex', justifyContent: 'end' }}
+                            onClick={handleUpload}
+                        >
+                            Upload
+                        </Button>
+                    </Box>
+                    <Grid container sx={{ mt: 5 }} >
+                        <Dialog
+                            open={imageSrc !== undefined}
+                            onClose={() => {
+                                setImageSrc(undefined);
+                                setTempChecked({});
+                            }}
+                            maxWidth='lg'
+                        >
+                            <DialogContent>
+                                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                                    <div style={{ display: 'flex', flexDirection: 'column', minWidth: '100px', width: '200px' }}>
+                                        <Typography variant='h4' sx={{ mt: 5 }}>Field List</Typography>
+                                        <Typography variant='p' sx={{ mb: 5 }}>Associate the picture with relevant field</Typography>
+
+                                        {checkboxArray.map((checkbox, index) => (
+                                            <FormControlLabel
+                                                key={index}
+                                                control={
+                                                    <Field
+                                                        type="checkbox"
+                                                        name={`selectedPhotos.${index}`}
+                                                        render={({ field }) => (
+                                                            <Checkbox
+                                                                {...field}
+
+                                                                checked={tempChecked[index] || false}
+                                                                onChange={(e) => setTempChecked((prev) => ({ ...prev, [index]: e.target.checked }))}
+                                                            />
+
+                                                        )
+                                                        }
+                                                    />
+                                                }
+                                                label={checkbox.label}
+                                            />
+                                        ))}
+
+                                    </div>
+                                    <div sx={{ p: 2 }}>
+
+                                        <ImagePreview src={imageSrc} />
+                                    </div>
+                                </div>
+
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={handleCancelBtn} color="error">
+                                    Cancel
+                                </Button>
+                                <Button
+                                    onClick={() => {
+                                        for (const [index, checkbox] of checkboxArray.entries()) {
+                                            const fieldName = checkbox.fieldName;
+                                            const checkboxChecked = tempChecked[index];
+                                            if (checkboxChecked) {
+                                                if (fieldName === 'ownerPhoto') {
+                                                    formik.setFieldValue('photos.ownerPhoto', imageSrc);
+                                                } else if (fieldName === 'vehiclePhotos') {
+                                                    const vehiclePhotos = formik.values.photos.vehiclePhotos || [];
+                                                    if (!vehiclePhotos.includes(imageSrc)) {
+                                                        formik.setFieldValue('photos.vehiclePhotos', [...vehiclePhotos, imageSrc]);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        console.log("photos", formik.values.photos)
+                                        setTempChecked({});
+                                        setImageSrc(undefined);
+                                    }}
+                                    color="success"
+                                >
+                                    Confirm
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+
+                    </Grid>
                 </Grid>
-                <Grid item xs={12}>
-                    <Field
-                        as={TextField}
-                        fullWidth
-                        label="Interior Image URL"
-                        name="images.interior"
-                        value={formik.values.images.interior}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleBlur}
-                        error={formik.touched.images?.interior && Boolean(formik.errors.images?.interior)}
-                        helperText={formik.touched.images?.interior && formik.errors.images?.interior}
-                    />
+                <Grid container justifyContent="space-between">
+                    <Button
+                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", float: "left" }}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleNext}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", width: "30%", float: "right" }}
+                    >
+                        {isLastStep ? 'Submit' : 'Next'}
+                    </Button>
                 </Grid>
-                <Grid item xs={12}>
-                    <DropzoneArea
-                        acceptedFiles={['image/*']}
-                        dropzoneText="Drag and drop an image here or click"
-                        onChange={(files) => formik.setFieldValue('images.additionalImages', files)}
-                    />
-                </Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-                <Button
-                    onClick={handleBack}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", float: "left" }}
-                >
-                    Back
-                </Button>
-                <Button
-                    onClick={handleNext}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", width: "30%", float: "right" }}
-                >
-                    {isLastStep ? 'Submit' : 'Next'}
-                </Button>
             </Grid>
         </>
-    );
-};
+    )
+}
 
 
 export {
@@ -613,5 +797,5 @@ export {
     DocumentationForm,
     PricingForm,
     OwnerInfoForm,
-    ImagesForm
+    Photos
 };

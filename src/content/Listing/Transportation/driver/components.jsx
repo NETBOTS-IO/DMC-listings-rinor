@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { useFormikContext, Field, FieldArray } from 'formik';
-import { DropzoneArea } from 'material-ui-dropzone';
-import { Grid, Typography, FormControlLabel, Checkbox, TextField, Button, FormControl, InputLabel, Select, MenuItem, } from '@mui/material';
+import { Button, Grid, Box, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Dropzone, FileMosaic, FullScreen, ImagePreview, VideoPreview, } from "@files-ui/react";
 
 
 const DriverInformationForm = ({ isLastStep, handleBack, handleNext }) => {
@@ -57,15 +58,7 @@ const DriverInformationForm = ({ isLastStep, handleBack, handleNext }) => {
           />
         </Grid>
       </Grid>
-      <Grid container justifyContent="space-between">
-        <Button
-          onClick={handleBack}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", float: "left" }}
-        >
-          Back
-        </Button>
+      <Grid container justifyContent="flex-end">
         <Button
           onClick={handleNext}
           variant="contained"
@@ -204,6 +197,17 @@ const DriverExperienceForm = ({ handleBack, handleNext, isLastStep }) => {
                     />
                   </Grid>
                 )}
+                {index !== 0 && (
+                  <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => remove(index)}
+                    >
+                      Delete
+                    </Button>
+                  </Grid>
+                )}
               </Grid>
             ))}
             <Grid container justifyContent="flex-end">
@@ -303,7 +307,7 @@ const DriverExpertiseForm = ({ handleBack, handleNext, isLastStep }) => {
                     label="Certificate"
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={10} sm={4}>
                   <FormControlLabel
                     control={
                       <Checkbox
@@ -315,6 +319,17 @@ const DriverExpertiseForm = ({ handleBack, handleNext, isLastStep }) => {
                     label="Formal Training"
                   />
                 </Grid>
+                {index !== 0 && (
+                  <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => remove(index)}
+                    >
+                      Delete
+                    </Button>
+                  </Grid>
+                )}
               </Grid>
             ))}
             <Grid container justifyContent="flex-end">
@@ -482,40 +497,8 @@ const DrivingRecordForm = ({ isLastStep, handleBack, handleNext }) => {
             helperText={formik.touched.drivingRecord?.numberOfTerminations && formik.errors.drivingRecord?.numberOfTerminations}
           />
         </Grid>
-      </Grid>
-
-      <Grid container justifyContent="space-between">
-        <Button
-          onClick={handleBack}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", float: "left" }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={handleNext}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", width: "30%", float: "right" }}
-        >
-          {isLastStep ? 'Submit' : 'Next'}
-        </Button>
-      </Grid>
-    </>
-  );
-};
-
-
-
-const BackgroundCheckForm = ({ isLastStep, handleBack, handleNext }) => {
-  const formik = useFormikContext();
-
-  return (
-    <>
-      <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item xs={12}>
-          <Typography variant="h1">Background Check Information</Typography>
+          <Typography variant="h1">Background Information</Typography>
         </Grid>
         <Grid item xs={12}>
           <FormControlLabel
@@ -530,27 +513,8 @@ const BackgroundCheckForm = ({ isLastStep, handleBack, handleNext }) => {
             label="Do you have a clean criminal record certificate?"
           />
         </Grid>
-        {formik.values.backgroundCheck.cleanCriminalRecord && (
-          <>
-            <Grid item xs={12}>
-              <Typography variant="h2">Upload Certificate</Typography>
-              <DropzoneArea
-                acceptedFiles={['image/*']}
-                dropzoneText="Drag and drop an image of the certificate here or click"
-                onChange={(files) => formik.setFieldValue("backgroundCheck.certificatePhoto", files[0])}
-              />
-            </Grid>
-          </>
-        )}
-        <Grid item xs={12}>
-          <Typography variant="h2">Upload Profile Picture</Typography>
-          <DropzoneArea
-            acceptedFiles={['image/*']}
-            dropzoneText="Drag and drop an image of the driver here or click"
-            onChange={(files) => formik.setFieldValue("backgroundCheck.driverPhoto", files[0])}
-          />
-        </Grid>
       </Grid>
+
       <Grid container justifyContent="space-between">
         <Button
           onClick={handleBack}
@@ -572,6 +536,8 @@ const BackgroundCheckForm = ({ isLastStep, handleBack, handleNext }) => {
     </>
   );
 };
+
+
 
 
 const EmergencyContactForm = ({ isLastStep, handleBack, handleNext }) => {
@@ -583,30 +549,62 @@ const EmergencyContactForm = ({ isLastStep, handleBack, handleNext }) => {
         <Grid item xs={12}>
           <Typography variant="h1">Emergency Contact Information</Typography>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Name"
-            name="emergencyContact.name"
-            value={formik.values.emergencyContact.name}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.emergencyContact?.name && Boolean(formik.errors.emergencyContact?.name)}
-            helperText={formik.touched.emergencyContact?.name && formik.errors.emergencyContact?.name}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Contact Information"
-            name="emergencyContact.contactInformation"
-            value={formik.values.emergencyContact.contactInformation}
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            error={formik.touched.emergencyContact?.contactInformation && Boolean(formik.errors.emergencyContact?.contactInformation)}
-            helperText={formik.touched.emergencyContact?.contactInformation && formik.errors.emergencyContact?.contactInformation}
-          />
-        </Grid>
+        <FieldArray
+          name="emergencyContact"
+          render={(arrayHelpers) => (
+            <>
+              {formik.values.emergencyContact.map((emergency, index) => (
+                <Grid container spacing={2} key={index} sx={{ mt: 2, m: 1, p: 1, border: 1 }}>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Name"
+                      name={`emergencyContact[${index}].name`}
+                      value={emergency.name}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.emergencyContact?.[index]?.name && Boolean(formik.errors.emergencyContact?.[index]?.name)}
+                      helperText={formik.touched.emergencyContact?.[index]?.name && formik.errors.emergencyContact?.[index]?.name}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Contact Information"
+                      name={`emergencyContact[${index}].contactInformation`}
+                      value={emergency.contactInformation}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                      error={formik.touched.emergencyContact?.[index]?.contactInformation && Boolean(formik.errors.emergencyContact?.[index]?.contactInformation)}
+                      helperText={formik.touched.emergencyContact?.[index]?.contactInformation && formik.errors.emergencyContact?.[index]?.contactInformation}
+                    />
+                  </Grid>
+                  {index !== 0 && (
+                    <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => arrayHelpers.remove(index)}
+                      >
+                        Delete
+                      </Button>
+                    </Grid>
+                  )}
+                </Grid>
+              ))}
+
+              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => arrayHelpers.push({ name: '', contactInformation: '' })}
+                >
+                  Add Contact
+                </Button>
+              </Grid>
+            </>
+          )}
+        />
       </Grid>
       <Grid container justifyContent="space-between">
         <Button
@@ -630,12 +628,241 @@ const EmergencyContactForm = ({ isLastStep, handleBack, handleNext }) => {
   );
 };
 
+function Photos({ isLastStep, handleBack, handleNext }) {
+  const formik = useFormikContext();
+
+  const [extFiles, setExtFiles] = useState([]);
+  const [imageSrc, setImageSrc] = useState(undefined);
+  const [tempChecked, setTempChecked] = useState({});
+
+  const checkboxArray = [
+    { label: 'Profile', fieldName: 'profile' },
+    { label: 'Certificate', fieldName: 'certificatePhoto' },
+    // Add more labels and field names as needed
+  ];
+
+  const BASE_URL = "http://localhost:8000/api/listing/";
+
+  const updateFiles = (incommingFiles) => {
+    console.log("incomming files", incommingFiles);
+    setExtFiles(incommingFiles);
+  };
+  const onDelete = (id) => {
+    setExtFiles(extFiles.filter((x) => x.id !== id));
+  };
+  const handleSee = (imageSource) => {
+    setImageSrc(imageSource);
+    console.log("imageSrc", imageSrc);
+  };
+  const handleWatch = (videoSource) => {
+    setVideoSrc(videoSource);
+  };
+  const handleStart = (filesToUpload) => {
+    console.log("advanced demo start upload", filesToUpload);
+  };
+  const handleFinish = (uploadedFiles) => {
+    console.log("advanced demo finish upload", uploadedFiles);
+  };
+  const handleAbort = (id) => {
+    setExtFiles(
+      extFiles.map((ef) => {
+        if (ef.id === id) {
+          return { ...ef, uploadStatus: "aborted" };
+        } else return { ...ef };
+      })
+    );
+  };
+  const handleCancel = (id) => {
+    setExtFiles(
+      extFiles.map((ef) => {
+        if (ef.id === id) {
+          return { ...ef, uploadStatus: undefined };
+        } else return { ...ef };
+      })
+    );
+  };
+
+  const handleCancelBtn = () => {
+    setImageSrc(undefined);
+    setTempChecked({});
+  };
+
+  const handleUpload = async () => {
+    console.log("i am hreer");
+    const formData = new FormData();
+    formData.append("name", formik.values.basicInfo.propertyName);
+
+    for (let i = 0; i < extFiles.length; i++) {
+      formData.append("files", extFiles[i].file);
+    }
+    for (const pair of formData.entries()) {
+      console.log(pair[0] + ', ' + pair[1]);
+    }
+    await axios.post('http://localhost:8000/api/listing/files', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    }, handleStart
+    ).then((res) => {
+      handleFinish
+      console.log("Response", res);
+    });
+
+  }
+  return (
+    <>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h1">Upload Photo</Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Dropzone
+            onChange={updateFiles}
+            minHeight="195px"
+            value={extFiles}
+            accept="image/*"
+            maxFiles={5}
+            maxFileSize={2 * 1024 * 1024}
+            label="Drag'n drop files here or click to browse"
+
+            onUploadStart={handleStart}
+            onUploadFinish={handleFinish}
+          // fakeUpload
+          >
+            {extFiles.map((file) => (
+              <FileMosaic
+                {...file}
+                key={file.id}
+                onDelete={onDelete}
+                onSee={handleSee}
+                onWatch={handleWatch}
+                onAbort={handleAbort}
+                onCancel={handleCancel}
+                resultOnTooltip
+                alwaysActive
+                preview
+                info
+              />
+            ))}
+          </Dropzone>
+          <Box sx={{ display: 'flex', justifyContent: 'end' }}>
+            <Button
+              variant='contained'
+              sx={{ m: 1, display: 'flex', justifyContent: 'end' }}
+              onClick={handleUpload}
+            >
+              Upload
+            </Button>
+          </Box>
+          <Grid container sx={{ mt: 5 }} >
+            <Dialog
+              open={imageSrc !== undefined}
+              onClose={() => {
+                setImageSrc(undefined);
+                setTempChecked({});
+              }}
+              maxWidth='lg'
+            >
+              <DialogContent>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', minWidth: '100px', width: '200px', padding:'5px' }}>
+                    <Typography variant='h4' sx={{ mt: 5 }}>Field List</Typography>
+                    <Typography variant='p' sx={{ mb: 5 }}>Associate the picture with relevant field</Typography>
+
+                    {checkboxArray.map((checkbox, index) => (
+                      <FormControlLabel
+                        key={index}
+                        control={
+                          <Field
+                            type="checkbox"
+                            name={`selectedPhotos.${index}`}
+                            render={({ field }) => (
+                              <Checkbox
+                                {...field}
+
+                                checked={tempChecked[index] || false}
+                                onChange={(e) => setTempChecked((prev) => ({ ...prev, [index]: e.target.checked }))}
+                              />
+
+                            )
+                            }
+                          />
+                        }
+                        label={checkbox.label}
+                      />
+                    ))}
+                    <Typography variant='p'>Note:<br/> Upload all the certficate you have.<br/>(e.g Driving License, Character Certificate, Experience Certificate, etc. )</Typography>
+
+                  </div>
+                  <div sx={{ p: 2 }}>
+
+                    <ImagePreview src={imageSrc} />
+                  </div>
+                </div>
+
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleCancelBtn} color="error">
+                  Cancel
+                </Button>
+                <Button
+                  onClick={() => {
+                    for (const [index, checkbox] of checkboxArray.entries()) {
+                      const fieldName = checkbox.fieldName;
+                      const checkboxChecked = tempChecked[index];
+                      if (checkboxChecked) {
+                        if (fieldName === 'profile') {
+                          formik.setFieldValue('photos.profile', imageSrc);
+                        } else if (fieldName === 'certificatePhoto') {
+                          const certificatePhotos = formik.values.photos.certificatePhoto || [];
+                          if (!certificatePhotos.includes(imageSrc)) {
+                            formik.setFieldValue('photos.certificatePhoto', [...certificatePhotos, imageSrc]);
+                          }
+                        }
+                      }
+                    }
+                    console.log("photos", formik.values.photos)
+                    setTempChecked({});
+                    setImageSrc(undefined);
+                  }}
+                  color="success"
+                >
+                  Confirm
+                </Button>
+              </DialogActions>
+            </Dialog>
+
+          </Grid>
+        </Grid>
+        <Grid container justifyContent="space-between">
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", float: "left" }}
+          >
+            Back
+          </Button>
+          <Button
+            onClick={handleNext}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", width: "30%", float: "right" }}
+          >
+            {isLastStep ? 'Submit' : 'Next'}
+          </Button>
+        </Grid>
+      </Grid>
+    </>
+  )
+}
+
 export {
   DriverInformationForm,
   DriverLicenseForm,
   DriverExperienceForm,
   DriverExpertiseForm,
   DrivingRecordForm,
-  BackgroundCheckForm,
-  EmergencyContactForm
+  EmergencyContactForm,
+  Photos
 }
