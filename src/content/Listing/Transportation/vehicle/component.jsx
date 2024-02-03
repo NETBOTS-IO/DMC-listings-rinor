@@ -632,7 +632,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         for (const pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
-        await axios.post('http://localhost:8000/api/listing/files', formData, {
+        await axios.post('http://localhost:8000/api/vehicle/files', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },

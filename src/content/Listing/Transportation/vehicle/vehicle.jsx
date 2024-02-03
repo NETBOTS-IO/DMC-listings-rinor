@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as yup from 'yup';
 import {
@@ -115,7 +116,7 @@ function MultiStepForm() {
     });
 
     const steps = ["1", "2", "3", "4", "5", "6"]
-    const isLastStep = activeStep === steps.length-1;
+    const isLastStep = activeStep === steps.length - 1;
 
 
     const handleNext = async () => {
@@ -123,6 +124,21 @@ function MultiStepForm() {
             try {
                 const errors = await formik.submitForm();
                 console.log("Formik Saved Values", formik.values)
+                if (!errors) {
+                    await axios.post('http://localhost:8000/api/vehicle/vehicles', formik.values)
+                        .then((response) => {
+                            if (response.status === 200) {
+                                console.log("vehicle Added in the DB", response.data)
+                                // setSubmitSuccess(true);
+                            } else {
+                                console.log("Failed to Add in the DB")
+                                // setSubmitSuccess(false);
+                            }
+                        }).catch((error) => {
+                            console.error('Error posting data to the backend:', error);
+                            setSubmitSuccess(false);
+                        })
+                }
             } catch (error) {
                 // Handle any submission errors (e.g., network issues)
                 console.error('Form submission error:', error);

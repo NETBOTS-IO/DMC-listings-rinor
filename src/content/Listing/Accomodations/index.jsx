@@ -231,28 +231,20 @@ function MultiStepForm() {
                     console.log("formData ", formik.values)
 
                     // Example usage:
-                    axios
-                        .post('http://localhost:8000/api/listing/properties', formik.values
-                            // {
-                            // headers: {
-                            //     'Content-Type': 'multipart/form-data',
-                            // },
-                            // }
-                        )
-                        .then((response) => {
-                            if (response.status === 200) {
-                                console.log("Property Added in the DB", response.data)
-                                setSubmitSuccess(true);
-                            } else {
-                                console.log("Failed to Add in the DB")
-                                setSubmitSuccess(false);
-                            }
-                        })
-                        .catch((error) => {
-                            console.error('Error posting data to the backend:', error);
+                    await axios.post('http://localhost:8000/api/property/properties', formik.values
+
+                    ).then((response) => {
+                        if (response.status === 200) {
+                            console.log("Property Added in the DB", response.data)
+                            setSubmitSuccess(true);
+                        } else {
+                            console.log("Failed to Add in the DB")
                             setSubmitSuccess(false);
-                        })
-                        .finally(() => {
+                        }
+                    }).catch((error) => {
+                        console.error('Error posting data to the backend:', error);
+                        setSubmitSuccess(false);
+                    }).finally(() => {
                             setPopupOpen(true);
                         });
                 } else {

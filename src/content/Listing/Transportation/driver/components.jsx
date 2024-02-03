@@ -641,7 +641,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     // Add more labels and field names as needed
   ];
 
-  const BASE_URL = "http://localhost:8000/api/listing/";
+  const BASE_URL = "http://localhost:8000/api/driver/";
 
   const updateFiles = (incommingFiles) => {
     console.log("incomming files", incommingFiles);
@@ -698,7 +698,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     for (const pair of formData.entries()) {
       console.log(pair[0] + ', ' + pair[1]);
     }
-    await axios.post('http://localhost:8000/api/listing/files', formData, {
+    await axios.post('http://localhost:8000/api/driver/files', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
