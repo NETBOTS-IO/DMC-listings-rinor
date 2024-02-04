@@ -1,4 +1,4 @@
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import { useFormikContext, Field } from 'formik';
 import { DropzoneArea } from 'material-ui-dropzone';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -196,10 +196,10 @@ const VehicleFeaturesForm = ({ isLastStep, handleBack, handleNext }) => {
                         />
                         {formik.values.vehicleFeatures.additionalAmenities &&
                             formik.values.vehicleFeatures.additionalAmenities.map((amenity, index) => (
-                                <Grid container sx={{ display: 'flex', alignItems: 'center' }}>
+                                <Grid container key={index} sx={{ display: 'flex', alignItems: 'center' }}>
                                     <Grid item xs={8} sm={4} md={2}>
                                         <FormControlLabel
-                                            key={index}
+
                                             control={<Checkbox defaultChecked />}
                                             label={amenity}
                                         />
@@ -284,7 +284,7 @@ const DocumentationForm = ({ isLastStep, handleBack, handleNext }) => {
                             <Select
                                 labelId="registrationNatureLabel"
                                 name="documentation.registrationNature"
-                                value={"SelectNatureofRegistration" || formik.values.documentation.registrationNature}
+                                value={formik.values.documentation.registrationNature || "SelectNatureofRegistration"}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur}
                             >
@@ -375,7 +375,7 @@ const PricingForm = ({ isLastStep, handleBack, handleNext }) => {
                         label="Booking Rate"
                         name="pricing.rentalRates.booking"
                         type="number"
-                        value={formik.values.pricing.rentalRates.booking || 0}
+                        value={formik.values.pricing.rentalRates.booking}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={formik.touched.pricing?.rentalRates?.booking && Boolean(formik.errors.pricing?.rentalRates?.booking)}
@@ -389,7 +389,7 @@ const PricingForm = ({ isLastStep, handleBack, handleNext }) => {
                         label="Single Passenger Rate"
                         name="pricing.rentalRates.perPassenger"
                         type="number"
-                        value={formik.values.pricing.rentalRates.perPassenger || 0}
+                        value={formik.values.pricing.rentalRates.perPassenger}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={formik.touched.pricing?.rentalRates?.perPassenger && Boolean(formik.errors.pricing?.rentalRates?.perPassenger)}
@@ -517,7 +517,7 @@ const OwnerInfoForm = ({ isLastStep, handleBack, handleNext }) => {
                         fullWidth
                         label="Reviews"
                         name="ownerInfo.reviews"
-                        value={formik.values.ownerInfo.reviews.join(', ')}
+                        value={formik.values.ownerInfo.reviews}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         error={formik.touched.ownerInfo?.reviews && Boolean(formik.errors.ownerInfo?.reviews)}
