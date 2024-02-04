@@ -45,7 +45,7 @@ const router = [
         path: 'applications',
         children: applicationsRoutes
       },
-    ]
+      ]
   }
 ];
 
