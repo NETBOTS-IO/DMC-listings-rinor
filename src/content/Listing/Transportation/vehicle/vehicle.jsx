@@ -136,7 +136,7 @@ function MultiStepForm() {
                             }
                         }).catch((error) => {
                             console.error('Error posting data to the backend:', error);
-                            setSubmitSuccess(false);
+                            // setSubmitSuccess(false);
                         })
                 }
             } catch (error) {
