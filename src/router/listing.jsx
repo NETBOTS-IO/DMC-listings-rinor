@@ -20,7 +20,7 @@ const Destination = Loader(lazy(() => import("../content/Listing/Destinations/in
 const listingRoutes = [
     {
         path: '/',
-        element: <Navigate to="/select-options" replace />
+        element: <Navigate to="/add-property" replace />
     },
     // {
     //     path: 'select-options',

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from 'axios';
 import { useFormikContext, Field, FieldArray } from 'formik';
 import { Button, Grid, Box, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import { Dropzone, FileMosaic, FullScreen, ImagePreview, VideoPreview, } from "@files-ui/react";
@@ -152,11 +153,7 @@ const DriverExperienceForm = ({ handleBack, handleNext, isLastStep }) => {
                 <Grid item xs={12} sm={5}>
                   <Field
                     name={`driverExperience[${index}].startDate`}
-                    label="Start Date"
-                    type="date"
-                    InputLabelProps={{
-                      shrink: true,
-                    }}
+                    label="Start Date(YYYY-MM-DD)"
                     component={TextField}
                     fullWidth
                     value={formik.values.driverExperience?.[index]?.startDate || ''}
@@ -182,11 +179,7 @@ const DriverExperienceForm = ({ handleBack, handleNext, isLastStep }) => {
                   <Grid item xs={12} sm={5}>
                     <Field
                       name={`driverExperience[${index}].endDate`}
-                      label="End Date"
-                      type="date"
-                      InputLabelProps={{
-                        shrink: true,
-                      }}
+                      label="End Date(YYYY-MM-DD)"
                       component={TextField}
                       fullWidth
                       value={formik.values.driverExperience?.[index]?.endDate || ''}
@@ -378,10 +371,11 @@ const DriverLicenseForm = ({ isLastStep, handleBack, handleNext }) => {
           <Typography variant="h1">Driver License Information</Typography>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="License Number"
+          <Field
             name="driverLicense.licenseNumber"
+            label="License Number"
+            component={TextField}
+            fullWidth
             value={formik.values.driverLicense.licenseNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -390,10 +384,12 @@ const DriverLicenseForm = ({ isLastStep, handleBack, handleNext }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="Expiry Date"
+
+          <Field
             name="driverLicense.expiryDate"
+            label="Expiry Date (YYYY-MM-DD)"
+            component={TextField}
+            fullWidth
             value={formik.values.driverLicense.expiryDate}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -402,10 +398,11 @@ const DriverLicenseForm = ({ isLastStep, handleBack, handleNext }) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            fullWidth
-            label="License Type"
+          <Field
             name="driverLicense.licenseType"
+            label="License Type"
+            fullWidth
+            component={TextField}
             value={formik.values.driverLicense.licenseType}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -690,10 +687,9 @@ function Photos({ isLastStep, handleBack, handleNext }) {
   const handleUpload = async () => {
     console.log("i am hreer");
     const formData = new FormData();
-    formData.append("name", formik.values.basicInfo.propertyName);
-
     for (let i = 0; i < extFiles.length; i++) {
       formData.append("files", extFiles[i].file);
+      console.log("infiles", extFiles[i].file);
     }
     for (const pair of formData.entries()) {
       console.log(pair[0] + ', ' + pair[1]);
@@ -702,9 +698,8 @@ function Photos({ isLastStep, handleBack, handleNext }) {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
-    }, handleStart
+    }
     ).then((res) => {
-      handleFinish
       console.log("Response", res);
     });
 
@@ -765,7 +760,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
             >
               <DialogContent>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', minWidth: '100px', width: '200px', padding:'5px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', minWidth: '100px', width: '200px', padding: '5px' }}>
                     <Typography variant='h4' sx={{ mt: 5 }}>Field List</Typography>
                     <Typography variant='p' sx={{ mb: 5 }}>Associate the picture with relevant field</Typography>
 
@@ -791,7 +786,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                         label={checkbox.label}
                       />
                     ))}
-                    <Typography variant='p'>Note:<br/> Upload all the certficate you have.<br/>(e.g Driving License, Character Certificate, Experience Certificate, etc. )</Typography>
+                    <Typography variant='p'>Note:<br /> Upload all the certficate you have.<br />(e.g Driving License, Character Certificate, Experience Certificate, etc. )</Typography>
 
                   </div>
                   <div sx={{ p: 2 }}>

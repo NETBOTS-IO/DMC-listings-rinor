@@ -34,9 +34,9 @@ const initialFormValues = {
             vehicletype: '',
             company: '',
             route: '',
-            startDate: Date(),
+            startDate: '',
             currentlyWorking: false,
-            endDate: Date(),
+            endDate: '',
         },
     ],
     driverExperties: [

@@ -11,6 +11,7 @@ import baseRoutes from './base';
 // import bookingRoutes from './booking';
 // import administrationRoutes from './administration';
 import listingRoutes from './listing';
+import Login from '../content/auth/SignIn';
 
 const router = [
   {
@@ -27,14 +28,11 @@ const router = [
 
   {
     path: '/',
-    element: (
-      <Authenticated>
-        <AccentSidebarLayout />
-      </Authenticated>
-    ),
+    element: <Login/>,
     children: [
       {
         path: 'listing',
+        element:<AccentSidebarLayout/>,
         children: listingRoutes
       },
       {

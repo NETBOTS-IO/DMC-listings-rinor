@@ -12,29 +12,29 @@ const menuItems = [
       {
         name: 'Property Listing',
         icon: SmartToyTwoToneIcon,
-        link: '/accent-sidebar/listing',
+        link: '/listing',
         items: [
           {
             name: 'Accommodations',
-            link: 'listing/add-property',
+            link: 'add-property',
             badge: '',
             badgeTooltip: 'Reports Dashboard - version 3.0'
           },
           {
             name: 'Transportation',
-            link: 'listing/add-vehicle',
+            link: 'add-vehicle',
             badge: '',
             badgeTooltip: 'Reports Dashboard - version 3.0'
           },
           {
             name: 'Destinations',
-            link: 'listing/add-tourist-spot',
+            link: 'add-tourist-spot',
             badge: '',
             badgeTooltip: 'Products Dashboard - version 3.0'
           },
           {
             name: 'Table',
-            link: 'listing/table',
+            link: 'table',
             badge: '',
             badgeTooltip: 'Products Dashboard - version 3.0'
           }
