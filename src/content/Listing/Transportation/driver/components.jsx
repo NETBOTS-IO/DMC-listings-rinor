@@ -379,8 +379,8 @@ const DriverLicenseForm = ({ isLastStep, handleBack, handleNext }) => {
             value={formik.values.driverLicense.licenseNumber}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.driverLicense?.licenseNumber && Boolean(formik.errors.driverLicense?.licenseNumber)}
-            helperText={formik.touched.driverLicense?.licenseNumber && formik.errors.driverLicense?.licenseNumber}
+          error={formik.touched.driverLicense?.licenseNumber && Boolean(formik.errors.driverLicense?.licenseNumber)}
+          helperText={formik.touched.driverLicense?.licenseNumber && formik.errors.driverLicense?.licenseNumber}
           />
         </Grid>
         <Grid item xs={12}>
@@ -394,7 +394,7 @@ const DriverLicenseForm = ({ isLastStep, handleBack, handleNext }) => {
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.driverLicense?.expiryDate && Boolean(formik.errors.driverLicense?.expiryDate)}
-            helperText={formik.touched.driverLicense?.expiryDate && formik.errors.driverLicense?.expiryDate}
+           helperText={formik.touched.driverLicense?.expiryDate && formik.errors.driverLicense?.expiryDate}
           />
         </Grid>
         <Grid item xs={12}>
@@ -406,7 +406,7 @@ const DriverLicenseForm = ({ isLastStep, handleBack, handleNext }) => {
             value={formik.values.driverLicense.licenseType}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.driverLicense?.licenseType && Boolean(formik.errors.driverLicense?.licenseType)}
+           error={formik.touched.driverLicense?.licenseType && Boolean(formik.errors.driverLicense?.licenseType)}
             helperText={formik.touched.driverLicense?.licenseType && formik.errors.driverLicense?.licenseType}
           />
         </Grid>

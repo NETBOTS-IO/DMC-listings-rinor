@@ -24,9 +24,9 @@ const initialFormValues = {
         address: '',
     },
     driverLicense: {
-        licenseNumber: '',
-        expiryDate: '',
-        licenseType: '',
+        licenseNumber: 'ree',
+        expiryDate: 'errer',
+        licenseType: 'rer',
     },
     driverExperience: [
         {

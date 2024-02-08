@@ -271,6 +271,17 @@ function ContactDetailsForm({ isLastStep, handleBack, handleNext }) {
 }
 
 const districts = ["Ghanche", "Shigar", "Skardu", "Kharmang", "Astore", "Gilgit", "Diamir", "Ghizer", "Hunza", "Nagar"];
+const cities = [
+    "Alchodri", "Baghicha", "Balghar", "Basho", "Barah", "Chorbat", "Chunda Valley",
+    "Daghoni/Balghar", "Dansam", "Deosai", "Dogoro", "Frano", "Garbidas", "Ghursay",
+    "Ghowari", "Gohari", "Haldi", "Hilal Abad", "Hushe", "Kashmal", "Kazurthang",
+    "Keris", "Khand", "Khamosh", "Khaplu", "Kharkoo", "Khomra", "Lower Kachura",
+    "Machulu", "Manthokha", "Marol", "Pandy", "Papaldo", "Parang", "Rambukha",
+    "Sadpar", "Saling", "Serdal", "Serling", "Sermik", "Skardu", "Sogha", "Sordas",
+    "Surmo", "Thagas", "Thandoro", "Thurgo", "Tisar", "Tolti", "Tormik", "Trabathang",
+    "Upper Kachura", "Youno"
+]
+
 function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
 
@@ -286,9 +297,9 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                         render={(arrayHelpers) => (
                             formik.values.propertyLocation.map((location, index) => (
                                 <Grid container spacing={2} key={index} sx={{ mt: 2, m: 2, p: 1, border: 1 }}>
-                                    <Grid item xs={6} sm={6}>
+                                    <Grid item xs={12} sm={6}>
                                         <FormControl fullWidth sx={{ mt: 2 }}>
-                                            <InputLabel id={`district-${index}`}>Select District</InputLabel>
+                                            <InputLabel id={`district-${index}`}>District</InputLabel>
                                             <Select
                                                 labelId={`district-${index}`}
                                                 name={`propertyLocation[${index}].district`}
@@ -314,24 +325,33 @@ function PropertyLocationForm({ isLastStep, handleBack, handleNext }) {
                                             </Select>
                                         </FormControl>
                                     </Grid>
-                                    <Grid item xs={6}>
-                                        <Field
-                                            as={TextField}
-                                            style={{ marginTop: '18px' }}
-                                            name={`propertyLocation[${index}].city`}
-                                            label="City"
-                                            fullWidth
-                                            value={location.city}
-                                            onChange={formik.handleChange}
-                                            error={
-                                                formik.touched.propertyLocation?.[index]?.city &&
-                                                Boolean(formik.errors.propertyLocation?.[index]?.city)
-                                            }
-                                            helpertext={
-                                                formik.touched.propertyLocation?.[index]?.city &&
-                                                formik.errors.propertyLocation?.[index]?.city
-                                            }
-                                        />
+                                    <Grid item xs={12} sm={6}>
+                                        <FormControl fullWidth sx={{ mt: 2 }}>
+                                            <InputLabel id={`city-${index}`}>City</InputLabel>
+                                            <Select
+                                                labelId={`city-${index}`}
+                                                name={`propertyLocation[${index}].city`}
+                                                label="City"
+                                                fullWidth
+                                                value={location.city}
+                                                onChange={(e) =>
+                                                    formik.setFieldValue(`propertyLocation[${index}].city`, e.target.value)}
+                                                error={
+                                                    formik.touched.propertyLocation?.[index]?.city &&
+                                                    Boolean(formik.errors.propertyLocation?.[index]?.city)
+                                                }
+                                                helpertext={
+                                                    formik.touched.propertyLocation?.[index]?.city &&
+                                                    formik.errors.propertyLocation?.[index]?.city
+                                                }
+                                            >
+                                                {cities.map((city, idx) => (
+                                                    <MenuItem key={idx} value={city}>
+                                                        {city}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Field
@@ -852,8 +872,8 @@ function AmenitiesForm({ isLastStep, handleBack, handleNext }) {
                                             }}
                                         />
                                     }
-                                    label={option} />
-
+                                    label={option}
+                                />
                             </Grid>
                         ))}
 
