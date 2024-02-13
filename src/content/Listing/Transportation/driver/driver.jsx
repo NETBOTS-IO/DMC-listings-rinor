@@ -6,8 +6,8 @@ import { Container, Stepper, Step, StepLabel, } from '@mui/material';
 
 import {
     DriverInformationForm,
-    DriverLicenseForm,
-    DriverExperienceForm,
+    DriverLicenseDataForm,
+    DriverExperienceDataForm,
     DriverExpertiseForm,
     DrivingRecordForm,
     EmergencyContactForm,
@@ -24,9 +24,9 @@ const initialFormValues = {
         address: '',
     },
     driverLicense: {
-        licenseNumber: 'ree',
-        expiryDate: 'errer',
-        licenseType: 'rer',
+        licenseNumber: '',
+        expiryDate: '',
+        licenseType: '',
     },
     driverExperience: [
         {
@@ -77,7 +77,7 @@ const yupSchema = yup.object().shape({
             email: yup.string().email('Invalid email format').required('Email is required'),
         }),
     }),
-    driverLicense: yup.object().shape({
+    driverLicenseData: yup.object().shape({
         licenseNumber: yup.string().required('License Number is required'),
         expiryDate: yup.string().matches(/^\d{4}-\d{2}-\d{2}$/, 'Invalid date format (YYYY-MM-DD)').required('Expiry Date is required'),
         licenseType: yup.string().required('License Type is required'),
@@ -117,6 +117,7 @@ function MultiStepForm() {
                 const errors = await formik.submitForm();
                 console.log("Formik Saved Values", formik.values)
                 if (!errors) {
+                    console.log("data", formik.values)
                     await axios.post('http://localhost:8000/api/driver/drivers', formik.values)
                         .then((response) => {
                             if (response.status === 200) {
@@ -164,14 +165,14 @@ function MultiStepForm() {
                         />
                     )}
                     {activeStep === 1 && (
-                        <DriverLicenseForm
+                        <DriverLicenseDataForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
                         />
                     )}
                     {activeStep === 2 && (
-                        <DriverExperienceForm
+                        <DriverExperienceDataForm
                             isLastStep={isLastStep}
                             handleBack={handleBack}
                             handleNext={handleNext}
