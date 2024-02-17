@@ -38,7 +38,9 @@ function App() {
           <Route path='/' element={<Login />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
-          <Route path='/listing' element={<AccentSidebarLayout />}>
+          <Route path='/listing/' element={<AccentSidebarLayout />}>
+
+            {/* <Route path='/' element={<AccentSidebarLayout />} /> */}
             <Route path='add-property' element={<Accommodations />} />
             <Route path='add-vehicle' element={<Transportation />} />
             <Route path='add-tourist-spot' element={<Destination />} />

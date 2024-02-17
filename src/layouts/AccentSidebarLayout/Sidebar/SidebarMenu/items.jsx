@@ -17,26 +17,26 @@ const menuItems = [
           {
             name: 'Accommodations',
             link: 'add-property',
-            badge: '',
-            badgeTooltip: 'Reports Dashboard - version 3.0'
+            
+            // badgeTooltip: 'Reports Dashboard - version 3.0'
           },
           {
             name: 'Transportation',
             link: 'add-vehicle',
-            badge: '',
-            badgeTooltip: 'Reports Dashboard - version 3.0'
+           
+            // badgeTooltip: 'Reports Dashboard - version 3.0'
           },
           {
             name: 'Destinations',
             link: 'add-tourist-spot',
-            badge: '',
-            badgeTooltip: 'Products Dashboard - version 3.0'
+            
+            // badgeTooltip: 'Products Dashboard - version 3.0'
           },
           {
             name: 'Table',
             link: 'table',
-            badge: '',
-            badgeTooltip: 'Products Dashboard - version 3.0'
+          
+            // badgeTooltip: 'Products Dashboard - version 3.0'
           }
         ]
       }

@@ -21,6 +21,7 @@ import UnfoldMoreTwoToneIcon from '@mui/icons-material/UnfoldMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
+import { userData } from '../../../../content/auth/SignIn';
 
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
@@ -104,7 +105,7 @@ function SidebarTopSection() {
   return (
     <>
       <UserBoxButton fullWidth color="secondary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        {/* <Avatar variant="rounded" alt={user.name} src={user.avatar} /> */}
         <Box
           display="flex"
           flex={1}
@@ -112,9 +113,9 @@ function SidebarTopSection() {
           justifyContent="space-between"
         >
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userData.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userData.designation}
             </UserBoxDescription>
           </UserBoxText>
           <UnfoldMoreTwoToneIcon
@@ -145,13 +146,13 @@ function SidebarTopSection() {
           }}
           display="flex"
         >
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          {/* <Avatar variant="rounded" alt={user.name} src={user.avatar} /> */}
           <UserBoxText>
             <UserBoxLabel className="popoverTypo" variant="body1">
-              {user.name}
+              {userData.name}
             </UserBoxLabel>
             <UserBoxDescription className="popoverTypo" variant="body2">
-              {user.jobtitle}
+              {userData.designation}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>

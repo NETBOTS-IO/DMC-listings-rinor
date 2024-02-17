@@ -1029,9 +1029,9 @@ function Photos({ isLastStep, handleBack, handleNext }) {
 
     const [extFiles, setExtFiles] = useState([]);
     const [imageSrc, setImageSrc] = useState(undefined);
-    const [videoSrc, setVideoSrc] = useState(undefined);
     const [checkedRooms, setCheckedRooms] = useState({});
     const [tempRoomNamesArray, setTempRoomNamesArray] = useState([]);
+    const [disable, setDisable] = useState(true);
 
 
     const BASE_URL = "http://localhost:8000/api/listing/";
@@ -1047,9 +1047,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         setImageSrc(imageSource);
         console.log("imageSrc", imageSrc);
     };
-    const handleWatch = (videoSource) => {
-        setVideoSrc(videoSource);
-    };
+
     const handleStart = (filesToUpload) => {
         console.log("advanced demo start upload", filesToUpload);
     };
@@ -1091,7 +1089,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
             },
         }, handleStart
         ).then((res) => {
-            handleFinish
+            setDisable(false)
             console.log("Response", res);
         });
 
@@ -1122,7 +1120,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                                 key={file.id}
                                 onDelete={onDelete}
                                 onSee={handleSee}
-                                onWatch={handleWatch}
                                 onAbort={handleAbort}
                                 onCancel={handleCancel}
                                 resultOnTooltip
@@ -1350,6 +1347,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                         onClick={handleNext}
                         variant="contained"
                         color="primary"
+                        disabled={disable}
                         style={{ margin: "30px", width: "30%", float: "right" }}
                     >
                         {isLastStep ? 'Submit' : 'Next'}

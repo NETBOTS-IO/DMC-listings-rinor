@@ -49,9 +49,9 @@ const SidebarMenuItem = ({
   const { t } = useTranslation();
   const { closeSidebar } = useContext(SidebarContext);
 
-  const toggleMenu = () => {
-    setMenuToggle((Open) => !Open);
-  };
+  // const toggleMenu = () => {
+  //   setMenuToggle((Open) => !Open);
+  // };
 
   if (children) {
     return (
@@ -59,10 +59,10 @@ const SidebarMenuItem = ({
         <Button
           className={clsx({ 'Mui-active': menuToggle })}
           startIcon={Icon && <Icon />}
-          endIcon={
-            menuToggle ? <ExpandLessTwoToneIcon /> : <ExpandMoreTwoToneIcon />
-          }
-          onClick={toggleMenu}
+          // endIcon={
+          //   menuToggle ? <ExpandLessTwoToneIcon /> : <ExpandMoreTwoToneIcon />
+          // }
+          // onClick={toggleMenu}
         >
           {badgeTooltip ? (
             <TooltipWrapper title={badgeTooltip} arrow placement="right">

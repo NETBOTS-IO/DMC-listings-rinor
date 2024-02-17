@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useFormikContext, Field, FieldArray } from 'formik';
-import { Button, Grid, Box, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Button, Grid, Box, Typography, TextField, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, Container } from '@mui/material';
 import { Dropzone, FileMosaic, FullScreen, ImagePreview, VideoPreview, } from "@files-ui/react";
 
 
@@ -134,25 +134,25 @@ const DriverLicenseDataForm = ({ isLastStep, handleBack, handleNext }) => {
           // helperText={formik.touched.driverLicenseData?.licenseType && formik.errors.driverLicenseData?.licenseType}
           />
         </Grid>
+        <Grid container justifyContent="space-between">
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", float: "left" }}
+          >
+            Back
+          </Button>
+          <Button
+            onClick={handleNextClick}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", width: "30%", float: "right" }}
+          >
+            {isLastStep ? 'Submit' : 'Next'}
+          </Button>
+        </Grid >
       </Grid>
-      <Grid container justifyContent="space-between">
-        <Button
-          onClick={handleBack}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", float: "left" }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={handleNextClick}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", width: "30%", float: "right" }}
-        >
-          {isLastStep ? 'Submit' : 'Next'}
-        </Button>
-      </Grid >
     </>
   );
 };
@@ -190,171 +190,173 @@ const DriverExperienceDataForm = ({ handleBack, handleNext, isLastStep }) => {
     handleNext();
   };
   return (
-    <div>
-      <div>
-        {driverExperienceData.map((experience, index) => (
-          <Grid container spacing={2} key={index} sx={{ mb: 5 }}>
-            <Grid item xs={12}>
-              <Typography variant='h2'> Experience {index + 1}</Typography>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Field
-                name={`driverExperienceData[${index}].position`}
-                label="Position"
-                component={TextField}
-                fullWidth
-                value={driverExperienceData?.[index]?.position}
-                onChange={(e) => handleChange(index, 'position', e.target.value)}
-                onBlur={formik.handleBlur}
-                error={formik.touched.driverExperienceData?.[index]?.position && Boolean(formik.errors.driverExperienceData?.[index]?.position)}
-              // helperText={formik.touched.driverExperienceData?.[index]?.position && formik.errors.driverExperienceData?.[index]?.position}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id={`driverExperienceData-${index}-vehicleType-label`}>Vehicle Type</InputLabel>
+    <Container>
+      <Grid container spacing={2}>
+        <div>
+          {driverExperienceData.map((experience, index) => (
+            <Grid container spacing={2} key={index} sx={{ mb: 5 }}>
+              <Grid item xs={12}>
+                <Typography variant='h2'> Experience {index + 1}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={6}>
                 <Field
-                  as={Select}
-                  labelId={`driverExperienceData-${index}-vehicleType-label`}
-                  label="Vehicle Type"
-                  name={`driverExperienceData[${index}].vehicletype`}
-                  value={driverExperienceData?.[index]?.vehicletype}
-                  onChange={(e) => handleChange(index, 'vehicletype', e.target.value)}
-                  onBlur={formik.handleBlur}
-                  error={formik.touched.driverExperienceData?.[index]?.vehicletype && Boolean(formik.errors.driverExperienceData?.[index]?.vehicletype)}
-                // helperText={formik.touched.driverExperienceData?.[index]?.vehicletype && formik.errors.driverExperienceData?.[index]?.vehicletype}
-                >
-                  {vehicleTypes.map((type) => (
-                    <MenuItem key={type} value={type}>
-                      {type}
-                    </MenuItem>
-                  ))}
-                </Field>
-              </FormControl>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Field
-                name={`driverExperienceData[${index}].company`}
-                label="Company"
-                component={TextField}
-                fullWidth
-                value={driverExperienceData?.[index]?.company}
-                onChange={(e) => handleChange(index, 'company', e.target.value)}
-                onBlur={formik.handleBlur}
-                error={formik.touched.driverExperienceData?.[index]?.company && Boolean(formik.errors.driverExperienceData?.[index]?.company)}
-              // helperText={formik.touched.driverExperienceData?.[index]?.company && formik.errors.driverExperienceData?.[index]?.company}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <Field
-                name={`driverExperienceData[${index}].route`}
-                label="Route"
-                component={TextField}
-                fullWidth
-                value={driverExperienceData?.[index]?.route}
-                onChange={(e) => handleChange(index, 'route', e.target.value)}
-                onBlur={formik.handleBlur}
-                error={formik.touched.driverExperienceData?.[index]?.route && Boolean(formik.errors.driverExperienceData?.[index]?.route)}
-              // helperText={formik.touched.driverExperienceData?.[index]?.route && formik.errors.driverExperienceData?.[index]?.route}
-              />
-            </Grid>
-            <Grid item xs={12} sm={5}>
-              <Field
-                name={`driverExperienceData[${index}].startDate`}
-                label="Start Date(YYYY-MM-DD)"
-                component={TextField}
-                fullWidth
-                value={driverExperienceData?.[index]?.startDate}
-                onChange={(e) => handleChange(index, 'startDate', e.target.value)}
-                onBlur={formik.handleBlur}
-                error={formik.touched.driverExperienceData?.[index]?.startDate && Boolean(formik.errors.driverExperienceData?.[index]?.startDate)}
-              // helperText={formik.touched.driverExperienceData?.[index]?.startDate && formik.errors.driverExperienceData?.[index]?.startDate}
-              />
-            </Grid>
-            <Grid item xs={12} sm={2}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={experience.currentlyWorking}
-                    onChange={(e) => handleChange(index, 'currentlyWorking', e.target.checked)}
-                    name={`driverExperienceData[${index}].currentlyWorking`}
-                  />
-                }
-                label="Currently Working"
-              />
-            </Grid>
-            {!experience.currentlyWorking && (
-              <Grid item xs={12} sm={5}>
-                <Field
-                  name={`driverExperienceData[${index}].endDate`}
-                  label="End Date(YYYY-MM-DD)"
+                  name={`driverExperienceData[${index}].position`}
+                  label="Position"
                   component={TextField}
                   fullWidth
-                  value={driverExperienceData?.[index]?.endDate}
-                  onChange={(e) => handleChange(index, 'endDate', e.target.value)}
+                  value={driverExperienceData?.[index]?.position}
+                  onChange={(e) => handleChange(index, 'position', e.target.value)}
                   onBlur={formik.handleBlur}
-                  error={formik.touched.driverExperienceData?.[index]?.endDate && Boolean(formik.errors.driverExperienceData?.[index]?.endDate)}
-                // helperText={formik.touched.driverExperienceData?.[index]?.endDate && formik.errors.driverExperienceData?.[index]?.endDate}
+                  error={formik.touched.driverExperienceData?.[index]?.position && Boolean(formik.errors.driverExperienceData?.[index]?.position)}
+                // helperText={formik.touched.driverExperienceData?.[index]?.position && formik.errors.driverExperienceData?.[index]?.position}
                 />
               </Grid>
-            )}
-            {index !== 0 && (
-              <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
-                <Button
-                  variant="contained"
-                  color="error"
-                  onClick={() => handleRemoveExperience(index)}
-                >
-                  Delete
-                </Button>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel id={`driverExperienceData-${index}-vehicleType-label`}>Vehicle Type</InputLabel>
+                  <Field
+                    as={Select}
+                    labelId={`driverExperienceData-${index}-vehicleType-label`}
+                    label="Vehicle Type"
+                    name={`driverExperienceData[${index}].vehicletype`}
+                    value={driverExperienceData?.[index]?.vehicletype}
+                    onChange={(e) => handleChange(index, 'vehicletype', e.target.value)}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.driverExperienceData?.[index]?.vehicletype && Boolean(formik.errors.driverExperienceData?.[index]?.vehicletype)}
+                  // helperText={formik.touched.driverExperienceData?.[index]?.vehicletype && formik.errors.driverExperienceData?.[index]?.vehicletype}
+                  >
+                    {vehicleTypes.map((type) => (
+                      <MenuItem key={type} value={type}>
+                        {type}
+                      </MenuItem>
+                    ))}
+                  </Field>
+                </FormControl>
               </Grid>
-            )}
+              <Grid item xs={12} sm={6}>
+                <Field
+                  name={`driverExperienceData[${index}].company`}
+                  label="Company"
+                  component={TextField}
+                  fullWidth
+                  value={driverExperienceData?.[index]?.company}
+                  onChange={(e) => handleChange(index, 'company', e.target.value)}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.driverExperienceData?.[index]?.company && Boolean(formik.errors.driverExperienceData?.[index]?.company)}
+                // helperText={formik.touched.driverExperienceData?.[index]?.company && formik.errors.driverExperienceData?.[index]?.company}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  name={`driverExperienceData[${index}].route`}
+                  label="Route"
+                  component={TextField}
+                  fullWidth
+                  value={driverExperienceData?.[index]?.route}
+                  onChange={(e) => handleChange(index, 'route', e.target.value)}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.driverExperienceData?.[index]?.route && Boolean(formik.errors.driverExperienceData?.[index]?.route)}
+                // helperText={formik.touched.driverExperienceData?.[index]?.route && formik.errors.driverExperienceData?.[index]?.route}
+                />
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <Field
+                  name={`driverExperienceData[${index}].startDate`}
+                  label="Start Date(YYYY-MM-DD)"
+                  component={TextField}
+                  fullWidth
+                  value={driverExperienceData?.[index]?.startDate}
+                  onChange={(e) => handleChange(index, 'startDate', e.target.value)}
+                  onBlur={formik.handleBlur}
+                  error={formik.touched.driverExperienceData?.[index]?.startDate && Boolean(formik.errors.driverExperienceData?.[index]?.startDate)}
+                // helperText={formik.touched.driverExperienceData?.[index]?.startDate && formik.errors.driverExperienceData?.[index]?.startDate}
+                />
+              </Grid>
+              <Grid item xs={12} sm={2}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={experience.currentlyWorking}
+                      onChange={(e) => handleChange(index, 'currentlyWorking', e.target.checked)}
+                      name={`driverExperienceData[${index}].currentlyWorking`}
+                    />
+                  }
+                  label="Currently Working"
+                />
+              </Grid>
+              {!experience.currentlyWorking && (
+                <Grid item xs={12} sm={5}>
+                  <Field
+                    name={`driverExperienceData[${index}].endDate`}
+                    label="End Date(YYYY-MM-DD)"
+                    component={TextField}
+                    fullWidth
+                    value={driverExperienceData?.[index]?.endDate}
+                    onChange={(e) => handleChange(index, 'endDate', e.target.value)}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.driverExperienceData?.[index]?.endDate && Boolean(formik.errors.driverExperienceData?.[index]?.endDate)}
+                  // helperText={formik.touched.driverExperienceData?.[index]?.endDate && formik.errors.driverExperienceData?.[index]?.endDate}
+                  />
+                </Grid>
+              )}
+              {index !== 0 && (
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'end' }}>
+                  <Button
+                    variant="contained"
+                    color="error"
+                    onClick={() => handleRemoveExperience(index)}
+                  >
+                    Delete
+                  </Button>
+                </Grid>
+              )}
+            </Grid>
+          ))}
+          <Grid container justifyContent="flex-end">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setDriverExperienceData([
+                  ...driverExperienceData,
+                  {
+                    position: '',
+                    vehicletype: '',
+                    company: '',
+                    route: '',
+                    startDate: '',
+                    currentlyWorking: false,
+                    endDate: '',
+                  },
+                ]);
+              }}
+            >
+              Add Another Experience
+            </Button>
           </Grid>
-        ))}
-        <Grid container justifyContent="flex-end">
+        </div>
+
+        <Grid container justifyContent="space-between">
           <Button
+            onClick={handleBack}
             variant="contained"
             color="primary"
-            onClick={() => {
-              setDriverExperienceData([
-                ...driverExperienceData,
-                {
-                  position: '',
-                  vehicletype: '',
-                  company: '',
-                  route: '',
-                  startDate: '',
-                  currentlyWorking: false,
-                  endDate: '',
-                },
-              ]);
-            }}
+            style={{ margin: "20px", float: "left" }}
           >
-            Add Another Experience
+            Back
+          </Button>
+          <Button
+            onClick={handleNext}
+            variant="contained"
+            color="primary"
+            style={{ margin: "20px", width: "30%", float: "right" }}
+          >
+            {isLastStep ? 'Submit' : 'Next'}
           </Button>
         </Grid>
-      </div>
 
-
-      <Grid container justifyContent="space-between">
-        <Button
-          onClick={handleBack}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", float: "left" }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={handleNextClick}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", width: "30%", float: "right" }}
-        >
-          {isLastStep ? 'Submit' : 'Next'}
-        </Button>
       </Grid>
-    </div>
+    </Container>
   );
 };
 
@@ -362,121 +364,123 @@ const DriverExpertiseForm = ({ handleBack, handleNext, isLastStep }) => {
   const formik = useFormikContext();
 
   return (
-    <div>
-      <FieldArray
-        name="driverExperties"
-        render={({ push, remove }) => (
-          <div>
-            {(formik.values.driverExperties).map((expertise, index) => (
-              <Grid container spacing={2} key={index} sx={{ mb: 5 }}>
-                <Grid item xs={12}>
-                  <Typography variant='h2'> Expertise {index + 1}</Typography>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControl fullWidth>
-                    <InputLabel id={`driverExperties-${index}-vehicleType-label`}>Vehicle Type</InputLabel>
+    <Container>
+      <Grid container spacing={2}>
+        <FieldArray
+          name="driverExperties"
+          render={({ push, remove }) => (
+            <div>
+              {(formik.values.driverExperties).map((expertise, index) => (
+                <Grid container spacing={2} key={index} sx={{ mb: 5 }}>
+                  <Grid item xs={12}>
+                    <Typography variant='h2'> Expertise {index + 1}</Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <FormControl fullWidth>
+                      <InputLabel id={`driverExperties-${index}-vehicleType-label`}>Vehicle Type</InputLabel>
+                      <Field
+                        as={Select}
+                        name={`driverExperties[${index}].vehicleType`}
+                        labelId={`driverExperties-${index}-vehicleType-label`}
+                        label="Vehicle Type"
+                        fullWidth
+                        value={formik.values.driverExperties?.[index]?.vehicleType}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                        error={formik.touched.driverExperties?.[index]?.vehicleType && Boolean(formik.errors.driverExperties?.[index]?.vehicleType)}
+                        helperText={formik.touched.driverExperties?.[index]?.vehicleType && formik.errors.driverExperties?.[index]?.vehicleType}
+                      >
+                        {vehicleTypes.map((type) => (
+                          <MenuItem key={type} value={type}>
+                            {type}
+                          </MenuItem>
+                        ))}
+                      </Field>
+                    </FormControl>
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
                     <Field
-                      as={Select}
-                      name={`driverExperties[${index}].vehicleType`}
-                      labelId={`driverExperties-${index}-vehicleType-label`}
-                      label="Vehicle Type"
+                      as={TextField}
+                      name={`driverExperties[${index}].route`}
+                      label="Route"
                       fullWidth
-                      value={formik.values.driverExperties?.[index]?.vehicleType}
+                      value={formik.values.driverExperties?.[index]?.route}
                       onChange={formik.handleChange}
                       onBlur={formik.handleBlur}
-                      error={formik.touched.driverExperties?.[index]?.vehicleType && Boolean(formik.errors.driverExperties?.[index]?.vehicleType)}
-                      helperText={formik.touched.driverExperties?.[index]?.vehicleType && formik.errors.driverExperties?.[index]?.vehicleType}
-                    >
-                      {vehicleTypes.map((type) => (
-                        <MenuItem key={type} value={type}>
-                          {type}
-                        </MenuItem>
-                      ))}
-                    </Field>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    as={TextField}
-                    name={`driverExperties[${index}].route`}
-                    label="Route"
-                    fullWidth
-                    value={formik.values.driverExperties?.[index]?.route}
-                    onChange={formik.handleChange}
-                    onBlur={formik.handleBlur}
-                    error={formik.touched.driverExperties?.[index]?.route && Boolean(formik.errors.driverExperties?.[index]?.route)}
-                    helperText={formik.touched.driverExperties?.[index]?.route && formik.errors.driverExperties?.[index]?.route}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={expertise.hasCertificate}
-                        onChange={formik.handleChange}
-                        name={`driverExperties[${index}].hasCertificate`}
-                      />
-                    }
-                    label="Certificate"
-                  />
-                </Grid>
-                <Grid item xs={10} sm={4}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={expertise.hasFormalTraining}
-                        onChange={formik.handleChange}
-                        name={`driverExperties[${index}].hasFormalTraining`}
-                      />
-                    }
-                    label="Formal Training"
-                  />
-                </Grid>
-                {index !== 0 && (
-                  <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'end' }}>
-                    <Button
-                      variant="contained"
-                      color="error"
-                      onClick={() => remove(index)}
-                    >
-                      Delete
-                    </Button>
+                      error={formik.touched.driverExperties?.[index]?.route && Boolean(formik.errors.driverExperties?.[index]?.route)}
+                      helperText={formik.touched.driverExperties?.[index]?.route && formik.errors.driverExperties?.[index]?.route}
+                    />
                   </Grid>
-                )}
+                  <Grid item xs={12} sm={6}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={expertise.hasCertificate}
+                          onChange={formik.handleChange}
+                          name={`driverExperties[${index}].hasCertificate`}
+                        />
+                      }
+                      label="Certificate"
+                    />
+                  </Grid>
+                  <Grid item xs={10} sm={4}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={expertise.hasFormalTraining}
+                          onChange={formik.handleChange}
+                          name={`driverExperties[${index}].hasFormalTraining`}
+                        />
+                      }
+                      label="Formal Training"
+                    />
+                  </Grid>
+                  {index !== 0 && (
+                    <Grid item xs={2} sx={{ display: 'flex', justifyContent: 'end' }}>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => remove(index)}
+                      >
+                        Delete
+                      </Button>
+                    </Grid>
+                  )}
+                </Grid>
+              ))}
+              <Grid container justifyContent="flex-end">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => push({ vehicleType: '', route: '', hasCertificate: false, hasFormalTraining: false })}
+                >
+                  Add Another Expertise
+                </Button>
               </Grid>
-            ))}
-            <Grid container justifyContent="flex-end">
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => push({ vehicleType: '', route: '', hasCertificate: false, hasFormalTraining: false })}
-              >
-                Add Another Expertise
-              </Button>
-            </Grid>
-          </div>
-        )}
-      />
+            </div>
+          )}
+        />
 
-      <Grid container justifyContent="space-between">
-        <Button
-          onClick={handleBack}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", float: "left" }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={handleNext}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", width: "30%", float: "right" }}
-        >
-          {isLastStep ? 'Submit' : 'Next'}
-        </Button>
+        <Grid container justifyContent="space-between">
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            style={{ margin: "20px", float: "left" }}
+          >
+            Back
+          </Button>
+          <Button
+            onClick={handleNext}
+            variant="contained"
+            color="primary"
+            style={{ margin: "20px", width: "30%", float: "right" }}
+          >
+            {isLastStep ? 'Submit' : 'Next'}
+          </Button>
+        </Grid>
       </Grid>
-    </div>
+    </Container>
   );
 };
 
@@ -556,26 +560,26 @@ const DrivingRecordForm = ({ isLastStep, handleBack, handleNext }) => {
             label="Do you have a clean criminal record certificate?"
           />
         </Grid>
+        <Grid container justifyContent="space-between">
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", float: "left" }}
+          >
+            Back
+          </Button>
+          <Button
+            onClick={handleNext}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", width: "30%", float: "right" }}
+          >
+            {isLastStep ? 'Submit' : 'Next'}
+          </Button>
+        </Grid>
       </Grid>
 
-      <Grid container justifyContent="space-between">
-        <Button
-          onClick={handleBack}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", float: "left" }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={handleNext}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", width: "30%", float: "right" }}
-        >
-          {isLastStep ? 'Submit' : 'Next'}
-        </Button>
-      </Grid>
     </>
   );
 };
@@ -594,7 +598,7 @@ const EmergencyContactForm = ({ isLastStep, handleBack, handleNext }) => {
           render={(arrayHelpers) => (
             <>
               {formik.values.emergencyContact.map((emergency, index) => (
-                <Grid container spacing={2} key={index} sx={{ mt: 2, m: 1, p: 1, border: 1 }}>
+                <Grid container spacing={2} key={index} sx={{ mt: 2}}>
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
@@ -645,24 +649,24 @@ const EmergencyContactForm = ({ isLastStep, handleBack, handleNext }) => {
             </>
           )}
         />
-      </Grid>
-      <Grid container justifyContent="space-between">
-        <Button
-          onClick={handleBack}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", float: "left" }}
-        >
-          Back
-        </Button>
-        <Button
-          onClick={handleNext}
-          variant="contained"
-          color="primary"
-          style={{ margin: "30px", width: "30%", float: "right" }}
-        >
-          {isLastStep ? 'Submit' : 'Next'}
-        </Button>
+        <Grid container justifyContent="space-between">
+          <Button
+            onClick={handleBack}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", float: "left" }}
+          >
+            Back
+          </Button>
+          <Button
+            onClick={handleNext}
+            variant="contained"
+            color="primary"
+            style={{ margin: "30px", width: "30%", float: "right" }}
+          >
+            {isLastStep ? 'Submit' : 'Next'}
+          </Button>
+        </Grid>
       </Grid>
     </>
   );

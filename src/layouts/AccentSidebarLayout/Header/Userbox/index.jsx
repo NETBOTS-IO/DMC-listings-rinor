@@ -20,7 +20,7 @@ import ExpandMoreTwoToneIcon from '@mui/icons-material/ExpandMoreTwoTone';
 import AccountBoxTwoToneIcon from '@mui/icons-material/AccountBoxTwoTone';
 import LockOpenTwoToneIcon from '@mui/icons-material/LockOpenTwoTone';
 import AccountTreeTwoToneIcon from '@mui/icons-material/AccountTreeTwoTone';
-
+import { userData } from '../../../../content/auth/SignIn';
 const UserBoxButton = styled(Button)(
   ({ theme }) => `
         padding: ${theme.spacing(0, 1)};
@@ -61,7 +61,7 @@ function HeaderUserbox() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
 
   const ref = useRef(null);
   const [isOpen, setOpen] = useState(false);
@@ -87,7 +87,7 @@ function HeaderUserbox() {
   return (
     <>
       <UserBoxButton color="primary" ref={ref} onClick={handleOpen}>
-        <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+        {/* <Avatar variant="rounded" alt={Data.name} src={user.avatar} /> */}
         <Box
           component="span"
           sx={{
@@ -95,9 +95,9 @@ function HeaderUserbox() {
           }}
         >
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userData.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userData.designation}
             </UserBoxDescription>
           </UserBoxText>
         </Box>
@@ -134,11 +134,11 @@ function HeaderUserbox() {
           }}
           display="flex"
         >
-          <Avatar variant="rounded" alt={user.name} src={user.avatar} />
+          {/* <Avatar variant="rounded" alt={user.name} src={user.avatar} /> */}
           <UserBoxText>
-            <UserBoxLabel variant="body1">{user.name}</UserBoxLabel>
+            <UserBoxLabel variant="body1">{userData.name}</UserBoxLabel>
             <UserBoxDescription variant="body2">
-              {user.jobtitle}
+              {userData.designation}
             </UserBoxDescription>
           </UserBoxText>
         </MenuUserBox>

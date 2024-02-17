@@ -4,6 +4,7 @@ import { DropzoneArea } from 'material-ui-dropzone';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Dropzone, FileMosaic, FullScreen, ImagePreview, VideoPreview, } from "@files-ui/react";
 import { Button, Grid, Box, Typography, TextField, FormGroup, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import axios from 'axios';
 
 const VehicleInformationForm = ({ isLastStep, handleBack, handleNext }) => {
     const formik = useFormikContext();
@@ -239,24 +240,24 @@ const VehicleFeaturesForm = ({ isLastStep, handleBack, handleNext }) => {
                     </Grid>
 
                 </Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-                <Button
-                    onClick={handleBack}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", float: "left" }}
-                >
-                    Back
-                </Button>
-                <Button
-                    onClick={handleNext}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", width: "30%", float: "right" }}
-                >
-                    {isLastStep ? 'Submit' : 'Next'}
-                </Button>
+                <Grid container justifyContent="space-between">
+                    <Button
+                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", float: "left" }}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleNext}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", width: "30%", float: "right" }}
+                    >
+                        {isLastStep ? 'Submit' : 'Next'}
+                    </Button>
+                </Grid>
             </Grid>
         </>
     );
@@ -335,24 +336,24 @@ const DocumentationForm = ({ isLastStep, handleBack, handleNext }) => {
                         onBlur={formik.handleBlur}
                     />
                 </Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-                <Button
-                    onClick={handleBack}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", float: "left" }}
-                >
-                    Back
-                </Button>
-                <Button
-                    onClick={handleNext}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", width: "30%", float: "right" }}
-                >
-                    {isLastStep ? 'Submit' : 'Next'}
-                </Button>
+                <Grid container justifyContent="space-between">
+                    <Button
+                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", float: "left" }}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleNext}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", width: "30%", float: "right" }}
+                    >
+                        {isLastStep ? 'Submit' : 'Next'}
+                    </Button>
+                </Grid>
             </Grid>
         </>
     );
@@ -436,24 +437,24 @@ const PricingForm = ({ isLastStep, handleBack, handleNext }) => {
                         helperText={formik.touched.pricing?.cancellationPolicy && formik.errors.pricing?.cancellationPolicy}
                     />
                 </Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-                <Button
-                    onClick={handleBack}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", float: "left" }}
-                >
-                    Back
-                </Button>
-                <Button
-                    onClick={handleNext}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", width: "30%", float: "right" }}
-                >
-                    {isLastStep ? 'Submit' : 'Next'}
-                </Button>
+                <Grid container justifyContent="space-between">
+                    <Button
+                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", float: "left" }}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleNext}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", width: "30%", float: "right" }}
+                    >
+                        {isLastStep ? 'Submit' : 'Next'}
+                    </Button>
+                </Grid>
             </Grid>
         </>
     );
@@ -537,24 +538,25 @@ const OwnerInfoForm = ({ isLastStep, handleBack, handleNext }) => {
                         helperText={formik.touched.termsAndConditions && formik.errors.termsAndConditions}
                     />
                 </Grid>
-            </Grid>
-            <Grid container justifyContent="space-between">
-                <Button
-                    onClick={handleBack}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", float: "left" }}
-                >
-                    Back
-                </Button>
-                <Button
-                    onClick={handleNext}
-                    variant="contained"
-                    color="primary"
-                    style={{ margin: "30px", width: "30%", float: "right" }}
-                >
-                    {isLastStep ? 'Submit' : 'Next'}
-                </Button>
+
+                <Grid container justifyContent="space-between">
+                    <Button
+                        onClick={handleBack}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", float: "left" }}
+                    >
+                        Back
+                    </Button>
+                    <Button
+                        onClick={handleNext}
+                        variant="contained"
+                        color="primary"
+                        style={{ margin: "30px", width: "30%", float: "right" }}
+                    >
+                        {isLastStep ? 'Submit' : 'Next'}
+                    </Button>
+                </Grid>
             </Grid>
         </>
     );
@@ -624,7 +626,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     const handleUpload = async () => {
         console.log("i am hreer");
         const formData = new FormData();
-        formData.append("name", formik.values.basicInfo.propertyName);
+        // formData.append("name", formik.values.basicInfo.propertyName);
 
         for (let i = 0; i < extFiles.length; i++) {
             formData.append("files", extFiles[i].file);

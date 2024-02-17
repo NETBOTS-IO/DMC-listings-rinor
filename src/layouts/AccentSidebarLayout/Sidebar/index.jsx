@@ -56,7 +56,7 @@ function Sidebar() {
             >
               <Logo />
             </Box>
-            {/* <SidebarTopSection /> */}
+            <SidebarTopSection />
           </TopSection>
           <SidebarMenu />
         </Scrollbar>

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as yup from 'yup';
+import { userData } from '../../../auth/SignIn';
 import {
     Container,
     Stepper,
     Step,
     StepLabel,
+    Button, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions,
 } from '@mui/material';
 
 import {
@@ -17,6 +19,7 @@ import {
     OwnerInfoForm,
     Photos
 } from './component';
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
     vehicleInformation: {
@@ -51,7 +54,7 @@ const initialValues = {
             perPassenger: 0
         },
         securityDeposit: 0,
-        discounts: 0,
+        discounts: '0%',
         cancellationPolicy: '',
     },
 
@@ -93,8 +96,8 @@ const yupSchema = yup.object().shape({
     pricing: yup.object().shape({
         rentalRates: yup.object().required('Rental Rates are required'),
         securityDeposit: yup.number().required('Security Deposit is required'),
-        discounts: yup.object(),
-        cancellationPolicy: yup.string().required('Cancellation Policy is required'),
+        discounts: yup.string(),
+        cancellationPolicy: yup.string(),
     }),
     ownerInfo: yup.object().shape({
         contactInfo: yup.object().required('Owner Contact Information is required'),
@@ -103,8 +106,11 @@ const yupSchema = yup.object().shape({
     termsAndConditions: yup.string().required('Terms and Conditions are required'),
 });
 
-function MultiStepForm() {
+function Vehicle() {
     const [activeStep, setActiveStep] = useState(0);
+    const [isSubmitSuccess, setSubmitSuccess] = useState(false);
+    const [isPopupOpen, setPopupOpen] = useState(false);
+    const Navigate = useNavigate();
 
     const formik = useFormik({
         initialValues: initialValues,
@@ -114,6 +120,11 @@ function MultiStepForm() {
         },
 
     });
+
+    const handlePopupClose = () => {
+        setPopupOpen(false);
+        isSubmitSuccess ? Navigate('/listing/') : setActiveStep(0);
+    };
 
     const steps = ["1", "2", "3", "4", "5", "6"]
     const isLastStep = activeStep === steps.length - 1;
@@ -125,19 +136,31 @@ function MultiStepForm() {
                 const errors = await formik.submitForm();
                 console.log("Formik Saved Values", formik.values)
                 if (!errors) {
-                    await axios.post('http://localhost:8000/api/vehicle/vehicles', formik.values)
+                    await axios.post(
+                        'http://localhost:8000/api/vehicle/vehicles',
+                        {
+                            ...formik.values,
+                            user: {
+                                name: userData.name,
+                                designation: userData.designation
+                            }
+                        },
+                        { withCredentials: true }
+                    )
                         .then((response) => {
-                            if (response.status === 200) {
+                            if (response.status === 200 || 201) {
                                 console.log("vehicle Added in the DB", response.data)
-                                // setSubmitSuccess(true);
+                                setSubmitSuccess(true);
                             } else {
-                                console.log("Failed to Add in the DB")
-                                // setSubmitSuccess(false);
+                                console.log("Failed to Add in the DB", response.status)
+                                setSubmitSuccess(false);
                             }
                         }).catch((error) => {
                             console.error('Error posting data to the backend:', error);
-                            // setSubmitSuccess(false);
-                        })
+                            setSubmitSuccess(false);
+                        }).finally(() => {
+                            setPopupOpen(true);
+                        });
                 }
             } catch (error) {
                 // Handle any submission errors (e.g., network issues)
@@ -209,8 +232,29 @@ function MultiStepForm() {
 
                 </Form>
             </FormikProvider>
+
+            <Dialog open={isPopupOpen} onClose={handlePopupClose}>
+                <DialogTitle style={{ textAlign: 'center' }}>
+                    {isSubmitSuccess
+                        ? 'Form submitted successfully!'
+                        : 'Form submission failed.'}
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText style={{ textAlign: 'center' }}>
+                        {isSubmitSuccess
+                            ? 'Your form has been submitted successfully!'
+                            : 'There was an error submitting the form. Please try again later.'}
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handlePopupClose} color="primary" variant="contained">
+                        Close
+                    </Button>
+                </DialogActions>
+            </Dialog>
+
         </Container>
     );
 }
 
-export default MultiStepForm;
+export default Vehicle;

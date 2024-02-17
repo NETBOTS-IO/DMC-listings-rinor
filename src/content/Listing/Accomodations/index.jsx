@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
+import { userData } from '../../auth/SignIn';
 import {
     Container,
     Stepper,
@@ -26,6 +27,7 @@ import {
     Photos,
     SubmitData
 } from './Components';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -187,7 +189,7 @@ function MultiStepForm() {
     const [activeStep, setActiveStep] = useState(0);
     const [isSubmitSuccess, setSubmitSuccess] = useState(false);
     const [isPopupOpen, setPopupOpen] = useState(false);
-
+    const Navigate = useNavigate();
     const formik = useFormik({
         initialValues: initialValues,
         validationSchema: yupSchema,
@@ -202,7 +204,7 @@ function MultiStepForm() {
 
     const handlePopupClose = () => {
         setPopupOpen(false);
-        setActiveStep(0);
+        isSubmitSuccess ? Navigate('/listing/') : setActiveStep(0);
     };
 
     const steps = ["1", "2", "3", "4", "5", "6", "7"]
@@ -215,26 +217,34 @@ function MultiStepForm() {
                 if (!errors) {
 
 
-                    const formData = new FormData();
-                    formData.append('basicInfo', formik.values.basicInfo);
-                    formData.append('contactDetails', formik.values.contactDetails);
-                    formData.append('propertyLocation', formik.values.propertyLocation);
-                    formData.append('roomDetails', formik.values.roomDetails);
-                    formData.append('pricing', formik.values.pricing);
-                    formData.append('cancellations', formik.values.cancellations);
-                    formData.append('hotelAmenities', formik.values.hotelAmenities);
-                    formData.append('policies', formik.values.policies);
-                    formData.append('checkInTime', formik.values.checkInTime);
-                    formData.append('checkOutTime', formik.values.checkOutTime);
-                    formData.append('roomPhotos', formik.values.roomPhotos);
-                    formData.append('propertyPhotos', formik.values.propertyPhotos);
-                    console.log("formData ", formik.values)
+                    // const formData = new FormData();
+                    // formData.append('basicInfo', formik.values.basicInfo);
+                    // formData.append('contactDetails', formik.values.contactDetails);
+                    // formData.append('propertyLocation', formik.values.propertyLocation);
+                    // formData.append('roomDetails', formik.values.roomDetails);
+                    // formData.append('pricing', formik.values.pricing);
+                    // formData.append('cancellations', formik.values.cancellations);
+                    // formData.append('hotelAmenities', formik.values.hotelAmenities);
+                    // formData.append('policies', formik.values.policies);
+                    // formData.append('checkInTime', formik.values.checkInTime);
+                    // formData.append('checkOutTime', formik.values.checkOutTime);
+                    // formData.append('roomPhotos', formik.values.roomPhotos);
+                    // formData.append('propertyPhotos', formik.values.propertyPhotos);
+                    // console.log("formData ", formik.values)
 
                     // Example usage:
-                    await axios.post('http://localhost:8000/api/property/properties', formik.values
-
+                    await axios.post(
+                        'http://localhost:8000/api/property/properties', {
+                        ...formik.values,
+                        user: {
+                            name: userData.name,
+                            designation: userData.designation
+                        }
+                    },
+                        { withCredentials: true },
+                        console.log("i am herer")
                     ).then((response) => {
-                        if (response.status === 200) {
+                        if (response.status === 200 || 201) {
                             console.log("Property Added in the DB", response.data)
                             setSubmitSuccess(true);
                         } else {
@@ -245,8 +255,8 @@ function MultiStepForm() {
                         console.error('Error posting data to the backend:', error);
                         setSubmitSuccess(false);
                     }).finally(() => {
-                            setPopupOpen(true);
-                        });
+                        setPopupOpen(true);
+                    });
                 } else {
                     // Form submission has errors, you can handle them as needed
                     console.log('Form has validation errors:', errors);
