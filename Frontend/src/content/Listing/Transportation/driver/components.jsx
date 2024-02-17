@@ -598,7 +598,7 @@ const EmergencyContactForm = ({ isLastStep, handleBack, handleNext }) => {
           render={(arrayHelpers) => (
             <>
               {formik.values.emergencyContact.map((emergency, index) => (
-                <Grid container spacing={2} key={index} sx={{ mt: 2}}>
+                <Grid container spacing={2} key={index} sx={{ mt: 2 }}>
                   <Grid item xs={12}>
                     <TextField
                       fullWidth
@@ -678,6 +678,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
   const [extFiles, setExtFiles] = useState([]);
   const [imageSrc, setImageSrc] = useState(undefined);
   const [tempChecked, setTempChecked] = useState({});
+  const [disable, setDisable] = useState(true);
 
   const checkboxArray = [
     { label: 'Profile', fieldName: 'profile' },
@@ -748,6 +749,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     }
     ).then((res) => {
       console.log("Response", res);
+      setDisable(false)
     });
 
   }
@@ -889,6 +891,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
             onClick={handleNext}
             variant="contained"
             color="primary"
+            disabled={disable}
             style={{ margin: "30px", width: "30%", float: "right" }}
           >
             {isLastStep ? 'Submit' : 'Next'}

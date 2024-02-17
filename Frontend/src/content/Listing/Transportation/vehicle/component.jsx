@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Dropzone, FileMosaic, FullScreen, ImagePreview, VideoPreview, } from "@files-ui/react";
 import { Button, Grid, Box, Typography, TextField, FormGroup, FormControl, FormControlLabel, InputLabel, Select, Checkbox, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
 import axios from 'axios';
+import { useSearchParams } from 'react-router-dom';
 
 const VehicleInformationForm = ({ isLastStep, handleBack, handleNext }) => {
     const formik = useFormikContext();
@@ -570,6 +571,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     const [extFiles, setExtFiles] = useState([]);
     const [imageSrc, setImageSrc] = useState(undefined);
     const [tempChecked, setTempChecked] = useState({});
+    const [disable, setDisable]=useState(true)
 
     const checkboxArray = [
         { label: 'Owner Photo', fieldName: 'ownerPhoto' },
@@ -638,10 +640,10 @@ function Photos({ isLastStep, handleBack, handleNext }) {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
-        }, handleStart
+        }, 
         ).then((res) => {
-            handleFinish
             console.log("Response", res);
+            setDisable(false)
         });
 
     }
@@ -782,6 +784,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
                         onClick={handleNext}
                         variant="contained"
                         color="primary"
+                        disabled={disable}
                         style={{ margin: "30px", width: "30%", float: "right" }}
                     >
                         {isLastStep ? 'Submit' : 'Next'}
