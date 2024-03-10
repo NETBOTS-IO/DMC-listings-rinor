@@ -5,6 +5,7 @@ import { Container, Card, CardContent, TextField, Button, Grid, Typography } fro
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth';
 
+const BASE_URL="https://dmc-listings-server-rinor.vercel.app"||"http://localhost:8000"
 export var userData;
 function Login() {
     const [username, setUsername] = useState('');
@@ -15,7 +16,7 @@ function Login() {
     const auth = useAuth();
 
     const handleLogin = async () => {
-        const apiUrl = 'http://localhost:8000/api/auth/login/';
+        const apiUrl = `${BASE_URL}/api/auth/login/`;
         const user = {
             username: username,
             password: password,

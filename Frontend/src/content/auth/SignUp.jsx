@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import SignInForm from './SignIn';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+
+const BASE_URL="https://dmc-listings-server-rinor.vercel.app"||"http://localhost:8000"
+
 const SignUpForm = () => {
     const [username, setUsername] = useState('');
     const [name, setName] = useState('');
@@ -14,7 +17,7 @@ const SignUpForm = () => {
     const Navigate = useNavigate()
 
     const handleSignUp = () => {
-        const apiUrl = 'http://localhost:8000/api/auth/register/'
+        const apiUrl = `${BASE_URL}api/auth/register/`
         const user = {
             name: name,
             username: username,
