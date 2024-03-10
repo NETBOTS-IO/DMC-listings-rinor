@@ -36,10 +36,11 @@ const connect = async () => {
 };
 
 mongoose.connection.on("disconnected", () => {
+  res.send("MongoDB Disconnected!")
   console.log("MongoDB Disconnected!");
 });
 
-app.get("/welcome", (req, res) => {
+app.get("/wellcome", (req, res) => {
   res.send("Hello From Backend");
 });
 const port = process.env.PORT || 5000;
