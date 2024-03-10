@@ -40,7 +40,7 @@ mongoose.connection.on("disconnected", () => {
   console.log("MongoDB Disconnected!");
 });
 
-app.get("/wellcome", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Hello From Backend");
 });
 const port = process.env.PORT || 5000;
