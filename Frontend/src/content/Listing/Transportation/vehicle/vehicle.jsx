@@ -21,6 +21,11 @@ import {
 } from './component';
 import { useNavigate } from 'react-router-dom';
 
+
+const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+// || "http://localhost:8000"
+
+
 const initialValues = {
     vehicleInformation: {
         company: '',
@@ -137,7 +142,7 @@ function Vehicle() {
                 console.log("Formik Saved Values", formik.values)
                 if (!errors) {
                     await axios.post(
-                        'http://localhost:8000/api/vehicle/vehicles',
+                        `${BASE_URL}/api/vehicle/vehicles`,
                         {
                             ...formik.values,
                             user: {
@@ -145,7 +150,11 @@ function Vehicle() {
                                 designation: userData.designation
                             }
                         },
-                        { withCredentials: true }
+                        {
+                            withCredentials: true,
+                            header:
+                                { "Access-Control-Allow-Origin": true }
+                        }
                     )
                         .then((response) => {
                             if (response.status === 200 || 201) {

@@ -29,6 +29,8 @@ import {
 } from './Components';
 import { useNavigate } from 'react-router-dom';
 
+const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+// || "http://localhost:8000"
 
 
 const initialValues = {
@@ -234,7 +236,7 @@ function MultiStepForm() {
 
                     // Example usage:
                     await axios.post(
-                        'http://localhost:8000/api/property/properties', {
+                        `${BASE_URL}/api/property/properties`, {
                         ...formik.values,
                         user: {
                             name: userData.name,

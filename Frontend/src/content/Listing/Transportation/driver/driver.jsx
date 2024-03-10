@@ -16,6 +16,11 @@ import {
 } from './components';
 import { useNavigate } from 'react-router-dom';
 
+
+const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+// || "http://localhost:8000"
+
+
 const initialFormValues = {
     driverInformation: {
         fullName: '',
@@ -128,14 +133,19 @@ function Driver() {
                 console.log("Formik Saved Values", formik.values)
                 if (!errors) {
                     console.log("data", formik.values)
-                    await axios.post('http://localhost:8000/api/driver/drivers', {
-                        ...formik.values,
-                        user: { name: userData.name, designation: userData.designation }
-                    },
-                        { withCredentials: true }
+                    await axios.post(`${BASE_URL}/api/driver/drivers`,
+                        {
+                            ...formik.values,
+                            user: { name: userData.name, designation: userData.designation }
+                        },
+                        {
+                            withCredentials: true,
+                            header:
+                                { "Access-Control-Allow-Origin": true }
+                        }
                     )
                         .then((response) => {
-                            if (response.status === 200||201) {
+                            if (response.status === 200 || 201) {
                                 console.log("Driver Added in the DB", response.data)
                                 setSubmitSuccess(true);
                             } else {

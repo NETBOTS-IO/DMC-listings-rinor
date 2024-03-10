@@ -1023,6 +1023,8 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
         </>
     );
 }
+const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+// || "http://localhost:8000"
 
 function Photos({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();
@@ -1034,7 +1036,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     const [disable, setDisable] = useState(true);
 
 
-    const BASE_URL = "http://localhost:8000/api/listing/";
 
     const updateFiles = (incommingFiles) => {
         console.log("incomming files", incommingFiles);
@@ -1083,9 +1084,10 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         for (const pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
-        await axios.post('http://localhost:8000/api/property/files', formData, {
+        await axios.post(`${BASE_URL}/api/property/files`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
+                "Access-Control-Allow-Origin": true 
             },
         }, handleStart
         ).then((res) => {

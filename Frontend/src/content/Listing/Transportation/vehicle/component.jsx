@@ -571,7 +571,7 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     const [extFiles, setExtFiles] = useState([]);
     const [imageSrc, setImageSrc] = useState(undefined);
     const [tempChecked, setTempChecked] = useState({});
-    const [disable, setDisable]=useState(true)
+    const [disable, setDisable] = useState(true)
 
     const checkboxArray = [
         { label: 'Owner Photo', fieldName: 'ownerPhoto' },
@@ -579,7 +579,9 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         // Add more labels and field names as needed
     ];
 
-    const BASE_URL = "http://localhost:8000/api/listing/";
+    const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+    // || "http://localhost:8000"
+
 
     const updateFiles = (incommingFiles) => {
         console.log("incomming files", incommingFiles);
@@ -636,11 +638,12 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         for (const pair of formData.entries()) {
             console.log(pair[0] + ', ' + pair[1]);
         }
-        await axios.post('http://localhost:8000/api/vehicle/files', formData, {
+        await axios.post(`${BASE_URL}/api/vehicle/files`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
+                "Access-Control-Allow-Origin": true
             },
-        }, 
+        },
         ).then((res) => {
             console.log("Response", res);
             setDisable(false)
