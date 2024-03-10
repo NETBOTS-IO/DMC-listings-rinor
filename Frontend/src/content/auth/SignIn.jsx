@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import { Container, Card, CardContent, TextField, Button, Grid, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth';
-
-const BASE_URL="https://dmc-listings-server-rinor.vercel.app"||"http://localhost:8000"
+// "https://dmc-listings-server-rinor.vercel.app"||
+const BASE_URL = "http://localhost:8000"
 export var userData;
 function Login() {
     const [username, setUsername] = useState('');
@@ -23,7 +23,9 @@ function Login() {
         };
 
         const response = await axios.post(apiUrl, user, {
-            withCredentials: true
+            withCredentials: true,
+            header:
+                { "Access-Control-Allow-Origin": '*' }
         })
             .then((response) => {
                 console.log(response.data);
