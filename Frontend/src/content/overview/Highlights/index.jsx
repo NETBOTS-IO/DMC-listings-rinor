@@ -29,16 +29,16 @@ import esFlag from '../../../assets/vite.svg';
 import frFlag from '../../../assets/vite.svg';
 import cnFlag from '../../../assets/vite.svg';
 import aeFlag from '../../../assets/vite.svg';
-import ActiveReferrals from '../../../content/dashboards/Analytics/ActiveReferrals';
-import MonthlyGoalsTarget from '../../../content/dashboards/Fitness/MonthlyGoalsTarget';
-import Transfers from '../../../content/dashboards/Banking/Transfers';
-import RecentTransactions from '../../../content/dashboards/Commerce/RecentTransactions';
-import Thermostat from '../../../content/dashboards/Automation/Thermostat';
-import AccountSecurity from '../../../content/dashboards/Crypto/AccountSecurity';
-import AppointmentsAlt from '../../../content/dashboards/Healthcare/AppointmentsAlt';
-import UnresolvedTickets from '../../../content/dashboards/Helpdesk/UnresolvedTickets';
-import ResourcesAlarm from '../../../content/dashboards/Monitoring/ResourcesAlarm';
-import Performance from '../../../content/dashboards/Tasks/Performance';
+// import ActiveReferrals from '../../../content/dashboards/Analytics/ActiveReferrals';
+// import MonthlyGoalsTarget from '../../../content/dashboards/Fitness/MonthlyGoalsTarget';
+// import Transfers from '../../../content/dashboards/Banking/Transfers';
+// import RecentTransactions from '../../../content/dashboards/Commerce/RecentTransactions';
+// import Thermostat from '../../../content/dashboards/Automation/Thermostat';
+// import AccountSecurity from '../../../content/dashboards/Crypto/AccountSecurity';
+// import AppointmentsAlt from '../../../content/dashboards/Healthcare/AppointmentsAlt';
+// import UnresolvedTickets from '../../../content/dashboards/Helpdesk/UnresolvedTickets';
+// import ResourcesAlarm from '../../../content/dashboards/Monitoring/ResourcesAlarm';
+// import Performance from '../../../content/dashboards/Tasks/Performance';
 
 const AvatarSuccess = styled(Avatar)(
   ({ theme }) => `
@@ -579,7 +579,7 @@ function Highlights() {
                     animation: '2.1s 2.1s infinite alternate ease-in-out float'
                   }}
                 >
-                  <ResourcesAlarm />
+                  {/* <ResourcesAlarm /> */}
                 </Box>
               </Box>
               <Box
@@ -598,7 +598,7 @@ function Highlights() {
                     animation: '2.8s 1.2s infinite alternate ease-in-out float'
                   }}
                 >
-                  <ActiveReferrals />
+                  {/* <ActiveReferrals /> */}
                 </Box>
               </Box>
               <Box
@@ -617,7 +617,7 @@ function Highlights() {
                     animation: '2.1s 1.5s infinite alternate ease-in-out float'
                   }}
                 >
-                  <UnresolvedTickets />
+                  {/* <UnresolvedTickets /> */}
                 </Box>
               </Box>
               <Box
@@ -636,7 +636,7 @@ function Highlights() {
                     animation: '3.5s 2.4s infinite alternate ease-in-out float'
                   }}
                 >
-                  <Transfers />
+                  {/* <Transfers /> */}
                 </Box>
               </Box>
               <Box
@@ -655,7 +655,7 @@ function Highlights() {
                     animation: '1.5s 1s infinite alternate ease-in-out float'
                   }}
                 >
-                  <Thermostat />
+                  {/* <Thermostat /> */}
                 </Box>
               </Box>
               <Box
@@ -674,7 +674,7 @@ function Highlights() {
                     animation: '2.5s 3s infinite alternate ease-in-out float'
                   }}
                 >
-                  <RecentTransactions />
+                  {/* <RecentTransactions /> */}
                 </Box>
               </Box>
               <Box
@@ -693,7 +693,7 @@ function Highlights() {
                     animation: '2.5s 3s infinite alternate ease-in-out float'
                   }}
                 >
-                  <AppointmentsAlt />
+                  {/* <AppointmentsAlt /> */}
                 </Box>
               </Box>
               <Box
@@ -712,7 +712,7 @@ function Highlights() {
                     animation: '3s infinite alternate ease-in-out float'
                   }}
                 >
-                  <MonthlyGoalsTarget />
+                  {/* <MonthlyGoalsTarget /> */}
                 </Box>
               </Box>
               <Box
@@ -731,7 +731,7 @@ function Highlights() {
                     animation: '2s 2s infinite alternate ease-in-out float'
                   }}
                 >
-                  <AccountSecurity />
+                  {/* <AccountSecurity /> */}
                 </Box>
               </Box>
               <Box
@@ -750,7 +750,7 @@ function Highlights() {
                     animation: '2s 2s infinite alternate ease-in-out float'
                   }}
                 >
-                  <Performance />
+                  {/* <Performance /> */}
                 </Box>
               </Box>
             </Box>
