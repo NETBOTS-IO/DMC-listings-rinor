@@ -5,7 +5,7 @@ import {
     getDriverById,
     updateDriver,
     deleteDriver,
-} from '../Controllers/Listing/driverListing.js ';
+} from '../Controllers/Listing/driverListing.js';
 import upload from '../Utils/Multer.js';
 import verifyUser from '../Utils/verifyUser.js';
 
