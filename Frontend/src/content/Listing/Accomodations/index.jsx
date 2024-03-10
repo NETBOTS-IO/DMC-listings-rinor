@@ -236,14 +236,19 @@ function MultiStepForm() {
 
                     // Example usage:
                     await axios.post(
-                        `${BASE_URL}/api/property/properties`, {
-                        ...formik.values,
-                        user: {
-                            name: userData.name,
-                            designation: userData.designation
-                        }
-                    },
-                        { withCredentials: true },
+                        `${BASE_URL}/api/property/properties`,
+                        {
+                            ...formik.values,
+                            user: {
+                                name: userData.name,
+                                designation: userData.designation
+                            }
+                        },
+                        {
+                            withCredentials: true,
+                            header:
+                                { "Access-Control-Allow-Origin": true }
+                        },
                         console.log("i am herer")
                     ).then((response) => {
                         if (response.status === 200 || 201) {
