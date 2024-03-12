@@ -29,9 +29,10 @@ function Login() {
         const response = await axios.post(apiUrl, user, {
             withCredentials: true,
             header: {
-                'Access-Control-Allow-Origin':"*",
-                // "Access-Control-Allow-Credentials":true
-                'Content-Type': 'application/json'    
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Credentials":true,
+                "Access-Control-Allow-Headers": "content-type",
+                "Content-Type": "application/json"
             }
         })
             .then((response) => {
