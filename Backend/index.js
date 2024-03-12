@@ -15,7 +15,13 @@ dotenv.config();
 
 //middlewares
 // "http://127.0.0.1:5173", "http://localhost:5173", 
-app.use(cors({ origin: ["https://dmc-listings-rinor.vercel.app", "https://dmc-listings-rinor.vercel.app/"], credentials: true }));
+app.use(cors(
+  {
+    origin: ["https://dmc-listings-rinor.vercel.app"],
+    methods: ["POST", "GET", "DELETE", "UPDATE"],
+    credentials: true
+  }
+));
 
 app.use(cookieParser());
 app.use(express.json({ limit: '50mb' }));
