@@ -17,8 +17,8 @@ dotenv.config();
 // "http://127.0.0.1:5173", "http://localhost:5173", 
 app.use(cors(
   {
-    origin: ["https://dmc-listings-rinor.vercel.app"],
-    methods: ["POST", "GET", "DELETE", "UPDATE"],
+    origin: ["http://localhost:5173", "https://dmc-listings-rinor.vercel.app"],
+    methods: ["POST", "GET", "DELETE", "PUT"],
     credentials: true
   }
 ));
