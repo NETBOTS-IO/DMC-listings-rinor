@@ -6,7 +6,8 @@ import { useNavigate } from 'react-router-dom'
 import useAuth from '../../hooks/useAuth';
 
 
-const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+const BASE_URL ="https://dmc-listings-rinor.onrender.com"
+//  "https://dmc-listings-server-rinor.vercel.app"
 // || "http://localhost:8000"
 
 
@@ -29,7 +30,6 @@ function Login() {
         const response = await axios.post(apiUrl, user, {
             withCredentials: true,
             header: {
-                "Access-Control-Allow-Origin": "*",
                 "Access-Control-Allow-Credentials":true,
                 "Access-Control-Allow-Headers": "content-type",
                 "Content-Type": "application/json"
