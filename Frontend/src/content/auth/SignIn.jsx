@@ -28,12 +28,13 @@ function Login() {
         };
 
         const response = await axios.post(apiUrl, user, {
-            withCredentials: true,
-            header: {
-                "Access-Control-Allow-Credentials":true,
-                "Access-Control-Allow-Headers": "content-type",
-                "Content-Type": "application/json"
-            }
+            // withCredentials: true,
+            // header: {
+            //     "Access-Control-Allow-Origin": "http://localhost:5173",
+            //     "Access-Control-Allow-Credentials":true,
+            //     "Access-Control-Allow-Headers": "content-type",
+            //     "Content-Type": "application/json"
+            // }
         })
             .then((response) => {
                 console.log(response.data);
