@@ -28,7 +28,7 @@ function Login() {
         };
 
         const response = await axios.post(apiUrl, user, {
-            // withCredentials: true,
+            withCredentials: true,
             // header: {
             //     "Access-Control-Allow-Origin": "http://localhost:5173",
             //     "Access-Control-Allow-Credentials":true,

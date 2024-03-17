@@ -5,7 +5,8 @@ import SignInForm from './SignIn';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+const BASE_URL = "https://dmc-listings-rinor.onrender.com"
+//  "https://dmc-listings-server-rinor.vercel.app"
 // || "http://localhost:8000"
 
 const SignUpForm = () => {
@@ -18,7 +19,7 @@ const SignUpForm = () => {
     const Navigate = useNavigate()
 
     const handleSignUp = () => {
-        const apiUrl = `${BASE_URL}api/auth/register/`
+        const apiUrl = `${BASE_URL}/api/auth/register/`
         const user = {
             name: name,
             username: username,
@@ -27,10 +28,7 @@ const SignUpForm = () => {
             password: password,
         };
 
-        axios.post(apiUrl, user, {
-            header:
-                { "Access-Control-Allow-Origin": true }
-        })
+        axios.post(apiUrl, user)
             .then((response) => {
                 console.log('Registration successful!', response);
                 Navigate('/')

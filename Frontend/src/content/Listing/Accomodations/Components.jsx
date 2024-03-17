@@ -1023,7 +1023,9 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
         </>
     );
 }
-const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+
+const BASE_URL ="https://dmc-listings-rinor.onrender.com"
+//  "https://dmc-listings-server-rinor.vercel.app"
 // || "http://localhost:8000"
 
 function Photos({ isLastStep, handleBack, handleNext }) {
@@ -1087,7 +1089,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         await axios.post(`${BASE_URL}/api/property/files`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                "Access-Control-Allow-Origin": true 
             },
         }, handleStart
         ).then((res) => {

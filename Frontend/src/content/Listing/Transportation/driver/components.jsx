@@ -686,8 +686,9 @@ function Photos({ isLastStep, handleBack, handleNext }) {
     // Add more labels and field names as needed
   ];
 
-  const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
-  // || "http://localhost:8000"
+  const BASE_URL ="https://dmc-listings-rinor.onrender.com"
+//  "https://dmc-listings-server-rinor.vercel.app"
+// || "http://localhost:8000"
 
   const updateFiles = (incommingFiles) => {
     console.log("incomming files", incommingFiles);
@@ -747,7 +748,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
       {
         headers: {
           'Content-Type': 'multipart/form-data',
-          "Access-Control-Allow-Origin": true
         },
       }
     ).then((res) => {

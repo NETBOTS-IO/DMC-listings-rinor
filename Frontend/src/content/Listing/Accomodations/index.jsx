@@ -29,7 +29,8 @@ import {
 } from './Components';
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+const BASE_URL ="https://dmc-listings-rinor.onrender.com"
+//  "https://dmc-listings-server-rinor.vercel.app"
 // || "http://localhost:8000"
 
 
@@ -246,8 +247,6 @@ function MultiStepForm() {
                         },
                         {
                             withCredentials: true,
-                            header:
-                                { "Access-Control-Allow-Origin": true }
                         },
                         console.log("i am herer")
                     ).then((response) => {

@@ -579,9 +579,9 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         // Add more labels and field names as needed
     ];
 
-    const BASE_URL = "https://dmc-listings-server-rinor.vercel.app"
+    const BASE_URL = "https://dmc-listings-rinor.onrender.com"
+    //  "https://dmc-listings-server-rinor.vercel.app"
     // || "http://localhost:8000"
-
 
     const updateFiles = (incommingFiles) => {
         console.log("incomming files", incommingFiles);
@@ -641,7 +641,6 @@ function Photos({ isLastStep, handleBack, handleNext }) {
         await axios.post(`${BASE_URL}/api/vehicle/files`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
-                "Access-Control-Allow-Origin": true
             },
         },
         ).then((res) => {

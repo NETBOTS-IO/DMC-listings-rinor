@@ -51,11 +51,11 @@ const token = jwt.sign(
       httpOnly: true,
       // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days (adjust as needed)
     });
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Credentials", "true");
-    res.setHeader("Access-Control-Max-Age", "1800");
-    res.setHeader("Access-Control-Allow-Headers", "content-type");
-    res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
+    // res.setHeader("Access-Control-Allow-Origin", "*")
+    // res.setHeader("Access-Control-Allow-Credentials", "true");
+    // res.setHeader("Access-Control-Max-Age", "1800");
+    // res.setHeader("Access-Control-Allow-Headers", "content-type");
+    // res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
     res.status(200).send({ details: { ...otherDetails }});
   } catch (err) {
     res.status(500).send({ success: false, message: err.message })
