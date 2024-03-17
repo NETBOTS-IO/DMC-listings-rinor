@@ -38,12 +38,12 @@ export const login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(404).send({ success: false, message: "Username or password is incorrect" })
     }
-// console.log("before token")
-const token = jwt.sign(
-  { id: user._id },
-  process.env.JWT_SECRET_KEY
-  );
-  // console.log("after token")
+    // console.log("before token")
+    const token = jwt.sign(
+      { id: user._id },
+      process.env.JWT_SECRET_KEY
+    );
+    // console.log("after token")
 
     const { password, ...otherDetails } = user._doc;
 
@@ -56,7 +56,7 @@ const token = jwt.sign(
     // res.setHeader("Access-Control-Max-Age", "1800");
     // res.setHeader("Access-Control-Allow-Headers", "content-type");
     // res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
-    res.status(200).send({ details: { ...otherDetails }});
+    res.status(200).send({ details: { ...otherDetails } });
   } catch (err) {
     res.status(500).send({ success: false, message: err.message })
   }
