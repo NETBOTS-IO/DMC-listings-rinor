@@ -29,7 +29,7 @@ import {
 } from './Components';
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL ="https://dmc-listings-rinor.onrender.com"
+const BASE_URL = "https://dmc-listings-rinor.onrender.com"
 //  "https://dmc-listings-server-rinor.vercel.app"
 // || "http://localhost:8000"
 
@@ -236,33 +236,45 @@ function MultiStepForm() {
                     // console.log("formData ", formik.values)
 
                     // Example usage:
-                    await axios.post(
-                        `${BASE_URL}/api/property/properties`,
-                        {
-                            ...formik.values,
-                            user: {
-                                name: userData.name,
-                                designation: userData.designation
+
+                    const token = document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('access_token='))
+                        ?.split('=')[1];
+                    console.log("token", token)
+
+                    try {
+                        const response = await axios.post(
+                            `${BASE_URL}/api/property/properties`,
+                            {
+                                ...formik.values,
+                                user: {
+                                    name: userData.name,
+                                    designation: userData.designation
+                                }
+                            },
+                            {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`, // Include token in the Authorization header
+                                    'Content-Type': 'application/json' // Adjust content type as needed
+                                },
+                                withCredentials: true,
                             }
-                        },
-                        {
-                            withCredentials: true,
-                        },
-                        console.log("i am herer")
-                    ).then((response) => {
-                        if (response.status === 200 || 201) {
-                            console.log("Property Added in the DB", response.data)
+                        );
+
+                        if (response.status === 200 || response.status === 201) {
+                            console.log("Property Added in the DB", response.data);
                             setSubmitSuccess(true);
                         } else {
-                            console.log("Failed to Add in the DB")
+                            console.log("Failed to Add in the DB");
                             setSubmitSuccess(false);
                         }
-                    }).catch((error) => {
+                    } catch (error) {
                         console.error('Error posting data to the backend:', error);
                         setSubmitSuccess(false);
-                    }).finally(() => {
+                    } finally {
                         setPopupOpen(true);
-                    });
+                    }
                 } else {
                     // Form submission has errors, you can handle them as needed
                     console.log('Form has validation errors:', errors);
