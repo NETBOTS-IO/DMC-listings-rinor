@@ -237,11 +237,11 @@ function MultiStepForm() {
 
                     // Example usage:
 
-                    const token = document.cookie
-                        .split('; ')
-                        .find(row => row.startsWith('access_token='))
-                        ?.split('=')[1];
-                    console.log("token", token)
+                    // const token = document.cookie
+                    //     .split('; ')
+                    //     .find(row => row.startsWith('access_token='))
+                    //     ?.split('=')[1];
+                    // console.log("token", token)
 
                     try {
                         const response = await axios.post(
@@ -254,10 +254,10 @@ function MultiStepForm() {
                                 }
                             },
                             {
-                                headers: {
-                                    'Authorization': `Bearer ${token}`, // Include token in the Authorization header
-                                    'Content-Type': 'application/json' // Adjust content type as needed
-                                },
+                                // headers: {
+                                //     'Authorization': `Bearer ${token}`, // Include token in the Authorization header
+                                //     'Content-Type': 'application/json' // Adjust content type as needed
+                                // },
                                 withCredentials: true,
                             }
                         );
