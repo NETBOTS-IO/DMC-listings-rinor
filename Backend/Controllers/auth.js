@@ -38,18 +38,18 @@ export const login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(404).send({ success: false, message: "Username or password is incorrect" })
     }
-    // console.log("before token")
+    console.log("before token")
     const token = jwt.sign(
       { id: user._id },
       process.env.JWT_SECRET_KEY
     );
-    // console.log("after token")
+    console.log("token", token)
+    console.log("after token")
 
     const { password, ...otherDetails } = user._doc;
 
     res.cookie("access_token", token, {
       httpOnly: true,
-      // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days (adjust as needed)
     });
     // res.setHeader("Access-Control-Allow-Origin", "*")
     // res.setHeader("Access-Control-Allow-Credentials", "true");
