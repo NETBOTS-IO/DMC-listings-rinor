@@ -47,7 +47,7 @@ export const login = async (req, res) => {
 
     const { password, ...otherDetails } = user._doc;
 
-    res.cookie("Access_Token", token, {
+    res.cookie("access_token", token, {
       httpOnly: true,
       // maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days (adjust as needed)
     });
