@@ -50,6 +50,7 @@ export const login = async (req, res) => {
 
     res.cookie("access_token", token, {
       httpOnly: true,
+      secure: false, // Allow insecure cookies
     });
     // res.setHeader("Access-Control-Allow-Origin", "*")
     // res.setHeader("Access-Control-Allow-Credentials", "true");
