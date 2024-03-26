@@ -16,11 +16,11 @@ dotenv.config();
 //middlewares
 // "http://127.0.0.1:5173", "http://localhost:5173", 
 app.use(cors(
-  {
-    origin: ["http://localhost:5173", "https://dmc-listings-rinor.vercel.app"],
-    // methods: ["POST", "GET", "DELETE", "PUT"],
-    credentials: true
-  }
+  // {
+  //   origin: ["http://localhost:5173", "https://dmc-listings-rinor.vercel.app"],
+  //   // methods: ["POST", "GET", "DELETE", "PUT"],
+  //   credentials: true
+  // }
 ));
 
 app.use(cookieParser());
@@ -41,7 +41,7 @@ const connect = async () => {
   }
 };
 
-mongoose.connection.on("disconnected", (req, res) => {
+mongoose.connection.on("disconnected", () => {
   res.send("MongoDB Disconnected!")
   console.log("MongoDB Disconnected!");
 });
