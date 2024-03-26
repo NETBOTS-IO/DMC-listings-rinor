@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import axios from "axios";
+import Cookies from 'js-cookie';
 import { useFormik, Form, FormikProvider } from 'formik';
 import * as Yup from 'yup';
 import { userData } from '../../auth/SignIn';
@@ -29,9 +30,10 @@ import {
 } from './Components';
 import { useNavigate } from 'react-router-dom';
 
-const BASE_URL = "https://dmc-listings-rinor.onrender.com"
+const BASE_URL =
+    "https://dmc-listings-rinor.onrender.com"
 //  "https://dmc-listings-server-rinor.vercel.app"
-// || "http://localhost:8000"
+// "http://localhost:8000"
 
 
 const initialValues = {
@@ -243,7 +245,10 @@ function MultiStepForm() {
                     //     ?.split('=')[1];
                     // console.log("token", token)
 
+
                     try {
+                        const token = Cookies.get('access_token');
+                        console.log("token", token)
                         const response = await axios.post(
                             `${BASE_URL}/api/property/properties`,
                             {
