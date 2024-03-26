@@ -41,7 +41,7 @@ const connect = async () => {
   }
 };
 
-mongoose.connection.on("disconnected", () => {
+mongoose.connection.on("disconnected", (req, res) => {
   res.send("MongoDB Disconnected!")
   console.log("MongoDB Disconnected!");
 });
