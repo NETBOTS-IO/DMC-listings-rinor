@@ -48,6 +48,7 @@ export const login = async (req, res) => {
 
     const { password, ...otherDetails } = user._doc;
 
+    localStorage.setItem('access_token', token);
     res.cookie("access_token", token, {
       httpOnly: true,
       // secure: false, // Allow insecure cookies
