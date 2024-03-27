@@ -38,6 +38,10 @@ export const login = async (req, res) => {
     if (!isPasswordCorrect) {
       return res.status(404).send({ success: false, message: "Username or password is incorrect" })
     }
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173")
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    res.setHeader("Access-Control-Max-Age", "1800");
+    res.setHeader("Access-Control-Allow-Headers", "content-type");
     // console.log("before token")
     const token = jwt.sign(
       { id: user._id },
@@ -52,7 +56,7 @@ export const login = async (req, res) => {
       httpOnly: true,
       // secure: false, // Allow insecure cookies
     });
-    // res.setHeader("Access-Control-Allow-Origin", "*")
+    // res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173")
     // res.setHeader("Access-Control-Allow-Credentials", "true");
     // res.setHeader("Access-Control-Max-Age", "1800");
     // res.setHeader("Access-Control-Allow-Headers", "content-type");
