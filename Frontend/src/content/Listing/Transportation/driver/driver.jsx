@@ -140,6 +140,9 @@ function Driver() {
                             user: { name: userData.name, designation: userData.designation }
                         },
                         {
+                            headers: {
+                                Authorization: userData.token
+                            },
                             withCredentials: true,
                         }
                     )

@@ -1025,9 +1025,9 @@ function PoliciesForm({ isLastStep, handleBack, handleNext }) {
 }
 
 const BASE_URL =
-// "https://dmc-listings-rinor.onrender.com"
+"https://dmc-listings-rinor.onrender.com"
 //  "https://dmc-listings-server-rinor.vercel.app"
-"http://localhost:8000"
+// "http://localhost:8000"
 
 function Photos({ isLastStep, handleBack, handleNext }) {
     const formik = useFormikContext();

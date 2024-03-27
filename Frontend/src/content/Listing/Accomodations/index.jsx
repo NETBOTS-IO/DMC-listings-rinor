@@ -31,9 +31,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const BASE_URL =
-    // "https://dmc-listings-rinor.onrender.com"
-    //  "https://dmc-listings-server-rinor.vercel.app"
-    "http://localhost:8000"
+    "https://dmc-listings-rinor.onrender.com"
+//  "https://dmc-listings-server-rinor.vercel.app"
+// "http://localhost:8000"
 
 
 const initialValues = {
@@ -247,8 +247,7 @@ function MultiStepForm() {
 
 
                     try {
-                        const token = Cookies.get('access_token');
-                        console.log("token", token)
+
                         const response = await axios.post(
                             `${BASE_URL}/api/property/properties`,
                             {
@@ -259,10 +258,10 @@ function MultiStepForm() {
                                 }
                             },
                             {
-                                
+
                                 headers: {
-                                    'Authorization':userData.token, // Include token in the Authorization header
-                                //     'Content-Type': 'application/json' // Adjust content type as needed
+                                    'Authorization': userData.token, // Include token in the Authorization header
+                                    //     'Content-Type': 'application/json' // Adjust content type as needed
                                 },
                                 withCredentials: true,
                             }

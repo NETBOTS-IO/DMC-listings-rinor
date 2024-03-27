@@ -22,9 +22,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 
-const BASE_URL ="https://dmc-listings-rinor.onrender.com"
+const BASE_URL = "https://dmc-listings-rinor.onrender.com"
 //  "https://dmc-listings-server-rinor.vercel.app"
-// || "http://localhost:8000"
+// || "http://localhost:8000"   
 
 
 const initialValues = {
@@ -152,6 +152,9 @@ function Vehicle() {
                             }
                         },
                         {
+                            headers: {
+                                Authorization: userData.token
+                            },
                             withCredentials: true,
                         }
                     )
