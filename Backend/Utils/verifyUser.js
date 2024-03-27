@@ -20,7 +20,7 @@ export const verifyToken = (req, res, next) => {
 
 
 const verifyUser = (req, res, next) => {
-  const token = req.cookies.access_token;
+  const token = req.headers.authorization;
 
   if (!token) {
     return res.status(401).json({ success: false, message: 'Unauthorized - No token provided' });

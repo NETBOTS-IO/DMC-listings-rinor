@@ -1,6 +1,7 @@
 import User from "../Models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import cookie from 'cookie';
 
 export const register = async (req, res, next) => {
   try {
@@ -47,18 +48,21 @@ export const login = async (req, res) => {
     // console.log("after token")
 
     const { password, ...otherDetails } = user._doc;
-
-    localStorage.setItem('access_token', token);
-    res.cookie("access_token", token, {
+    res.setHeader('Set-Cookie', cookie.serialize('access_token', token, {
       httpOnly: true,
-      // secure: false, // Allow insecure cookies
-    });
+      path: '/'
+    }));
+    // localStorage.setItem('access_token', token);
+    // res.cookie("access_token", token, {
+    //   httpOnly: true,
+    //   // secure: false, // Allow insecure cookies
+    // });
     // res.setHeader("Access-Control-Allow-Origin", "*")
     // res.setHeader("Access-Control-Allow-Credentials", "true");
     // res.setHeader("Access-Control-Max-Age", "1800");
     // res.setHeader("Access-Control-Allow-Headers", "content-type");
     // res.setHeader("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, PATCH, OPTIONS");
-    res.status(200).send({ details: { ...otherDetails } });
+    res.status(200).send({ details: { ...otherDetails }, token: token });
   } catch (err) {
     res.status(500).send({ success: false, message: err.message })
   }

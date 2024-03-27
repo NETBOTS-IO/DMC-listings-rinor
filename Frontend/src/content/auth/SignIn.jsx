@@ -9,9 +9,9 @@ import useAuth from '../../hooks/useAuth';
 
 const BASE_URL =
     // "https://git.heroku.com/dmc-listing-rinor.git"
-"https://dmc-listings-rinor.onrender.com"
+// "https://dmc-listings-rinor.onrender.com"
 //  "https://dmc-listings-server-rinor.vercel.app"
-// "http://localhost:8000"
+"http://localhost:8000"
 
 
 export var userData;
@@ -43,14 +43,14 @@ function Login() {
                 console.log(response.data);
                 if (response.data.details) {
                     auth.isAuthenticated = true;
-                    setData(response.data.details)
+                    setData({...response.data.details, token: response.data.token})
+                    
                     alert("user login success fully");
 
                 }
             });
+            console.log("userData",userData)
         Navigate('/listing/')
-        const token = Cookies.get('access_token');
-        console.log("token", token)
     };
     return (
         <Container

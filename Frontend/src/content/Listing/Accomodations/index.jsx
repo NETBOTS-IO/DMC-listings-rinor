@@ -31,9 +31,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 const BASE_URL =
-    "https://dmc-listings-rinor.onrender.com"
-//  "https://dmc-listings-server-rinor.vercel.app"
-// "http://localhost:8000"
+    // "https://dmc-listings-rinor.onrender.com"
+    //  "https://dmc-listings-server-rinor.vercel.app"
+    "http://localhost:8000"
 
 
 const initialValues = {
@@ -259,10 +259,11 @@ function MultiStepForm() {
                                 }
                             },
                             {
-                                // headers: {
-                                //     'Authorization': `Bearer ${token}`, // Include token in the Authorization header
+                                
+                                headers: {
+                                    'Authorization':userData.token, // Include token in the Authorization header
                                 //     'Content-Type': 'application/json' // Adjust content type as needed
-                                // },
+                                },
                                 withCredentials: true,
                             }
                         );
