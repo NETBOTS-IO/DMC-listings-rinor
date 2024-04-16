@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import SignInForm from './SignIn';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { LoadingButton } from '@mui/lab';
 
 const BASE_URL = "https://dmc-listings-rinor.onrender.com"
 //  "https://dmc-listings-server-rinor.vercel.app"
@@ -16,9 +17,11 @@ const SignUpForm = () => {
     const [designation, setDesignation] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [loading, setLoading] = useState(false);
     const Navigate = useNavigate()
 
     const handleSignUp = () => {
+        setLoading(true)
         const apiUrl = `${BASE_URL}/api/auth/register/`
         const user = {
             name: name,
@@ -31,10 +34,13 @@ const SignUpForm = () => {
         axios.post(apiUrl, user)
             .then((response) => {
                 console.log('Registration successful!', response);
+                setLoading(false)
                 Navigate('/')
             })
             .catch((error) => {
                 console.error('Error registering user:', error);
+                
+                setLoading(false)
             });
 
 
@@ -164,7 +170,9 @@ const SignUpForm = () => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={12}>
-                                <Button
+                                <LoadingButton
+                                    loading={loading}
+                                    disable={loading}
                                     type="button"
                                     fullWidth
                                     variant="contained"
@@ -173,7 +181,7 @@ const SignUpForm = () => {
                                     sx={{ mt: 3, borderRadius: '25px' }}
                                 >
                                     Sign Up
-                                </Button>
+                                </LoadingButton>
                             </Grid>
 
 
